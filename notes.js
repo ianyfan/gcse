@@ -1,0 +1,80 @@
+'use strict';
+window.notes = {
+    changePage: function(url, finish) {
+        var request = new XMLHttpRequest();
+        request.open('GET', url, true);
+
+        request.onload = function() {
+            if (request.status >= 200 && request.status < 400) {
+                var newDoc = document.implementation.createHTMLDocument();
+                newDoc.documentElement.innerHTML = request.responseText;
+
+                var newMain = newDoc.getElementsByTagName('main')[0];
+                document.body.replaceChild(newMain,
+                                     document.getElementsByTagName('main')[0]);
+
+                history.pushState({main: newMain.innerHTML,
+                                   title: newDoc.title}, '', url);
+
+                notes.onpagechange(newDoc.title);
+
+                finish();
+            } else {
+
+            }
+        };
+        
+        request.onerror = function() {};
+
+        request.send();
+    },
+    onpagechange: function(title) {
+        document.title = title;
+
+        var scrollPos = document.getElementById('header').offsetHeight + 2;
+        if (window.scrollY > scrollPos) window.scroll(0, scrollPos);
+    }
+}
+
+window.onpopstate = function(event) {
+    var state = event.state;
+
+    var main = document.getElementsByTagName('main')[0];
+    main.innerHTML = state.main;
+
+    notes.onpagechange(state.title);
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('header').style.backgroundColor = '#555';
+
+    var sidebar =  document.getElementsByTagName('nav')[0];
+
+    sidebar.addEventListener('hover', function(event) {
+        
+    }, false);
+
+    if (history.pushState) {
+       sidebar.addEventListener('click', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            var link = event.target;
+            if (link.className === 'current') return;
+             
+            notes.changePage(link.href, function() {
+                var current = document.getElementsByClassName('current');
+                for (var i = current.length; i;) current[--i].className = '';
+
+                link.className = 'current';
+                while ((link = link.parentNode).tagName !== 'NAV') {
+                    if (link.tagName === 'OL') link.className = 'current';
+                }   
+            });
+        }, true);
+
+            history.replaceState({title: document.title,
+                     main: document.getElementsByTagName('main')[0].innerHTML},
+                                                          '', window.location);
+    }
+});
