@@ -1,48 +1,22 @@
 'use strict';
 window.notes = {
-    changePage: function(url, finish) {
-        var request = new XMLHttpRequest();
-        request.open('GET', url, true);
-
-        request.onload = function() {
-            if (request.status >= 200 && request.status < 400) {
-                var newDoc = document.implementation.createHTMLDocument();
-                newDoc.documentElement.innerHTML = request.responseText;
-
-                var newMain = newDoc.getElementsByTagName('main')[0];
-                document.body.replaceChild(newMain,
-                                     document.getElementsByTagName('main')[0]);
-
-                history.pushState({main: newMain.innerHTML,
-                                   title: newDoc.title}, '', url);
-
-                notes.onpagechange(newDoc.title);
-
-                finish();
-            } else {
-
-            }
-        };
-        
-        request.onerror = function() {};
-
-        request.send();
-    },
-    onpagechange: function(title) {
-        document.title = title;
-
-        var scrollPos = document.getElementById('header').offsetHeight + 2;
-        if (window.scrollY > scrollPos) window.scroll(0, scrollPos);
+    cachePage: function(dom) {
+        console.log(window.location)
+        sessionStorage.setItem(window.location, JSON.stringify({
+            title: dom.title,
+            main: dom.getElementsByTagName('main')[0].innerHTML
+        }));
     }
 }
 
-window.onpopstate = function(event) {
-    var state = event.state;
+window.onpopstate = function() {
+    var state = JSON.parse(sessionStorage.getItem(window.location));
+    document.title = state.title;
 
-    var main = document.getElementsByTagName('main')[0];
-    main.innerHTML = state.main;
+    document.getElementsByTagName('main')[0].innerHTML = state.main;
 
-    notes.onpagechange(state.title);
+    var scrollPos = document.getElementById('header').offsetHeight + 2;
+    if (window.scrollY > scrollPos) window.scroll(0, scrollPos);
 };
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -52,60 +26,77 @@ document.addEventListener('DOMContentLoaded', function() {
     document.head.appendChild(stylesheet);
 
     document.getElementById('header').style.backgroundColor = '#ccc';
-
-    var sidebar =  document.getElementsByTagName('nav')[0];
-
-    sidebar.addEventListener('mouseenter', function(event) {
+ 
+    var sidebar = document.getElementsByTagName('nav')[0];
+    sidebar.addEventListener('click', function(event) {
+        event.preventDefault();
         event.stopPropagation();
 
-        if (event.target.tagName === 'LI') {
-            var el = event.target.lastElementChild;
-            
-            if (el.tagName !== 'OL' || el.className === 'current') return;
-            
-            el.style.height = '0';
-            el.scrollHeight; // force reflow
-            el.style.height = el.scrollHeight + 'px';
+        var list = event.target.nextElementSibling;
+        if (list && list.tagName === 'OL' && list.className !== 'current') {
+            if (list.className) { // either expanded or no class
+                list.style.height = list.scrollHeight + 'px';
+                list.className = '';
+                list.scrollHeight; // force reflow
+                list.style.height = '';
+            } else {
+                list.style.height = '0';
+                list.className = 'expanded';
+                list.style.height = list.scrollHeight + 'px';
 
-            window.setTimeout(function(){el.style.height = ''}, 250);
+                window.setTimeout(function() {
+                    list.style.height = ''
+                }, 250);
+            }
         }
     }, true);
-
-    sidebar.addEventListener('mouseleave', function(event) {
-        event.stopPropagation();
-
-        if (event.target.tagName === 'LI') {
-            var el = event.target.lastElementChild;
-
-            if (el.tagName !== 'OL' || el.className === 'current') return;
-            
-            el.style.height = el.scrollHeight + 'px';
-            el.scrollHeight; // force reflow
-            el.style.height = '';
-        }
-    }, true);
-
     if (history.pushState) {
-       sidebar.addEventListener('click', function(event) {
+        sidebar.addEventListener('click', function(event) {
             event.preventDefault();
             event.stopPropagation();
 
-            var link = event.target;
-            if (link.className === 'current') return;
-             
-            notes.changePage(link.href, function() {
-                var current = document.getElementsByClassName('current');
-                for (var i = current.length; i;) current[--i].className = '';
+            var link = event.target,
+                url = link.href;
+            if (!url || link.className === 'current') return;
 
-                link.className = 'current';
-                while ((link = link.parentNode).tagName !== 'NAV') {
-                    if (link.tagName === 'OL') link.className = 'current';
-                }   
-            });
+            var cached = sessionStorage.getItem(window.location);
+            if (cached) {
+                history.pushState('', '', url);
+                window.onpopstate();
+                return;
+            }
+
+            var request = new XMLHttpRequest();
+            request.open('GET', url, true);
+
+            request.onload = function() {
+                if (request.status >= 200 && request.status < 400) {
+                    var newDoc = document.implementation.createHTMLDocument();
+                    newDoc.documentElement.innerHTML = request.responseText;
+                    notes.cachePage(newDoc);
+                    history.pushState('', '', url);
+                    window.onpopstate();
+
+                    var current = document.getElementsByClassName('current');
+                    for (var i = current.length; i;) {
+                        current[--i].className = 'expanded';
+                    }
+
+                    link.className = 'current';
+                    while ((link = link.parentNode).tagName !== 'NAV') {
+                        if (link.tagName === 'OL') link.className = 'current';
+                    }   
+                } else {
+
+                }
+            };
+        
+            request.onerror = function() {};
+
+            request.send();
         }, true);
 
-            history.replaceState({title: document.title,
-                     main: document.getElementsByTagName('main')[0].innerHTML},
-                                                          '', window.location);
+        notes.cachePage(document);
+        history.replaceState('', '');
     }
 });

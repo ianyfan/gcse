@@ -1,0 +1,16 @@
+main {
+  transition: opacity .25s;
+}
+
+nav ol {
+  height: 0;
+  border-bottom: 1px solid;
+  overflow: hidden;
+
+  transition: height .25s, border-bottom-color .25s;
+}
+
+.current, .expanded {
+  height: auto;
+  border-bottom-color: transparent;
+}

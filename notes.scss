@@ -48,11 +48,9 @@ nav {
   word-wrap: break-word;
 
   ol {
-    height: 0;
     padding-left: 0;
-    border-bottom: 1px solid $theme-color;
+    border-color: $theme-color;
     margin-left: 10px;
-    overflow: hidden;
 
     list-style-type: none;
     counter-reset: section;
@@ -77,6 +75,8 @@ nav {
 
     text-decoration: none;
 
+    cursor: pointer;
+
     transition: background-color .25s;
 
     &:hover {
@@ -88,15 +88,6 @@ nav {
       content: counters(section,".") " ";
     }
   }
-}
-
-nav a:hover + ol, nav ol:hover,
-.current {
-  height: auto;
-}
-
-.current {
-    border: 0;
 }
 
 a.current {
