@@ -2,5 +2,4 @@
 !.gitignore
 *~
 
-*.css*
-# .css + .css.map
+*.css.map

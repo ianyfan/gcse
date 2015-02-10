@@ -50,7 +50,7 @@ nav {
   ol {
     height: 0;
     padding-left: 0;
-    border-top: 1px solid $theme-color;
+    border-bottom: 1px solid $theme-color;
     margin-left: 10px;
     overflow: hidden;
 
@@ -93,7 +93,10 @@ nav {
 nav a:hover + ol, nav ol:hover,
 .current {
   height: auto;
-  border-top: 0;
+}
+
+.current {
+    border: 0;
 }
 
 a.current {

@@ -1,0 +1,7 @@
+main {
+  transition: opacity .25s;
+}
+
+nav ol {
+  transition: height .25s;
+}

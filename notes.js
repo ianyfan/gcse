@@ -46,13 +46,44 @@ window.onpopstate = function(event) {
 };
 
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('header').style.backgroundColor = '#555';
+    var stylesheet = document.createElement('link');
+    stylesheet.rel = 'stylesheet';
+    stylesheet.href = 'notesextra.css';
+    document.head.appendChild(stylesheet);
+
+    document.getElementById('header').style.backgroundColor = '#ccc';
 
     var sidebar =  document.getElementsByTagName('nav')[0];
 
-    sidebar.addEventListener('hover', function(event) {
-        
-    }, false);
+    sidebar.addEventListener('mouseenter', function(event) {
+        event.stopPropagation();
+
+        if (event.target.tagName === 'LI') {
+            var el = event.target.lastElementChild;
+            
+            if (el.tagName !== 'OL' || el.className === 'current') return;
+            
+            el.style.height = '0';
+            el.scrollHeight; // force reflow
+            el.style.height = el.scrollHeight + 'px';
+
+            window.setTimeout(function(){el.style.height = ''}, 250);
+        }
+    }, true);
+
+    sidebar.addEventListener('mouseleave', function(event) {
+        event.stopPropagation();
+
+        if (event.target.tagName === 'LI') {
+            var el = event.target.lastElementChild;
+
+            if (el.tagName !== 'OL' || el.className === 'current') return;
+            
+            el.style.height = el.scrollHeight + 'px';
+            el.scrollHeight; // force reflow
+            el.style.height = '';
+        }
+    }, true);
 
     if (history.pushState) {
        sidebar.addEventListener('click', function(event) {
