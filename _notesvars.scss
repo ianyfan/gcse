@@ -1,6 +1,11 @@
 $header-height: 60px;
 $nav-width: 300px;
 
+$greyscale-1: #fafafa;
+$greyscale-2: #f5f5f5;
+$greyscale-3: #eee;
+$shadow-color: #444;
+
 @mixin screen-width($width) {
   @if $width == small {
     @media (max-width: 2*$nav-width) {
