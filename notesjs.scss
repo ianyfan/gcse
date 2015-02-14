@@ -5,7 +5,7 @@ main {
 }
 
 button {
-  opacity: 1;
+  @extend %visible;
 }
 
 .arrow {

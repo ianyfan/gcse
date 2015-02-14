@@ -12,3 +12,11 @@ $nav-width: 300px;
     }
   }
 }
+
+%visible {
+  opacity: 1;
+}
+
+%no-outline {
+  outline: none;
+}

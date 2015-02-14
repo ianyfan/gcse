@@ -41,20 +41,55 @@ header {
 
     box-shadow: 0 0 2px $theme-bg-color;
     opacity: 0;
-
   }
 
   > ul {
     position: fixed;
     top: $header-height;
+    left: 50%;
 
-    padding: 10px;
-    box-shadow: 0 2px 2px $shadow-color;
+    padding: 0;
     margin: 0;
-
-    background-color: inherit;
+    opacity: 0;
 
     list-style-type: none;
+
+    transition: opacity .25s;
+
+    &:hover {
+      @extend %visible;
+    }
+
+    > li {
+      box-shadow: 0 2px 2px $shadow-color;
+      margin: 0 50% 0 -50%;
+
+      background-color: #fff;
+    }
+
+    a {
+      display: block;
+      padding: 10px;
+     
+      background-color: $theme-bg-color;
+      color: #fff;
+
+      text-decoration: none;
+
+      transition: opacity .25s;
+
+      &:hover {
+        opacity: .9;
+      }
+
+      &:active {
+        opacity: .8;
+      }
+
+      &:focus {
+        @extend %no-outline;
+      }
+    }
   }
 }
   
@@ -79,8 +114,9 @@ main > h2 {
   }
 }
 
-a:hover + h2 {
-  opacity: 1;
+.header-nav:hover + h2,
+.home:hover + ul {
+  @extend %visible;
 }
 
 .title-prev {
@@ -125,7 +161,7 @@ button {
   transition: opacity .25s;
 
   @include screen-width(small) {
-    opacity: 1;
+    opacity: 1; // can't @extend %visible, not sure why
   }
 
   &::after, &:after,
@@ -137,6 +173,7 @@ button {
     display: inline-block;
     height: inherit;
     width: inherit;
+
 
     background-color: inherit;
   }
@@ -164,7 +201,7 @@ button {
   transition: opacity .25s;
 
   &[href] {
-    opacity: 1;
+    @extend %visible;
 
     &:hover {
       opacity: .75;
@@ -198,7 +235,8 @@ button {
 }
 
 .home {
-  border-width: 20px 10px 0;
+  border-width: 20px 10px 10px;
+  margin-bottom: 0;
 
   &::before, &:before {
     border-width: 0 20px 20px;
@@ -279,7 +317,7 @@ nav {
     }
 
     &:focus {
-      outline: none;
+      @extend %no-outline;
     }
 
     &:active {
@@ -314,6 +352,8 @@ main {
     color: $theme-color;
   
     text-align: center;
+
+    pointer-events: none;
   }
 
   > h2 {
