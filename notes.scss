@@ -314,7 +314,7 @@ nav {
 
     cursor: pointer;
 
-    transition: background-color .25s;
+    transition: background-color .25s, color .25s;
 
     &:hover, &:focus {
       background-color: $greyscale-2;
@@ -377,4 +377,44 @@ article {
   margin: 10px 10px 10px ($nav-width + 10px);
 
   transition: margin-left .25s;
+}
+
+// tentative css for fractions
+
+.fraction {
+  position: relative;
+
+  display: inline-block;
+  
+  line-height: 2em;
+
+  .numerator > & {
+    top: -.6em;
+  }
+
+  .denominator > & {
+    top: .6em;
+  }
+}
+
+.numerator {
+  position: relative;
+  top: -.5em;
+}
+
+.frac-line {
+  position: absolute;
+  top: 1em;
+
+  display: block;
+  height: 1px;
+  width: 100%;
+
+  background-color: #000;
+}
+
+.denominator {
+  position: absolute;
+  left: 0;
+  top: .6em;
 }
