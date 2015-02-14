@@ -1,0 +1,23 @@
+button:hover + nav, nav:hover {
+  left: 0;
+}
+
+nav {
+  @include screen-width(small) {
+    left: (20px - $nav-width);
+  }
+
+  @include screen-width(smaller) {
+    left: -$nav-width;
+  }
+}
+
+article {
+  @include screen-width(small) {
+    margin-left: 30px;
+  }
+
+  @include screen-width(smaller) {
+    margin-left: 10px;
+  }
+}

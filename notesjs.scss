@@ -1,0 +1,45 @@
+@import "notesvars";
+
+main {
+  transition: opacity .25s;
+}
+
+button {
+  opacity: 1;
+}
+
+.arrow {
+  + nav {
+    left: 0;
+  }
+}
+
+.hamburger {
+
+  + nav {
+    left: -$nav-width;
+  }
+
+  ~ main > article {
+    margin-left: 10px;
+  }
+}
+
+article {
+  @include screen-width(small) {
+    margin-left: 10px;
+  }
+}
+
+nav ol {
+  height: 0;
+  border-bottom: 1px solid;
+  overflow: hidden;
+
+  transition: height .25s, border-bottom-color .25s;
+}
+
+.current, .expanded {
+  height: auto;
+  border-bottom-color: transparent;
+}

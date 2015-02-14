@@ -1,0 +1,14 @@
+$header-height: 60px;
+$nav-width: 300px;
+
+@mixin screen-width($width) {
+  @if $width == small {
+    @media (max-width: 2*$nav-width) {
+      @content;
+    }
+  } @else if $width == smaller {
+    @media (max-width: 1.5*$nav-width) {
+      @content;
+    }
+  }
+}
