@@ -1,6 +1,9 @@
 .*
 !.gitignore
+
 *~
+
+*.min.js
 
 *.css*
 # .css + .css.map
