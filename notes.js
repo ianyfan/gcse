@@ -81,7 +81,7 @@ notes.ondomcontentload = function() {
 
     var button = document.getElementsByTagName('button')[0];
     button.className = 'arrow';
-    button.onclick = function(event) {
+    button.onclick = function() {
         this.className = this.className === 'arrow' ? 'hamburger' : 'arrow';
     };
 };
