@@ -90,8 +90,8 @@ document.addEventListener('DOMContentLoaded', notes.ondomcontentload);
 
 window.onpopstate = function() {
     var current = document.getElementsByClassName('current');
-    for (var i = current.length; i;) {
-        current[--i].className = 'expanded';
+    for (var i = current.length; --i;) {
+        current[i].className = 'expanded';
     }
 
     var path = window.location.pathname,
@@ -112,7 +112,7 @@ window.onpopstate = function() {
 
     var link = document.querySelector('[href="' + path + '"]');
     link.className = 'current';
-    for (; link.tagName !== 'NAV'; link = link.parentNode) {
+    for (; link.className !== 'current'; link = link.parentNode) {
         if (link.tagName === 'OL') link.className = 'current';
     }
 
