@@ -8,22 +8,20 @@ $accent-color: #aa00ff;
 @import url(//fonts.googleapis.com/css?family=Source+Sans+Pro);
 
 body {
-  min-width: (1.5*$nav-width);
+  min-width: 1.5*$nav-width;
   margin: 0;
   
   font-family: 'Source Sans Pro', Helvetica;
 }
 
-
 header {
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 2;
+  z-index: $z-index-header;
 
   height: $header-height;
   width: 100%;
-  min-width: (1.5*$nav-width);
   box-shadow: 0 0 2px $shadow-color;
 
   background-color: $theme-bg-color;
@@ -33,7 +31,7 @@ header {
   
   > h2 {
     position: fixed;
-    z-index: 3;
+    z-index: $z-index-above-header;
 
     box-shadow: 0 0 2px $theme-bg-color;
     opacity: 0;
@@ -145,56 +143,6 @@ main > h2 {
   text-align: left;
 }
 
-button {
-  $button-height: 30px;
-  $button-margin-top: ($header-height - $button-height) / 2;
-
-  position: fixed;
-  left: 10px;
-  top: $button-margin-top;
-  z-index: 2;
-
-  display: block;
-  box-sizing: content-box; // why isn't this default?
-  height: ($button-height/5);
-  width: 40px;
-  padding: 0;
-  border-width: (2*$button-height/5) 0 (2*$button-height/5 + $button-margin-top);
-  border-style: solid;
-  border-color: $theme-bg-color;
-  opacity: 0;
-  
-  background-color: $theme-color;
-
-  transition: opacity .25s;
-
-  @include screen-width(small) {
-    opacity: 1; // can't @extend %visible, not sure why
-  }
-
-  &::after, &:after,
-  &::before, &:before {
-    content: "";
-    position: fixed;
-    left: 10px;
-    
-    display: inline-block;
-    height: inherit;
-    width: inherit;
-
-
-    background-color: inherit;
-  }
-
-  &::after, &:after {
-    top: ($button-margin-top + 4 * $button-height / 5);
-  }
-
-  &::before, &:before {
-    top: inherit;
-  }
-}
-
 .header-nav {
   display: inline-block;
   height: 20px;
@@ -279,11 +227,62 @@ button {
   }
 }
 
+button {
+  $button-height: 30px;
+  $button-margin-top: ($header-height - $button-height) / 2;
+
+  position: fixed;
+  left: 10px;
+  top: $button-margin-top;
+  z-index: $z-index-header;
+
+  display: block;
+  box-sizing: content-box; // why isn't this default?
+  height: ($button-height/5);
+  width: 40px;
+  padding: 0;
+  border-width: (2*$button-height/5) 0 (2*$button-height/5 + $button-margin-top);
+  border-style: solid;
+  border-color: $theme-bg-color;
+  opacity: 0;
+  
+  background-color: $theme-color;
+
+  transition: opacity .25s;
+
+  @include screen-width(small) {
+    opacity: 1; // can't @extend %visible, not sure why
+  }
+
+  &::after, &:after,
+  &::before, &:before {
+    content: "";
+    position: fixed;
+    left: 10px;
+    
+    display: inline-block;
+    height: inherit;
+    width: inherit;
+
+
+    background-color: inherit;
+  }
+
+  &::after, &:after {
+    top: ($button-margin-top + 4 * $button-height / 5);
+  }
+
+  &::before, &:before {
+    top: inherit;
+  }
+}
+
 nav {
   position: fixed;
   bottom: 0;
   left: 0;
   top: $header-height;
+  z-index: $z-index-nav;
 
   width: $nav-width;
   border-right: 1px solid $theme-bg-color;
@@ -344,17 +343,21 @@ a.current {
 }
 
 main {
-  margin-top: $header-height;
+  position: absolute;
+  bottom: $footer-height;
+  left: 0;
+  right: 0;
+  top: 0;
+
+  min-width: 1.5*$nav-width;
+
+  background-color: #fff;
 
   text-align: justify;
 
   > h1 {
-    position: relative;
-    z-index: 1;
-  
-    width: 100%;
     box-shadow: 0 0 2px $shadow-color;
-    margin: 0;
+    margin: $header-height 0 0 $nav-width;
   
     background-color: $theme-bg-color-2;
     color: $theme-color;
@@ -362,11 +365,12 @@ main {
     text-align: center;
 
     pointer-events: none;
+    transition: margin-left .25s;
   }
 
   > h2 {
     position: absolute;
-    z-index: 2;
+    z-index: $z-index-header;
 
     overflow: hidden;
 
@@ -378,9 +382,47 @@ main {
 }
 
 article {
-  margin: 10px 10px 10px ($nav-width + 10px);
+  padding: 0 10px 1px $nav-width;
+  margin-bottom: 30px;
 
-  transition: margin-left .25s;
+  background-color: #fff;
+
+  transition: padding-left .25s;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: $nav-width;
+  right: 0;
+  z-index: $z-index-footer;
+
+  box-shadow: inset 0 2px 2px -2px $shadow-color;
+
+  background-color: $theme-bg-color;
+  color: $theme-color;
+
+  transition: left .25s;
+
+  > p {
+    margin: 5px 10px;
+  }
+
+  a {
+    color: $accent-color;
+    
+    text-decoration: none;
+
+    transition: opacity .25s;
+
+    &:hover {
+      opacity: .75;
+    }
+
+    &:active {
+      opacity: .5;
+    }
+  }
 }
 
 // tentative css for fractions

@@ -20,8 +20,19 @@ button {
     left: -$nav-width;
   }
 
-  ~ main > article {
-    margin-left: 10px;
+  ~ main {
+
+    > h1 {
+      margin-left: 0;
+    }
+
+    > article {
+      padding-left: 10px;
+    }
+  }
+
+  ~ footer {
+    left: 0;
   }
 }
 

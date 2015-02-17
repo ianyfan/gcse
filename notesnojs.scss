@@ -1,3 +1,5 @@
+@import "notesvars";
+
 button:hover + nav, nav:hover {
   left: 0;
 }
@@ -12,12 +14,32 @@ nav {
   }
 }
 
-article {
+main > h1 {
   @include screen-width(small) {
-    margin-left: 30px;
+    margin-left: 20px;
   }
 
   @include screen-width(smaller) {
-    margin-left: 10px;
+    margin-left: 0;
+  }
+}
+
+article {
+  @include screen-width(small) {
+    padding-left: (20px + 10px);
+  }
+
+  @include screen-width(smaller) {
+    padding-left: 10px;
+  }
+}
+
+footer {
+  @include screen-width(small) {
+    left: 20px;
+  }
+
+  @include screen-width(smaller) {
+    left: 0;
   }
 }
