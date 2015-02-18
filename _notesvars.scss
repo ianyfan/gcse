@@ -2,10 +2,10 @@ $header-height: 60px;
 $nav-width: 300px;
 $footer-height: 60px;
 
-$z-index-footer: -1;
 $z-index-main: 0;
+$z-index-footer: $z-index-main - 1;
 $z-index-nav: $z-index-main + 1;
-$z-index-header: $z-index-main + 2;
+$z-index-header: $z-index-nav + 1;
 $z-index-above-header: $z-index-header + 1;
 
 $greyscale-1: #fafafa;

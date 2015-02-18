@@ -9,6 +9,10 @@ body {
   font-family: 'Source Sans Pro', Helvetica;
 }
 
+h3 {
+  margin: 0;
+}
+
 header {
   position: fixed;
   left: 0;
@@ -30,10 +34,6 @@ header {
 
     box-shadow: 0 0 2px $theme-bg-color;
     opacity: 0;
-  }
-
-  h3 {
-    margin: 0;
   }
 
   > ul {
@@ -281,6 +281,7 @@ nav {
 
   width: $nav-width;
   border-right: 1px solid $theme-bg-color;
+  overflow-y: auto;
 
   background-color: $greyscale-1;
 
@@ -298,8 +299,7 @@ nav {
   }
 
   > ol {
-     margin: 0;
-     overflow-y: auto;
+    margin: 0;
   }
 
   a {
@@ -377,12 +377,16 @@ main {
 }
 
 article {
-  padding: 0 10px 1px $nav-width;
-  margin-bottom: 30px;
+  padding: 0 0 1px $nav-width;
+  margin-bottom: $footer-height;
 
   background-color: #fff;
 
   transition: padding-left .25s;
+
+  li {
+    margin: 10px;
+  }
 }
 
 footer {
@@ -392,7 +396,8 @@ footer {
   right: 0;
   z-index: $z-index-footer;
 
-  box-shadow: inset 0 2px 2px -2px $shadow-color;
+  height: $footer-height;
+  box-shadow: inset 0 8px 8px -8px $shadow-color;
 
   background-color: $theme-bg-color;
   color: $theme-color;
@@ -420,42 +425,43 @@ footer {
   }
 }
 
-// tentative css for fractions
+table {
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 5px 10px;
+  border: 1px solid #000;
+}
+
+// fractions
 
 .fraction {
-  position: relative;
-
   display: inline-block;
-  
-  line-height: 2em;
+  margin-top: 1em;
 
-  .numerator > & {
-    top: -.6em;
-  }
-
-  .denominator > & {
-    top: .6em;
-  }
-}
-
-.numerator {
-  position: relative;
-  top: -.5em;
-}
-
-.frac-line {
-  position: absolute;
-  top: 1em;
-
-  display: block;
-  height: 1px;
-  width: 100%;
-
-  background-color: #000;
+  vertical-align: middle;
 }
 
 .denominator {
-  position: absolute;
-  left: 0;
-  top: .6em;
+  float: left;
+
+  width: 100%;
+  line-height: 1;
+}
+
+.numerator {
+  @extend .denominator;
+
+  margin-top: -1em;
+}
+
+.frac-line {
+  border-bottom: 1px solid #000;
+}
+
+@each $alignment in left, center, right {
+  .text-align-#{$alignment} {
+    text-align: $alignment;
+  }
 }
