@@ -78,8 +78,6 @@ function createNav() {
                 } else {
                     subTitles[i].previous = null;
                 }
-                
-
                 createList(subTitles[i], href + '/' + i, ind);
             }
             nav += indent + arr6 + indent + arr7;
@@ -90,6 +88,8 @@ function createNav() {
         hrefInit = '/gcse/' + outDir + '/',
         indentInit = '        ';
     for (var i = 1; i < titles.length; i++) {
+        titles[i].previous = titles[i-1];
+        if (i > 1) titles[i-1].next = titles[i];
         createList(titles[i], hrefInit + i, indentInit);
     }
 
@@ -210,7 +210,7 @@ function write() {
             }
 
             var next = subTitles;
-            while (!next.next && (next = next.next)) {}
+            while (!next.next && (next = next.parent)) {}
             if (next) {
                 next = next.next;
                 while (next instanceof Array) next = next[1];
