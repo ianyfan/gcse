@@ -16,20 +16,7 @@ notes.ondomcontentload = function() {
 
         var list = event.target.nextElementSibling;
         if (list && list.tagName === 'OL' && list.className !== 'current') {
-            if (list.className) { // either expanded or no class
-                list.style.height = list.scrollHeight + 'px';
-                list.className = '';
-                list.scrollHeight; // force reflow
-                list.style.height = '';
-            } else {
-                list.style.height = '0';
-                list.className = 'expanded';
-                list.style.height = list.scrollHeight + 'px';
-
-                window.setTimeout(function() {
-                    list.style.height = '';
-                }, 250);
-            }
+            notes.toggleList(list);
         }
     }, true);
 
@@ -37,10 +24,10 @@ notes.ondomcontentload = function() {
         var cachePage = function(dom) {
             sessionStorage.setItem(window.location.pathname, JSON.stringify({
                 main: dom.getElementsByTagName('main')[0].innerHTML,
-                prev: dom.getElementsByClassName('prev')[0].href,
-                next: dom.getElementsByClassName('next')[0].href
-            }));
-        };
+                prev: dom.getElementsByClassName('prev')[0].getAttribute('href'),
+                next: dom.getElementsByClassName('next')[0].getAttribute('href')
+            })); // getAttribute used instead of .href since Chrome has a bug 
+        };       // wherein hrefs in DOMImplementation objects aren't resolved
 
         history.replaceState('', '');
         cachePage(document);
@@ -66,6 +53,7 @@ notes.ondomcontentload = function() {
                 if (request.status >= 200 && request.status < 400) {
                     var newDoc = document.implementation.createHTMLDocument();
                     newDoc.documentElement.innerHTML = request.responseText;
+                
                     cachePage(newDoc);
                     window.onpopstate();
                 } else {}
@@ -85,6 +73,23 @@ notes.ondomcontentload = function() {
         this.className = this.className === 'arrow' ? 'hamburger' : 'arrow';
     };
 };
+
+notes.toggleList = function(list) {
+   if (list.className) { // either expanded or no class
+        list.style.height = list.scrollHeight + 'px';
+        list.className = '';
+        list.scrollHeight; // force reflow
+        list.style.height = '';
+    } else {
+        list.style.height = '0';
+        list.className = 'expanded';
+        list.style.height = list.scrollHeight + 'px';
+
+        window.setTimeout(function() {
+            list.style.height = '';
+        }, 250);
+    }
+}
 
 document.addEventListener('DOMContentLoaded', notes.ondomcontentload);
 
@@ -110,15 +115,16 @@ window.onpopstate = function() {
     replace('prev');
     replace('next');
 
-    var link = document.querySelector('[href="' + path + '"]');
-    link.className = 'current';
-    for (; link.className !== 'current'; link = link.parentNode) {
-        if (link.tagName === 'OL') link.className = 'current';
-    }
-
     // + 2 to account for box shadow radius
     var currPos = document.getElementsByTagName('header')[0].offsetHeight + 2;
     if (window.scrollY > currPos) window.scroll(0, currPos);
+
+    var link = document.querySelector('[href="' + path + '"]');
+    link.className = 'current';
+    while ((link = link.parentNode.parentNode).className !== 'current') {
+        if (link.className !== 'expanded') notes.toggleList(link);
+        link.className = 'current';
+    }
 };
 
 window.setTimeout(function() {
