@@ -9,7 +9,7 @@ body {
   font-family: 'Source Sans Pro', Helvetica;
 }
 
-h3 {
+h3, h4 {
   margin: 0;
 }
 
@@ -438,26 +438,16 @@ th, td {
 
 .fraction {
   display: inline-block;
-  margin-top: 1em;
 
   vertical-align: middle;
 }
 
-.denominator {
-  float: left;
-
-  width: 100%;
-  line-height: 1;
-}
-
-.numerator {
-  @extend .denominator;
-
-  margin-top: -1em;
+.numerator, .denominator {
+  display: block;
 }
 
 .frac-line {
-  border-bottom: 1px solid #000;
+  border-top: 1px solid #000;
 }
 
 @each $alignment in left, center, right {
