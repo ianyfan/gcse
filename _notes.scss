@@ -1,6 +1,7 @@
 @import "notesvars";
 
 @import url(//fonts.googleapis.com/css?family=Source+Sans+Pro);
+@import url(//fonts.googleapis.com/css?family=Source+Code+Pro);
 
 body {
   min-width: 1.5*$nav-width;
@@ -427,6 +428,10 @@ footer {
 
 table {
   border-collapse: collapse;
+
+  article > & {
+    margin: 10px;
+  }
 }
 
 th, td {
@@ -434,7 +439,18 @@ th, td {
   border: 1px solid #000;
 }
 
-// fractions
+aside {
+  font-family: "Source Code Pro", monospace;
+  font-size: smaller;
+}
+
+// special expressions
+
+.equation {
+  white-space: nowrap;
+
+  font-style: italic;
+}
 
 .fraction {
   display: inline-block;
