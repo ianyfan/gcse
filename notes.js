@@ -53,7 +53,6 @@ notes.ondomcontentload = function() {
                 if (request.status >= 200 && request.status < 400) {
                     var newDoc = document.implementation.createHTMLDocument();
                     newDoc.documentElement.innerHTML = request.responseText;
-                
                     cachePage(newDoc);
                     window.onpopstate();
                 } else {}
@@ -94,16 +93,14 @@ notes.toggleList = function(list) {
 document.addEventListener('DOMContentLoaded', notes.ondomcontentload);
 
 window.onpopstate = function() {
-    var current = document.getElementsByClassName('current');
-    for (var i = current.length; --i;) {
-        current[i].className = 'expanded';
-    }
+    window.scroll(0, 0);
 
     var path = window.location.pathname,
         state = JSON.parse(sessionStorage.getItem(path)),
         main = document.getElementsByTagName('main')[0];
+
     main.innerHTML = state.main;
-    
+ 
     document.title = main.getElementsByTagName('h1')[0].textContent;
 
     function replace(which) {
@@ -115,9 +112,10 @@ window.onpopstate = function() {
     replace('prev');
     replace('next');
 
-    // + 2 to account for box shadow radius
-    var currPos = document.getElementsByTagName('header')[0].offsetHeight + 2;
-    if (window.scrollY > currPos) window.scroll(0, currPos);
+    var current = document.getElementsByClassName('current');
+    for (var i = current.length; --i;) {
+        current[i].className = 'expanded';
+    }
 
     var link = document.querySelector('[href="' + path + '"]');
     link.className = 'current';
@@ -130,5 +128,5 @@ window.onpopstate = function() {
 window.setTimeout(function() {
     if (document.readyState in {complete: 1, interactive: 1, loaded: 1} &&
             notes.ondomcontentload) notes.ondomcontentload();
-}, 0); // put this at the end of execution queue in case DOMContentLoaded
+}, 1); // put this at the end of execution queue in case DOMContentLoaded
        // handler is queued
