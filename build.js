@@ -53,23 +53,18 @@ function createNav() {
     console.log('Read files in ' + inDir);
     if (!write && !write.buffers) return createNav();
 
-    var string = 'string', spaces = '    ',
-        str1 = '<li><a href="', str2 = '">', str3 = '</a></li>\n',
-        arr1 = '<li>\n', arr2 = '  <a tabindex="0">', arr3 = '</a>\n',
-        arr4 = '  <ol', arr5 = '>\n', arr6 = '  </ol>\n', arr7 = '</li>\n';
-
     function createList(subTitles, href, indent) {
         if (subTitles instanceof String) {
             subTitles.marker = nav.length + indent.length + 6;
             subTitles.href = href;
-            nav += indent + str1 + href + str2 + subTitles + str3;
+            nav += indent + '<li><a href="' + href + '">' + subTitles +
+                '</a></li>\n';
         } else {
-            var subString = indent + arr1 + indent + arr2 +
-                                    subTitles[0] + arr3 + indent + arr4;
+            var subString = indent + '<li>\n' + indent + '  <a tabindex="0">' +
+                subTitles[0] + '</a>\n' + indent + '  <ol';
             subTitles.marker = nav.length + subString.length;
-            nav += subString + arr5;
+            nav += subString + '>\n';
 
-            var ind = indent + spaces;
             for (var i = 1; i < subTitles.length; i++) {
                 subTitles[i].parent = subTitles;
                 if (i > 1) {
@@ -78,9 +73,9 @@ function createNav() {
                 } else {
                     subTitles[i].previous = null;
                 }
-                createList(subTitles[i], href + '/' + i, ind);
+                createList(subTitles[i], href + '/' + i, indent + '    ');
             }
-            nav += indent + arr6 + indent + arr7;
+            nav += indent + '  </ol>\n' + indent + '</li>\n';
         }
     }
     
@@ -107,38 +102,41 @@ function write() {
     require('pagedown-extra').Extra.init(converter,
         {extension: ['tables', 'smart_strong']});
 
-    function replaceFracs(text) {
-        // format: {:{numerator}: (/ if frac line, else \) :{denominator}:}
+    converter.hooks.chain('preConversion', function(text) { // fractions
+        // format: {:{numerator}: (/ if frac line, else |) :{denominator}:}
         // : determine alignment like tables
 
         var last = text.length;
         while (last && (last = text.lastIndexOf('{', --last)) != -1) {
             text = text.slice(0, last) + text.slice(last).replace(
-                                    replaceFracs.regex, replaceFracs.replacer);
+                /{(:?){(.*?)}(:?)\s*(\/|\|)\s*(:?){(.*?)}(:?)}/, function(_,
+                        numerL, numer, numerR, line, denomL, denom, denomR) {
+                    align = ['', ' text-align-left', ' text-align-right',
+                        ' text-align-center'];
+                    return '<span class="fraction"><sup class="numerator' +
+                        align[(numerL === ':') + ((numerR === ':') << 1)] +
+                        '">' + numer + '</sup><sub class="denominator' +
+                        (line === '/' ? ' frac-line' : '') +
+                        align[(denomL === ':') + ((denomR === ':') << 1)] +
+                        '">' + denom + '</sub></span>';
+                }
+            );
         }
         return text;
-    }
-    replaceFracs.regex = /{(:?){(.*)}(:?)\s*(\/|\\)\s*(:?){(.*)}(:?)}/;
-    replaceFracs.strings = ['<span class="fraction"><span class="numerator', 
-        ' frac-line', '">', '</span><span class="denominator', '">',
-        '</span></span>'];
-    replaceFracs.align = ['', ' text-align-left', ' text-align-right',
-        ' text-align-center'];
-    replaceFracs.replacer = function(_, nLeft, numer, nRight, fracLine, dLeft,
-            denom, dRight) {
-        return replaceFracs.strings[0] +
-            (fracLine === '/' ? replaceFracs.strings[1] : '') +
-            replaceFracs.align[(nLeft === ':') + ((nRight === ':') << 1)] +
-            replaceFracs.strings[2] + numer + replaceFracs.strings[3] +
-            replaceFracs.align[(dLeft === ':') + ((dRight === ':') << 1)] +
-            replaceFracs.strings[4] + denom + replaceFracs.strings[5];
-    };
-    converter.hooks.chain('preConversion', replaceFracs);
+    });
 
-    var utf8 = 'utf-8',
-        index = '/index.html',
-        current = ' class="current"',
-        href = ' href="'; 
+    converter.hooks.chain('preConversion', function (text) { // equations
+        return text.replace(/\[\[(.*?)]]/g, function(_, match) {
+            return '<i class="equation">' + match + '</i>';
+        })
+    });
+
+    converter.hooks.chain('postConversion', function(text) { // table cell spans
+        text = text.replace(/<td(.*?)>{merged}<\/td>/g, ''); // remove empty cells
+        return text.replace(/>{(.*?)}/g, function(_, match) {
+            return ' ' + match + '>';
+        });
+    });
 
     (function writeTree(subTitles, inPath, outPath) {
         fs.mkdir(outPath, function writeBranch(err) {
@@ -160,7 +158,7 @@ function write() {
             var canWrite = false,
                 inFile = inPath + '/' + subTitles;
 
-            fs.readFile(inFile, utf8,
+            fs.readFile(inFile, 'utf-8',
                 function processPage(err, data) {
                     if (err) {
                         console.log('ERROR: could not read file at ' + inFile +
@@ -172,24 +170,60 @@ function write() {
                     (function writePage() {
                         if (!canWrite) return writePage();
 
-                        var outPage = outPath + index,
-                            html = write.strings[0] + subTitles +
-                                write.strings[1] +
-                                (prev ? href + prev.href + '"' : '') +
-                                write.strings[2] + prev + write.strings[3] +
-                                write.homeList + write.strings[4] +
-                                (next ? href + next.href + '"': '') +
-                                write.strings[5] + next + write.strings[6] +
-                                nav + write.strings[7] + subTitles +
-                                write.strings[8] + prev + write.strings[9] +
-                                next + write.strings[10] +
-                                converter.makeHtml(data) + write.strings[11];
+                        var outPage = outPath + '/index.html',
+                            html =
+'<!DOCTYPE html>\n' +
+'<html lang="en">\n' +
+'  <head>\n' +
+'    <meta charset="utf-8">\n' +
+'    <title>' + subTitles + '</title>\n' +
+'    <script src="/gcse/notes.min.js" async></script>\n' +
+'    <link rel="stylesheet" href="/gcse/' + outDir + '/notes.css">\n' +
+'    <noscript>\n' +
+'      <link rel="stylesheet" href="/gcse/notesnojs.css">\n' +
+'    </noscript>\n' +
+'  </head>\n' +
+'  <body>\n' +
+'    <header>\n' +
+'      <a class="header-nav prev"'+(prev?' href="'+prev.href+'"':'')+'></a>\n' +
+'      <h2 class="title-prev">' + prev + '</h2>\n' +
+'      <a class="header-nav home" href="/gcse"></a>\n' +
+'      <ul>\n' +
+         write.homeList +
+'      </ul>\n' +
+'      <a class="header-nav next"'+(next?' href="'+next.href+'"':'')+'></a>\n' +
+'      <h2 class="title-next">' + next + '</h2>\n' +
+'    </header>\n' +
+'    <button></button>\n' +
+'    <nav>\n' +
+'      <ol class="current">\n' +
+         nav +
+'      </ol>\n' +
+'    </nav>\n' +
+'    <main>\n' +
+'      <h1>' + subTitles + '</h1>\n' +
+'      <h2 class="title-prev">' + prev +'</h2>\n' +
+'      <h2 class="title-next">' + next + '</h2>\n' +
+'      <article>' +
+         converter.makeHtml(data) + '\n' +
+'      </article>\n' +
+'    </main>\n' +
+'    <footer>\n' +
+'      <p>View the source on ' +
+        '<a href="//github.com/ianyfan/gcse" target="_blank">Github</a>' +
+      '</p>\n' +
+'      <p>Please send questions and suggestions to '+
+        '<a href="mailto:ianfan0+notes@gmail.com">ianfan0@gmail.com</a>' +
+      '</p>\n' +
+'    </footer>\n' +
+'  </body>\n' +
+'</html>';
 
                         fs.writeFile(outPage, html, function onpagewrite(err) {
                                 if (err) {
                                     console.log('ERROR: could not write to ' +
-                                                outPage + '; trying again...');
-                                    fs.writeFile(outPage, data, onpagewrite);
+                                        outPage + '; trying again...');
+                                    fs.writeFile(outPage, html, onpagewrite);
                                     return;
                                 }
 
@@ -221,7 +255,7 @@ function write() {
 
             for (var nav = write.nav, marker = subTitles; marker;
                     marker = marker.parent) {
-                nav = nav.slice(0, marker.marker) + current +
+                nav = nav.slice(0, marker.marker) + ' class="current"' +
                     nav.slice(marker.marker);
             }
             canWrite = true;
@@ -246,41 +280,15 @@ function write() {
         }
      });
 }
-write.strings = ['<!DOCTYPE html>\n<html lang="en">\n  <head>\n    ' + 
-        '<meta charset="utf-8">\n    <title>',
-    '</title>\n\n    <script src="/gcse/notes.min.js" async></script>\n    ' +
-        '<link rel="stylesheet" href="/gcse/' + outDir + '/notes.css">\n    ' +
-        '<noscript>\n      <link rel="stylesheet" href="/gcse/notesnojs.css">' +
-        '\n    </noscript>\n  </head>\n  <body>\n    <header>\n      ' +
-        '<a class="header-nav prev"',
-    '></a>\n      <h2 class="title-prev">',
-    '</h2>\n      <a class="header-nav home" href="/gcse"></a>\n      <ul>\n',
-    '      </ul><a class="header-nav next"',
-    '></a>\n      <h2 class="title-next">',
-    '</h2>\n    </header>\n    <button></button>\n    <nav>\n      ' +
-        '<ol class="current">\n',
-    '      </ol>\n    </nav>\n    <main>\n      <h1>',
-    '</h1>\n      <h2 class="title-prev">',
-    '</h2>\n      <h2 class="title-next">',
-    '</h2>\n      <article>',
-    '\n      </article>\n    </main>\n    <footer>' +
-        '\n      <p>View the source on ' +
-        '<a href="//github.com/ianyfan/gcse" target="_blank">Github</a></p>' +
-        '\n      <p>Please send questions and suggestions to '+
-        '<a href="mailto:ianfan0@gmail.com">ianfan0@gmail.com</a></p>' +
-        '\n    </footer>\n  </body>\n</html>'
-];
 
 fs.readdir('content', function createHomeList(err, files) {
     if (err) return fs.readdir('subjects', createHomeList);
 
-    var homeList = '',
-        str1 = '        <li><h3><a href="/gcse/', str2 = '">',
-        str3 = '</a></h3></li>\n';
+    var homeList = '';
     for (var i = 0; i < files.length; i++) {
         var subject = files[i];
-        homeList += str1 + subject + str2 + subject[0].toUpperCase() +
-            subject.slice(1) + str3;
+        homeList += '        <li><h3><a href="/gcse/' + subject + '">' +
+            subject[0].toUpperCase() + subject.slice(1) + '</a></h3></li>\n';
     }
 
     write.homeList = homeList;
