@@ -170,6 +170,25 @@ function write() {
                     (function writePage() {
                         if (!canWrite) return writePage();
 
+                        var main = converter.makeHtml(data),
+                            outJson = outPath + '/.json',
+                            json = {main: main};
+                        if (prev) json.prev = prev.href;
+                        if (next) json.next = next.href;
+                        json = JSON.stringify(json);
+
+                        fs.writeFile(outJson, json, function onjsonwrite(err) {
+                                if (err) {
+                                    console.log('ERROR: could not write to ' +
+                                        outJson + '; trying again...');
+                                    fs.writeFile(outJson, json, onjsonwrite);
+                                    return;
+                                }
+
+                                console.log('Created json at ' + outJson);
+                            }
+                        );
+
                         var outPage = outPath + '/index.html',
                             html =
 '<!DOCTYPE html>\n' +
@@ -205,7 +224,7 @@ function write() {
 '      <h2 class="title-prev">' + prev +'</h2>\n' +
 '      <h2 class="title-next">' + next + '</h2>\n' +
 '      <article>' +
-         converter.makeHtml(data) + '\n' +
+         main + '\n' +
 '      </article>\n' +
 '    </main>\n' +
 '    <footer>\n' +
@@ -228,7 +247,8 @@ function write() {
                                 }
 
                                 console.log('Created page at ' + outPage);
-                            });
+                            }
+                        );
                     })();
             });
             
