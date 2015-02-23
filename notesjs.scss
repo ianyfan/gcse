@@ -42,15 +42,30 @@ article {
   }
 }
 
-nav ol {
-  height: 0;
-  border-bottom: 1px solid;
-  overflow: hidden;
+nav {
 
-  transition: height .25s, border-bottom-color .25s;
+  ol {
+    height: 0;
+    border-bottom: 1px solid;
+    overflow: hidden;
+
+    transition: height .25s, border-bottom-color .25s;
+  }
+
+  li {
+    visibility: hidden;
+
+    transition: visibility 0s .25s;
+  }
 }
 
 .current, .expanded {
   height: auto;
   border-bottom-color: transparent;
+
+  > li {
+    visibility: visible;
+
+    transition: visibility 0s;
+  }
 }
