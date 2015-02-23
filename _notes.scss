@@ -139,7 +139,7 @@ main > h2 {
   text-align: left;
 }
 
-.header-nav {
+#prev, #home, #next {
   display: inline-block;
   height: 20px;
   width: 20px;
@@ -164,7 +164,7 @@ main > h2 {
     }
   }
 
-  &::before, &:before {
+  &::before {
     content: "";
 
     display: block;
@@ -174,10 +174,10 @@ main > h2 {
   }
 }
 
-.prev {
+#prev {
   border-width: 10px 0 10px 20px;
 
-  &::before, &:before {
+  &::before {
     border-width: 20px 20px 20px 0;
     margin-left: -20px;
     margin-top: -10px;
@@ -186,11 +186,11 @@ main > h2 {
   }
 }
 
-.home {
+#home {
   border-width: 20px 10px 10px;
   margin-bottom: 0;
 
-  &::before, &:before {
+  &::before {
     border-width: 0 20px 20px;
     margin-left: -10px;
     margin-top: -20px;
@@ -198,7 +198,7 @@ main > h2 {
     border-color: $theme-bg-color $theme-bg-color $theme-color;
   }
   
-  &::after, &:after {
+  &::after {
     content: "";
 
     display: block;
@@ -211,10 +211,10 @@ main > h2 {
   }
 }
 
-.next {
+#next {
   border-width: 10px 20px 10px 0;
 
-  &::before, &:before {
+  &::before {
     border-width: 20px 0 20px 20px;
     margin-left: 20px;
     margin-top: -10px;
@@ -250,8 +250,7 @@ button {
     opacity: 1; // can't @extend %visible, not sure why
   }
 
-  &::after, &:after,
-  &::before, &:before {
+  &::after, &::before {
     content: "";
     position: fixed;
     left: 10px;
@@ -264,11 +263,11 @@ button {
     background-color: inherit;
   }
 
-  &::after, &:after {
+  &::after {
     top: ($button-margin-top + 4 * $button-height / 5);
   }
 
-  &::before, &:before {
+  &::before {
     top: inherit;
   }
 }
@@ -327,7 +326,7 @@ nav {
       background-color: $greyscale-3;
     }
 
-    &::before, &:before {
+    &::before {
       counter-increment: section;
       content: counters(section,".") " ";
     }
