@@ -59,9 +59,10 @@ notes.init = function() {
                 window.onpopstate();
             } else {
                 var request = new XMLHttpRequest();
-                request.open('GET', usingCORS ?
-                    'http://api.github.com/repos/ianyfan/gcse/contents' +
-                    pathname.slice(pathname.indexOf('/', 1)) : href + '.json');
+                request.open('GET', (usingCORS ?
+                        '//api.github.com/repos/ianyfan/gcse/contents' +
+                        pathname.slice(pathname.indexOf('/', 1)) : href) + 
+                    'replacement.json' + (usingCORS ? '?ref=gh-pages' : ''));
                 request.onload = function() {
                     if (request.status >= 200 && request.status < 400) {
                         sessionStorage.setItem(pathname, usingCORS ?
