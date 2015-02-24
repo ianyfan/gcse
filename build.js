@@ -60,7 +60,7 @@ function createNav() {
             nav += indent + '<li><a href="' + href + '">' + subTitles +
                 '</a></li>\n';
         } else {
-            var subString = indent + '<li>\n' + indent + '  <a tabindex="0">' +
+            var subString = indent + '<li>\n' + indent + '  <a tabindex="">' +
                 subTitles[0] + '</a>\n' + indent + '  <ol';
             subTitles.marker = nav.length + subString.length;
             nav += subString + '>\n';
@@ -73,7 +73,7 @@ function createNav() {
                 } else {
                     subTitles[i].previous = null;
                 }
-                createList(subTitles[i], href + '/' + i, indent + '    ');
+                createList(subTitles[i], href + i + '/', indent + '    ');
             }
             nav += indent + '  </ol>\n' + indent + '</li>\n';
         }
@@ -85,7 +85,7 @@ function createNav() {
     for (var i = 1; i < titles.length; i++) {
         titles[i].previous = titles[i-1];
         if (i > 1) titles[i-1].next = titles[i];
-        createList(titles[i], hrefInit + i, indentInit);
+        createList(titles[i], hrefInit + i + '/', indentInit);
     }
 
     write.nav = nav;
@@ -138,7 +138,7 @@ function write() {
         });
     });
 
-    (function writeTree(subTitles, inPath, outPath) {
+    (function writeTree(subTitles, inPath, outPath, titleNo) {
         fs.mkdir(outPath, function writeBranch(err) {
             if (err) {
                 console.log('ERROR: could not create directory at ' + outPath +
@@ -150,7 +150,7 @@ function write() {
             if (subTitles instanceof Array) {
                 for (var i = 1; i < subTitles.length; i++) {
                     writeTree(subTitles[i], inPath + '/' + i,
-                        outPath + '/' + i);
+                        outPath + '/' + i, (titleNo ? titleNo + '.' : '') + i);
                 }
                 return;
             }
@@ -170,9 +170,15 @@ function write() {
                     (function writePage() {
                         if (!canWrite) return writePage();
 
-                        var main = converter.makeHtml(data),
+                        var main = 
+'      <h1>' + subTitles + '</h1>\n' +
+'      <h2 class="title-prev">' + prev +'</h2>\n' +
+'      <h2 class="title-next">' + next + '</h2>\n' +
+'      <article>' +
+         converter.makeHtml(data) + '\n' +
+'      </article>\n',
                             outJson = outPath + '/.json',
-                            json = {main: main};
+                            json = {main: main, titleNo: titleNo};
                         if (prev) json.prev = prev.href;
                         if (next) json.next = next.href;
                         json = JSON.stringify(json);
@@ -195,7 +201,7 @@ function write() {
 '<html lang="en">\n' +
 '  <head>\n' +
 '    <meta charset="utf-8">\n' +
-'    <title>' + subTitles + '</title>\n' +
+'    <title>' + titleNo + ' ' + subTitles + '</title>\n' +
 '    <script src="/gcse/notes.min.js" async></script>\n' +
 '    <link rel="stylesheet" href="/gcse/' + outDir + '/notes.css">\n' +
 '    <noscript>\n' +
@@ -204,13 +210,13 @@ function write() {
 '  </head>\n' +
 '  <body>\n' +
 '    <header>\n' +
-'      <a class="header-nav prev"'+(prev?' href="'+prev.href+'"':'')+'></a>\n' +
+'      <a id="prev"'+(prev?' href="'+prev.href+'"':'')+'></a>\n' +
 '      <h2 class="title-prev">' + prev + '</h2>\n' +
-'      <a class="header-nav home" href="/gcse"></a>\n' +
+'      <a id="home" href="/gcse"></a>\n' +
 '      <ul>\n' +
          write.homeList +
 '      </ul>\n' +
-'      <a class="header-nav next"'+(next?' href="'+next.href+'"':'')+'></a>\n' +
+'      <a id="next"'+(next?' href="'+next.href+'"':'')+'></a>\n' +
 '      <h2 class="title-next">' + next + '</h2>\n' +
 '    </header>\n' +
 '    <button></button>\n' +
@@ -220,12 +226,7 @@ function write() {
 '      </ol>\n' +
 '    </nav>\n' +
 '    <main>\n' +
-'      <h1>' + subTitles + '</h1>\n' +
-'      <h2 class="title-prev">' + prev +'</h2>\n' +
-'      <h2 class="title-next">' + next + '</h2>\n' +
-'      <article>' +
-         main + '\n' +
-'      </article>\n' +
+       main +
 '    </main>\n' +
 '    <footer>\n' +
 '      <p>View the source on ' +
@@ -280,7 +281,7 @@ function write() {
             }
             canWrite = true;
         });
-    })(titles, inDir, outDir);
+    })(titles, inDir, outDir, '');
 
 
     require('node-sass').render({file: 'themes/' + outDir + '.scss',
