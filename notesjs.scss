@@ -6,16 +6,47 @@ main {
 
 button {
   @extend %visible;
-}
 
-.arrow {
-  + nav {
-    left: 0;
+  border-bottom-width: (2 * $button-height / 5);
+
+  animation: arrow-to-hamburger-middle .25s;
+  
+  &::after { // bottom
+    transform-origin: 0 0;
+    animation: arrow-to-hamburger-bottom .25s;
   }
-}
 
-.hamburger {
+  &::before { // top 
+    transform-origin: 0 100%;
+    animation: arrow-to-hamburger-top .25s;
+  }
 
+  @at-root {
+    @keyframes arrow-to-hamburger-middle {
+      from {
+    
+      } to {
+        transform: rotate(180deg);
+      }
+    }
+    
+    @keyframes arrow-to-hamburger-top {
+      from {
+        @include arrow-top-animation;
+      } to {
+        @include hamburger-top-animation;
+      }
+    }
+    
+    @keyframes arrow-to-hamburger-bottom {
+      from {
+        @include arrow-bottom-animation;
+      } to {
+        @include hamburger-bottom-animation;
+      }
+    }
+  }
+  
   + nav {
     left: -$nav-width;
   }
@@ -33,6 +64,71 @@ button {
 
   ~ footer {
     left: 0;
+  }
+}
+
+#arrow {
+  animation: hamburger-to-arrow-middle .25s;
+
+  &::after {
+    transform: translate(-0.707*$button-height/5, -150%)
+                rotate(45deg)
+                scaleX(.707)
+                translateY(-100%);
+    animation: hamburger-to-arrow-bottom .25s;
+  }
+
+  &::before {
+    transform: translate(-0.707*$button-height/5, 150%)
+                rotate(-45deg)
+                scaleX(.707)
+                translateY(100%);
+    animation: hamburger-to-arrow-top .25s;
+  }
+
+  @at-root {
+    @keyframes hamburger-to-arrow-middle {
+      from {
+        transform: rotate(-180deg);
+      } to {
+    
+      }
+    }
+    
+    @keyframes hamburger-to-arrow-top {
+      from {
+        @include hamburger-top-animation;
+      } to {
+        @include arrow-top-animation;
+      }
+    }
+    
+    @keyframes hamburger-to-arrow-bottom {
+      from {
+        @include hamburger-bottom-animation;
+      } to {
+        @include arrow-bottom-animation;
+      }
+    }
+  }
+
+  + nav {
+    left: 0;
+  }
+
+  ~ main {
+
+    > h1 {
+      margin-left: $nav-width;
+    }
+
+    > article {
+      padding-left: $nav-width;
+    }
+  }
+
+  ~ footer {
+    left: $nav-width;
   }
 }
 

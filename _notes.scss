@@ -111,11 +111,12 @@ main > h2 {
   }
 }
 
-.header-nav:hover + h2 {
+#prev:hover + h2,
+#next:hover + h2 {
   @extend %visible;
 }
 
-.home:hover + ul {
+#home:hover + ul {
   @extend %visible;
 
   visibility: visible;
@@ -139,7 +140,9 @@ main > h2 {
   text-align: left;
 }
 
-#prev, #home, #next {
+#prev,
+#home,
+#next {
   display: inline-block;
   height: 20px;
   width: 20px;
@@ -224,9 +227,6 @@ main > h2 {
 }
 
 button {
-  $button-height: 30px;
-  $button-margin-top: ($header-height - $button-height) / 2;
-
   position: fixed;
   left: 10px;
   top: $button-margin-top;
@@ -244,13 +244,15 @@ button {
   
   background-color: $theme-color;
 
-  transition: opacity .25s;
+  transition: opacity .25s; 
+  transform-origin: 20px ($button-height/2);
 
   @include screen-width(small) {
-    opacity: 1; // can't @extend %visible, not sure why
+    opacity: 1;
   }
 
-  &::after, &::before {
+  &::after,
+  &::before {
     content: "";
     position: fixed;
     left: 10px;
@@ -259,15 +261,14 @@ button {
     height: inherit;
     width: inherit;
 
-
     background-color: inherit;
   }
 
-  &::after {
+  &::after { // bottom
     top: ($button-margin-top + 4 * $button-height / 5);
   }
 
-  &::before {
+  &::before { // top 
     top: inherit;
   }
 }
@@ -338,15 +339,7 @@ a.current {
 }
 
 main {
-  position: absolute;
-  bottom: $footer-height;
-  left: 0;
-  right: 0;
-  top: 0;
-
   min-width: 1.5*$nav-width;
-
-  background-color: #fff;
 
   text-align: justify;
 
@@ -377,7 +370,7 @@ main {
 }
 
 article {
-  padding: 0 0 1px $nav-width;
+  padding: 10px 0 1px $nav-width;
   margin-bottom: $footer-height;
 
   background-color: #fff;
