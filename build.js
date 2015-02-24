@@ -177,7 +177,7 @@ function write() {
 '      <article>' +
          converter.makeHtml(data) + '\n' +
 '      </article>\n',
-                            outJson = outPath + '/.json',
+                            outJson = outPath + '/replacement.json',
                             json = {main: main, titleNo: titleNo};
                         if (prev) json.prev = prev.href;
                         if (next) json.next = next.href;
