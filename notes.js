@@ -1,77 +1,96 @@
 'use strict';
 window.notes = {};
-
-notes.ondomcontentload = function() {
-    notes.ondomcontentload = null; // delete function (not needed any more)
-
+notes.init = function() {
     var stylesheet = document.createElement('link');
     stylesheet.rel = 'stylesheet';
     stylesheet.href = '/gcse/notesjs.css';
     document.head.appendChild(stylesheet);
 
-    var sidebar = document.getElementsByTagName('nav')[0];
-    sidebar.addEventListener('click', function(event) { // also add to ENTER?
-        event.preventDefault();
-        event.stopPropagation();
+    document.body.onkeyup = function(event) {
+        if (document.body.scrollWidth > window.innerWidth && !event.ctrlKey) {
+            return;
+        }
+        
+        var key = event.key || event.keyIdentifier;
+        if (key == 'Left' || key == 'ArrowLeft') {
+            document.getElementById('prev').click();
+        } else if (key == 'Right' || key == 'ArrowRight') {
+            document.getElementById('next').click();
+        }
+    };
 
-        var list = event.target.nextElementSibling;
-        if (list && list.tagName === 'OL' && list.className !== 'current') {
+    var sidebar = document.getElementsByTagName('nav')[0];
+    sidebar.onkeyup = function(event) {
+        var list = document.activeElement.nextElementSibling;
+        if ((event.key || event.keyIdentifier) == 'Enter' && list &&
+                list.tagName == 'OL' && list.className != 'current') {
             notes.toggleList(list);
         }
-    }, true);
+    };
+    sidebar.onclick = function(event) {
+        var list = event.target.nextElementSibling;
+        if (list && list.tagName == 'OL' && list.className != 'current') {
+            event.stopImmediatePropagation();
+            notes.toggleList(list);
+        }
+    };
 
     if (history.pushState) {
-        var cachePage = function(dom) {
-            sessionStorage.setItem(window.location.pathname, JSON.stringify({
-                main: dom.getElementsByTagName('main')[0].innerHTML,
-                prev: dom.getElementsByClassName('prev')[0].getAttribute('href'),
-                next: dom.getElementsByClassName('next')[0].getAttribute('href')
-            })); // getAttribute used instead of .href since Chrome has a bug 
-        };       // wherein hrefs in DOMImplementation objects aren't resolved
-
         history.replaceState('', '');
-        cachePage(document);
+        sessionStorage.setItem(location.pathname, JSON.stringify({
+            main: document.getElementsByTagName('main')[0].innerHTML,
+            titleNo: document.title.split(' ', 1)[0],
+            prev: document.getElementById('prev').pathname,
+            next: document.getElementById('next').pathname
+        }));
 
+        var usingCORS = location.protocol == 'https:';  // Use github API
+                                                        // instead of direct
         var openPage = function(event) {
-            event.preventDefault();
-            event.stopPropagation();
+            event.preventDefault(); // don't open link; open it asynchronously
 
-            var link = event.target,
-                url = link.href;
-            if (!url || link.className === 'current') return;
+            var pathname = event.target.pathname,
+                href = event.target.href;
+            if (!href || event.target.className == 'current') return;
 
-            history.pushState('', '', url);
+            history.pushState('', '', href);
 
-            if (sessionStorage.getItem(link.pathname)) {
+            if (sessionStorage.getItem(pathname)) {
                 window.onpopstate();
-                return;
+            } else {
+                var request = new XMLHttpRequest();
+                request.open('GET', usingCORS ?
+                    'http://api.github.com/repos/ianyfan/gcse/contents' +
+                    pathname.slice(pathname.indexOf('/', 1)) : href + '.json');
+                request.onload = function() {
+                    if (request.status >= 200 && request.status < 400) {
+                        sessionStorage.setItem(pathname, usingCORS ?
+                            atob(JSON.parse(request.response).content) :
+                            request.response);
+                        window.onpopstate();
+                    } // else {}
+                };
+                // request.onerror = function() {};
+                request.send();
             }
-
-            var request = new XMLHttpRequest();
-            request.open('GET', url, true);
-            request.onload = function() {
-                if (request.status >= 200 && request.status < 400) {
-                    var newDoc = document.implementation.createHTMLDocument();
-                    newDoc.documentElement.innerHTML = request.responseText;
-                    cachePage(newDoc);
-                    window.onpopstate();
-                } else {}
-            };
-            request.onerror = function() {};
-            request.send();
         };
 
-        sidebar.addEventListener('click', openPage, true);
-        document.getElementsByTagName('header')[0].addEventListener('click',
-                                                                     openPage);
+        sidebar.addEventListener('click', openPage);
+        document.getElementsByTagName('header')[0].onclick = openPage;
     }
 
     var button = document.getElementsByTagName('button')[0];
-    button.className = 'arrow';
+    button.id = 'arrow';
     button.onclick = function() {
-        this.className = this.className === 'arrow' ? 'hamburger' : 'arrow';
+        this.id = this.id ? '' : 'arrow';
     };
 };
+
+if (document.readystate == 'loading') {
+    document.addEventListener('DOMContentLoaded', notes.init);
+} else {
+    notes.init();
+}
 
 notes.toggleList = function(list) {
    if (list.className) { // either expanded or no class
@@ -90,18 +109,16 @@ notes.toggleList = function(list) {
     }
 }
 
-document.addEventListener('DOMContentLoaded', notes.ondomcontentload);
-
 window.onpopstate = function() {
     window.scroll(0, 0);
 
-    var path = window.location.pathname,
-        state = JSON.parse(sessionStorage.getItem(path)),
+    var state = JSON.parse(sessionStorage.getItem(location.pathname)),
         main = document.getElementsByTagName('main')[0];
 
     main.innerHTML = state.main;
  
-    document.title = main.getElementsByTagName('h1')[0].textContent;
+    document.title = state.titleNo + ' ' +
+        main.getElementsByTagName('h1')[0].textContent;
 
     function replace(which) {
         var els = document.getElementsByClassName('title-' + which);
@@ -112,21 +129,13 @@ window.onpopstate = function() {
     replace('prev');
     replace('next');
 
-    var current = document.getElementsByClassName('current');
-    for (var i = current.length; --i;) {
-        current[i].className = 'expanded';
-    }
+    for (var current = document.getElementsByClassName('current'),
+            i = current.length; --i;) current[i].className = 'expanded';
 
-    var link = document.querySelector('[href="' + path + '"]');
+    var link = document.querySelector('[href="' + location.pathname + '"]');
     link.className = 'current';
-    while ((link = link.parentNode.parentNode).className !== 'current') {
-        if (link.className !== 'expanded') notes.toggleList(link);
+    for (;(link = link.parentNode.parentNode).className != 'current';) {
+        if (link.className != 'expanded') notes.toggleList(link);
         link.className = 'current';
     }
 };
-
-window.setTimeout(function() {
-    if (document.readyState in {complete: 1, interactive: 1, loaded: 1} &&
-            notes.ondomcontentload) notes.ondomcontentload();
-}, 1); // put this at the end of execution queue in case DOMContentLoaded
-       // handler is queued
