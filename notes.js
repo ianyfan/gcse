@@ -12,9 +12,9 @@ notes.init = function() {
         }
         
         var key = event.key || event.keyIdentifier;
-        if (key == 'Left' || key == 'ArrowLeft') {
+        if (key in {'Left': 1, 'ArrowLeft': 1, 'h': 1}) {
             document.getElementById('prev').click();
-        } else if (key == 'Right' || key == 'ArrowRight') {
+        } else if (key in {'Right': 1, 'ArrowRight': 1, 'l': 1}) {
             document.getElementById('next').click();
         }
     };
