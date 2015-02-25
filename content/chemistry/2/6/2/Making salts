@@ -17,7 +17,7 @@
  4. Above the analyte is a burette or pipette containing the other reagent, referred to as the titrant
  5. Since the cross-sectional area of the burette or pippete is very small, this allows detectably small volumes of titrant to be released, meaning that the volume added to the analyte to neutralise the analyte can be precisely measured
  6. A burette holds a greater volume than a pipette, allowing the initial and final volume of titrant to be measured more easily
- 7. If the concentration of one of the reagents is known, the results of a titration can be used to calculate the concentration of the other reagent using the equation [[{:{C<sub>a</sub>⋅V<sub>a</sub>}:/:{M<sub>a</sub>}:} = {:{C<sub>t</sub>⋅V<sub>t</sub>}:/:{M<sub>t</sub>}:}]] where [[C]] denotes the concentration of the substance, [[V]] the volume and [M] the number of moles of the substance in the balanced symbol equation
+ 7. If the concentration of one of the reagents is known, the results of a titration can be used to calculate the concentration of the other reagent using the equation [[{:{C!^{a}⋅V!^{a}}:/:{M!^{a}}:} = {:{C^{t}⋅V^{a}}:/:{M!^{t}}:}]] where [[C]] denotes the concentration of the substance, [[V]] the volume and [[M]] the number of moles of the substance in the balanced symbol equation
 3. ###Precipitation
 
  1. Insoluble salts can be made by mixing appropriate solutions of ions so that precipitate is formed

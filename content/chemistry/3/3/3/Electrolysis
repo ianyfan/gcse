@@ -16,16 +16,16 @@
 
  1. Aluminium is extracted by the electrolysis of a molten mixture of aluminium oxide and cryolite, which is used to reduce the melting point
  2. The aluminium oxide breaks down into its ions: [[Al{{}|{2}}O{{}|{3(l)}} → 2Al{{3+}|{(l)}} + 3O{{2-}|{(l)}}]]
- 3. At the cathode, aluminium ions are oxidised: [[Al{{3+}|{(l)}} + 3e<sup>-</sup> → Al{{}|{(l)}}]]
- 4. At the anode, oxygen ions are reduced: [[O{{2-}|{(l)}} → O{{}|{(l)}} + 2e<sup>-</sub>]]
- 5. The overall reaction is [[2Al<sub>2</sub>O<sub>3(l)</sub> → 4Al<sub>(l)</sub> + 3O<sub>2(l)</sub>]]
+ 3. At the cathode, aluminium ions are oxidised: [[Al{{3+}|{(l)}} + 3e^{-} → Al{{}|{(l)}}]]
+ 4. At the anode, oxygen ions are reduced: [[O{{2-}|{(l)}} → O{{}|{(l)}} + 2e^{-}]]
+ 5. The overall reaction is [[2Al!^{2}O!^{3(l)} → 4Al!^{(l)} + 3O!^{2(l)}]]
  6. The anode is made of carbon, which reacts with the oxygen to produce carbon dioxide
 3. ###Other uses of electrolysis: sodium chloride (brine)
 
  1. The electrolysis of sodium chloride solution produces hydrogen and chlorine, as well as sodium hydroxide solution, which are all very important in the chemical industry
  2. The ions present in the sodium chloride solution are: [[Na{{+}|{(aq)}},]] [[Cl{{-}|{(aq)}},]] [[H{{+}|{(aq)}}]] and [[OH{{-}|{(aq)}}]]
- 3. The sodium & hydrogen ions are attracted to the cation where the hydrogen is preferentially reduced: [[2H{{+}|{(aq)}} + 2e<sup>e</sup> → H{{}|{2(g)}}]]
- 4. The cloride & hydroxide ions are attracted to the anion where the chloride ions are preferentially oxidised: [[2Cl{{-}|{(aq)}} → Cl {{}|{2(g)}} + 2e<sup>-</sup>]]
+ 3. The sodium & hydrogen ions are attracted to the cation where the hydrogen is preferentially reduced: [[2H{{+}|{(aq)}} + 2e^{e} → H{{}|{2(g)}}]]
+ 4. The cloride & hydroxide ions are attracted to the anion where the chloride ions are preferentially oxidised: [[2Cl{{-}|{(aq)}} → Cl {{}|{2(g)}} + 2e^{-}]]
  5. The remaining sodium & hydroxide ions react to form sodium hydroxide solution: [[Na{{+}|{(aq)}} + OH{{-}|{(aq)}} → NaOH{{}|{(aq)}}]]
  6. Sodium hydroxide is used in the production of soap and paper
  7. Chlorine reacts with sodium hydroxide to form a solution

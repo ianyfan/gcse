@@ -3,6 +3,16 @@
 
 'use strict';
 
+String.prototype.repeat = function(count) {
+    if (count < 1) return '';
+    var result = '', pattern = this.valueOf();
+    while (count > 1) {
+        if (count & 1) result += pattern;
+        count >>= 1, pattern += pattern;
+    }
+    return result + pattern;
+}; // //stackoverflow.com/a/5450113
+
 var fs = require('fs'),
     inDir = 'content/' + process.argv[2],
     outDir = process.argv[2],
@@ -102,9 +112,41 @@ function write() {
     require('pagedown-extra').Extra.init(converter,
         {extension: ['tables', 'smart_strong']});
 
+    converter.hooks.chain('preConversion', function(text) { // sups & subs
+        /* regex: /
+            (?:         // Either: (but don't return)
+                ^       // start of text
+                |       // or
+                [^\\]   // last character isn't a \ escape
+            )
+            (!?)        // preceding ! denotes subscript instead of superscript
+            (\^+)       // return how many levels deep it goes
+            (?:         // don't return full match
+                {(.+?)} // match at least one character in braces
+                |       // or
+                (.+?)\b // match to word boundary
+            )           // (non-greedy)
+         */
+
+        var last = text.length;
+        while (last && (last = text.lastIndexOf('^', --last)) != -1) {
+            while (last && text[--last] in {'^': 1, '!': 1}) {}
+            text = text.slice(0, last) + text.slice(last).replace(
+                /(^|[^\\])(!?)(\^+)(?:{(.+?)}|(.+?)\b)/,
+                function(_, prev, isSub, levels, matchBrackets, matchWord) {
+                    return prev + 
+                        (isSub ? '<sub>' : '<sup>').repeat(levels.length) +
+                        (matchBrackets || matchWord) +
+                        (isSub ? '</sub>' : '</sup>').repeat(levels.length);
+                }
+            );
+        }
+        return text;
+    });
+
     converter.hooks.chain('preConversion', function(text) { // fractions
         // format: {:{numerator}: (/ if frac line, else |) :{denominator}:}
-        // : determine alignment like tables
+        // Colons determine alignment like tables
 
         var last = text.length;
         while (last && (last = text.lastIndexOf('{', --last)) != -1) {
@@ -125,10 +167,10 @@ function write() {
         return text;
     });
 
-    converter.hooks.chain('preConversion', function (text) { // equations
+    converter.hooks.chain('preConversion', function(text) { // equations
         return text.replace(/\[\[(.*?)]]/g, function(_, match) {
             return '<i class="equation">' + match + '</i>';
-        })
+        });
     });
 
     converter.hooks.chain('postConversion', function(text) { // table cell spans
@@ -158,7 +200,7 @@ function write() {
             var canWrite = false,
                 inFile = inPath + '/' + subTitles;
 
-            fs.readFile(inFile, 'utf-8',
+            fs.readFile(inFile, 'utf8',
                 function processPage(err, data) {
                     if (err) {
                         console.log('ERROR: could not read file at ' + inFile +
