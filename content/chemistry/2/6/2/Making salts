@@ -2,7 +2,7 @@
 
  1. In neutralisation reactions, acids react with bases to form salts
  2. The particular salt formed depends on the anion in the acid and the metal in the base
- 3. It is called neutralisation because hydrogen ions react with hydroxide ions to produce water: [[H{{+}|{(aq)}} + OH{{-}|{(aq)}} → H<sub>2</sub>O{{}|{(aq)}}]]
+ 3. It is called neutralisation because hydrogen ions react with hydroxide ions to produce water: [[H{{+}|{(aq)}} + OH{{-}|{(aq)}} → H^2^O{{}|{(aq)}}]]
  4. Reactions of acids with metals must ensure that the metal has the right reactivity
  5. Reactions of acids with bases must ensure that escess base (about 10%) is added to drive the reaction to completion, then the excess solid filtered off
  6. Reactions of acids with alkalis must ensure that the right amount is added by adding an indicator to show when the solution is completely neutralised
@@ -17,7 +17,7 @@
  4. Above the analyte is a burette or pipette containing the other reagent, referred to as the titrant
  5. Since the cross-sectional area of the burette or pippete is very small, this allows detectably small volumes of titrant to be released, meaning that the volume added to the analyte to neutralise the analyte can be precisely measured
  6. A burette holds a greater volume than a pipette, allowing the initial and final volume of titrant to be measured more easily
- 7. If the concentration of one of the reagents is known, the results of a titration can be used to calculate the concentration of the other reagent using the equation [[{:{C!^{a}⋅V!^{a}}:/:{M!^{a}}:} = {:{C^{t}⋅V^{a}}:/:{M!^{t}}:}]] where [[C]] denotes the concentration of the substance, [[V]] the volume and [[M]] the number of moles of the substance in the balanced symbol equation
+ 7. If the concentration of one of the reagents is known, the results of a titration can be used to calculate the concentration of the other reagent using the equation [[{:{C^a^⋅V^a^}:/:{M^a^}:} = {:{C^t^⋅V^t^}:/:{M^t^}:}]] where [[C]] denotes the concentration of the substance, [[V]] the volume and [[M]] the number of moles of the substance in the balanced symbol equation
 3. ###Precipitation
 
  1. Insoluble salts can be made by mixing appropriate solutions of ions so that precipitate is formed
