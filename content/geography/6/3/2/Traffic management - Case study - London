@@ -1,0 +1,5 @@
+1. The congestion charge discourages vehicular transport
+2. The low emission zone only allows low emission vehicles into Central London, thereby reducing the amount of pollution emitted
+3. The oyster card makes public transport a more streamlined process
+4. Legible London is a scheme which educates people in the area about alternative walking routes to public transport
+5. Barclays Cycle Hire, also known as Boris bikes, is a scheme that makes cycling a simple way of getting around London
