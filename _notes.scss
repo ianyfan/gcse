@@ -6,19 +6,19 @@
 body {
   min-width: 2*$nav-width;
   margin: 0;
-  
+
   font-family: 'Source Sans Pro', Helvetica;
 }
 
 a {
   text-decoration: none;
-  
+
   &:focus {
     outline: 0;
   }
 }
 
-h3, h4 {
+h1, h2, h3, h4 {
   margin: 0;
 
   font-weight: normal;
@@ -26,266 +26,238 @@ h3, h4 {
 
 button {
   position: fixed;
-  left: 10px;
-  top: $button-margin-top;
-  z-index: $z-index-above-header;
-
-  display: block;
-  box-sizing: content-box; // why isn't this default?
-  height: ($button-height/5);
-  width: 40px;
-  padding: 0;
-  border-width: (2*$button-height/5) 0;
-  border-style: solid;
-  border-color: $theme-bg-color;
-  outline: 0;
-  opacity: 0;
-  
-  background-color: $theme-color;
-
-  transition: opacity .25s; 
-  transform-origin: 20px ($button-height/2);
-
-  @include screen-width(small) {
-    opacity: 1;
-  }
-
-  &::after,
-  &::before {
-    content: "";
-    position: fixed;
-    left: 10px;
-    
-    display: inline-block;
-    height: inherit;
-    width: inherit;
-
-    background-color: inherit;
-  }
-
-  &::after { // bottom
-    top: ($button-margin-top + 4 * $button-height / 5);
-  }
-
-  &::before { // top 
-    top: inherit;
-  }
-
-  &::-moz-focus-inner {
-    border: 0;
-  }
 }
 
 header {
   position: fixed;
-  left: 0;
   top: 0;
-  z-index: $z-index-header;
+  left: 300px;
 
   height: $header-height;
-  width: 100%;
-  min-width: 1.5*$nav-width;
-  box-shadow: 0 0 8px $shadow-color;
+  width: calc(100% - 300px); // $nav-width
+  min-width: $nav-width;
 
-  background-color: $theme-bg-color;
-  color: $theme-color;
+  > h1 {
+    position: absolute;
+    left: 0;
+    right: 0;
 
-  text-align: center;
+    padding: 0 120px;
+    overflow: hidden;
+
+    background-color: $theme-bg-color;
+    color: #fff;
+
+    font-weight: normal;
+    line-height: $header-height;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  > h2 {
+    position: absolute;
+    top: 30px;
+
+    max-width: calc(100% - 260px);
+    padding: 0 10px;
+    box-shadow: 0 2px 2px #444;
+    opacity: 0;
+
+    background-color: $greyscale-1;
+    color: #888;
+
+    font-weight: normal;
+    line-height: 60px;
+    word-wrap: break-word; overflow-wrap: break-word;
+  }
+
+  > a {
+    position: absolute;
+    top: 30px;
+    z-index: 2;
+
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    box-shadow: 0 2px 2px $light-shadow;
+    opacity: 0;
+
+    background-color: $accent-color;
+    transition: background-color .25s;
+
+    &[href] {
+      opacity: 1;
+    }
+
+    &:hover {
+      background-color: (.9*$accent-color);
+    }
+
+    &:active {
+      background-color: (.8*$accent-color);
+    }
+  }
 
   > ul {
-    position: fixed;
+    position: absolute;
+    left: -999px; // hacky way to hide the list when not on screen
     top: $header-height;
-    left: 0;
+    z-index: 1;
 
-    width: $nav-width;
     padding: 0;
-    box-shadow: 0 8px 8px #888;
+    box-shadow: 0 4px 8px $light-shadow;
     margin: 0;
     opacity: 0;
     overflow: hidden;
 
-    background-color: #fff;
+    background-color: $greyscale-1;
+
+    text-align: center;
 
     list-style-type: none;
-    transition: opacity .25s;
+
+    transform: translateX(-50%);
+    transition: left 0s .25s, top .25s, opacity .25s;
 
     a {
       display: block;
-      padding: 10px;
+      padding: 10px 20px;
 
       color: #000;
 
       transition: background-color .25s;
 
       &:hover, &:focus {
-        background-color: $greyscale-1;
+        background-color: $greyscale-2;
       }
 
       &:active {
-        background-color: $greyscale-2;
+        background-color: $greyscale-3;
       }
     }
   }
 }
-  
-h2 {
-  position: fixed;
-  top: 0;
-  z-index: $z-index-header;
 
-  padding: 10px 0;
-  margin: 0;
-  overflow: hidden;
+header > ul:hover, #home:hover + ul {
+  left: -60px;
+  top: 100px;
 
-  background-color: $theme-bg-color;
+  opacity: 1;
 
-  word-wrap: break-word;
-  overflow-wrap: break-word; // CSS3 rename of above
-  
-  line-height: 40px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  
-  transition: opacity .25s;
-  
-  @include screen-width(small) {
-    opacity: 0;
-  }
+  transition: top .25s, opacity .25s;
 }
 
-#home:hover + ul,
-ul:hover {
-  @extend %visible;
-}
+#home {
+  left: -90px;
 
-#title-prev {
-  left: $nav-width;
-  right: 50%;
+  padding: 0;
 
-  margin-right: -95px;
-
-  text-align: right;
-
-  transition: left .25s, margin-right .25s;
-}
-
-#title-next {
-  left: 50%;
-  right: 10px;
-
-  margin-left: 205px;
-
-  text-align: left;
-  
-  transition: margin-left .25s;
-}
-
-#prev,
-#home,
-#next {
-  display: inline-block;
-  height: 20px;
-  width: 20px;
-  border-style: solid;
-  border-color: $theme-bg-color;
-  margin: 10px 5px;
-  opacity: 0;
-
-  background-color: $theme-color;
-
-  transition: opacity .25s;
-
-  &[href] {
-    @extend %visible;
-
-    &:hover {
-      opacity: .75;
-    }
-
-    &:active {
-      opacity: .5;
-    }
-  }
-
-  &::before {
+  &::before, &::after {
     content: "";
 
     display: block;
+    border-style: solid;
+  }
+
+  &::before {
     height: 0;
     width: 0;
-    border-style: solid;
+    border-width: 0 20px 20px;
+    border-color: transparent transparent #fff;
+    margin: 10px 0 0 10px;
+  }
+
+  &::after {
+    height: 10px;
+    width: 6px;
+    border-width: 10px 7px 0;
+    border-color: #fff;
+    margin-left: 20px;
+  }
+}
+
+#prev, #next {
+
+  &::before, &::after {
+    content: "";
+
+    display: block;
+    height: 5px;
+    width: 20px;
+    margin-left: 21px;
+
+    background-color: #fff;
+  }
+
+  &::before {
+    margin-top: 25px;
   }
 }
 
 #prev {
-  border-width: 10px 0 10px 20px;
-  margin-left: 305px;
+  left: 30px;
 
-  transition: margin-left .25s;
+  &:hover + #title-prev {
+    left: 120px;
+
+    opacity: 1;
+  }
 
   &::before {
-    border-width: 20px 20px 20px 0;
-    margin-left: -20px;
-    margin-top: -10px;
-
-    border-color: $theme-bg-color $theme-color $theme-bg-color $theme-bg-color;
+    transform: rotate(60deg);
+    transform-origin: 0 100%;
   }
-}
 
-#home {
-  position: fixed;
-  left: ($nav-width / 2 - 25px);
-
-  border-width: 20px 10px 10px;
-  margin-bottom: 0;
-
-  &::before {
-    border-width: 0 20px 20px;
-    margin-left: -10px;
-    margin-top: -20px;
-
-    border-color: $theme-bg-color $theme-bg-color $theme-color;
-  }
-  
   &::after {
-    content: "";
-
-    display: block;
-    height: 10px;
-    width: 6px;
-    margin-left: 7px;
-    margin-top: 10px;
-
-    background-color: $theme-bg-color;
+    transform: rotate(-60deg);
+    transform-origin: 0 0;
   }
 }
 
 #next {
-  border-width: 10px 20px 10px 0;
+  right: 30px;
+
+  &:hover + #title-next {
+    right: 120px;
+
+    opacity: 1;
+  }
 
   &::before {
-    border-width: 20px 0 20px 20px;
-    margin-left: 20px;
-    margin-top: -10px;
-
-    border-color: $theme-bg-color $theme-bg-color $theme-bg-color $theme-color;
+    transform: rotate(-60deg);
+    transform-origin: 100% 100%;
   }
+
+  &::after {
+    transform: rotate(60deg);
+    transform-origin: 100% 0;
+  }
+}
+
+#title-prev {
+  left: 60px;
+
+  transition: left .25s, opacity .25s;
+}
+
+#title-next {
+  right: 60px;
+
+  text-align: right;
+
+  transition: right .25s, opacity .25s;
 }
 
 nav {
   position: fixed;
+  top: 0;
   bottom: 0;
   left: 0;
-  top: $header-height;
-  @if $z-index-nav {z-index: $z-index-nav;}
 
   width: $nav-width;
   border-right: 1px solid $theme-bg-color;
-  overflow-y: auto;
 
   background-color: #fff;
-
-  word-wrap: break-word;
 
   transition: left .25s;
 
@@ -299,7 +271,21 @@ nav {
   }
 
   > ol {
+    position: fixed;
+    top: ($header-height - 1px);
+    bottom: 0;
+
+    width: $nav-width;
     margin: 0;
+    border-top: 1px solid $theme-bg-color;
+    &.current {overflow-y: auto;} // for specificity
+
+    word-wrap: break-word; overflow-wrap: break-word;
+
+    @at-root ol > li.nolist { // ol > li for specificity
+      height: 0;
+      visibility: hidden;
+    }
   }
 
   a {
@@ -324,52 +310,49 @@ nav {
       counter-increment: section;
       content: counters(section,".") " ";
     }
+
+    @at-root a.current {color: $accent-color;}
   }
-}
-
-a.current {
-  color: $accent-color;
-}
-
-main {
-  min-height: calc(100vh - 120px);
-  margin: $header-height 0 0 $nav-width;
-  box-shadow: 0 0 8px $shadow-color;
-
-  background-color: #fff;
-
-  text-align: justify;
-  
-  transition: margin-left .25s;
-
-  > p {
-    margin-left: 10px;
-    margin-right: 10px;
-  }
-
-  a {
-    color: $accent-color;
-  }
-}
-
-h1 {
-  padding: 10px 0;
-  box-shadow: 0 0 8px $shadow-color;
-
-  background-color: $theme-bg-color-2;
-  color: $theme-color;
-
-  text-align: center;
 }
 
 article {
-  padding-bottom: 1px; // to prevent margin collapsing
-  margin-bottom: $footer-height;
+  min-height: calc(100vh + 179px); // 240px - $footer-height - 1px
+  padding: 0 10px 1px;
+  margin: 0 0 $footer-height $nav-width;
+  box-shadow: 0 0 8px $dark-shadow;
 
   background-color: #fff;
 
   li {
-    margin: 10px;
+    padding: 5px 0;
+  }
+}
+
+#title-wrapper {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 240px;
+  padding: 0 120px;
+  margin: 0 -10px 100px;
+  overflow: hidden;
+
+  background-color: $theme-bg-color;
+  color: #fff;
+
+  > h1 {
+    margin-bottom: 10px;
+
+    font-size: 2em;
+    font-weight: 600;
+    word-wrap: break-word; overflow-wrap: break-word;
+  }
+
+  @at-root aside {
+    font-style: italic;
   }
 }
 
@@ -378,12 +361,12 @@ footer {
   bottom: 0;
   left: $nav-width;
   right: 0;
-  z-index: $z-index-footer;
+  z-index: -1;
 
   height: $footer-height;
 
   background-color: $theme-bg-color;
-  color: $theme-color;
+  color: #fff;
 
   transition: left .25s;
 
@@ -393,7 +376,7 @@ footer {
 
   a {
     color: $accent-color;
-    
+
     transition: opacity .25s;
 
     &:hover {
@@ -407,16 +390,31 @@ footer {
 }
 
 table {
+  box-shadow: 0 0 4px $light-shadow;
+
   border-collapse: collapse;
 
-  article > & {
-    margin: 10px;
-  }
-}
+  @at-root {
+    th, td {
+      padding: 10px;
 
-th, td {
-  padding: 5px 10px;
-  border: 1px solid #000;
+      &:hover {
+        background-color: $greyscale-1;
+      }
+    }
+
+    th {
+      background-color: $greyscale-1;
+
+      font-weight: normal;
+    }
+
+    td {
+      border-top: 1px solid $greyscale-3;
+
+      transition: background-color .25s;
+    }
+  }
 }
 
 .footnote {
@@ -431,7 +429,7 @@ th, td {
   ol {
     list-style-type: none;
     counter-reset: footnote;
-    
+
     & > li::before {
       counter-increment: footnote;
       content: counter(footnote);
@@ -453,20 +451,22 @@ th, td {
   display: inline-block;
 
   vertical-align: middle;
-}
 
-.numerator, .denominator {
-  display: block;
-  min-height: 1.25em;
-  margin: 0 1px;
-}
+  @at-root {
+    .numerator, .denominator {
+      display: block;
+      min-height: 1.25em;
+      margin: 0 1px;
+    }
 
-.frac-line {
-  border-top: 1px solid #000;
-}
+    .frac-line {
+      border-top: 1px solid #000;
+    }
 
-@each $alignment in left, center, right {
-  .text-align-#{$alignment} {
-    text-align: $alignment;
+    @each $alignment in left, center, right {
+      .text-align-#{$alignment} {
+        text-align: $alignment;
+      }
+    }
   }
 }
