@@ -1,0 +1,2 @@
+nav ol{height:0;border-bottom-width:1px;border-bottom-style:solid;overflow:hidden;transition:height .25s, border-bottom-color .25s}nav li{visibility:hidden;transition:visibility 0s .25s}.current,.expanded{height:unset;border-bottom-color:transparent}.current>li,.expanded>li{visibility:visible;transition:visibility 0s}
+/*# sourceMappingURL=notesjs.css.map */
