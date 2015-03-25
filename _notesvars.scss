@@ -29,12 +29,13 @@ $shadow-color: #444;
   }
 }
 
-%visible {
-  opacity: 1;
+@mixin webkit($prop, $value...) {
+  -webkit-#{$prop}: $value;
+  #{$prop}: $value;
 }
 
-%no-outline {
-  outline: none;
+%visible {
+  opacity: 1;
 }
 
 @mixin arrow-top-animation {

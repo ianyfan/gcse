@@ -4,14 +4,76 @@
 @import url(//fonts.googleapis.com/css?family=Source+Code+Pro);
 
 body {
-  min-width: 1.5*$nav-width;
+  min-width: 2*$nav-width;
   margin: 0;
   
   font-family: 'Source Sans Pro', Helvetica;
 }
 
+a {
+  text-decoration: none;
+  
+  &:focus {
+    outline: 0;
+  }
+}
+
 h3, h4 {
   margin: 0;
+
+  font-weight: normal;
+}
+
+button {
+  position: fixed;
+  left: 10px;
+  top: $button-margin-top;
+  z-index: $z-index-above-header;
+
+  display: block;
+  box-sizing: content-box; // why isn't this default?
+  height: ($button-height/5);
+  width: 40px;
+  padding: 0;
+  border-width: (2*$button-height/5) 0;
+  border-style: solid;
+  border-color: $theme-bg-color;
+  outline: 0;
+  opacity: 0;
+  
+  background-color: $theme-color;
+
+  transition: opacity .25s; 
+  transform-origin: 20px ($button-height/2);
+
+  @include screen-width(small) {
+    opacity: 1;
+  }
+
+  &::after,
+  &::before {
+    content: "";
+    position: fixed;
+    left: 10px;
+    
+    display: inline-block;
+    height: inherit;
+    width: inherit;
+
+    background-color: inherit;
+  }
+
+  &::after { // bottom
+    top: ($button-margin-top + 4 * $button-height / 5);
+  }
+
+  &::before { // top 
+    top: inherit;
+  }
+
+  &::-moz-focus-inner {
+    border: 0;
+  }
 }
 
 header {
@@ -22,80 +84,58 @@ header {
 
   height: $header-height;
   width: 100%;
-  box-shadow: 0 0 2px $shadow-color;
+  min-width: 1.5*$nav-width;
+  box-shadow: 0 0 8px $shadow-color;
 
   background-color: $theme-bg-color;
   color: $theme-color;
 
   text-align: center;
-  
-  > h2 {
-    position: fixed;
-    z-index: $z-index-above-header;
-
-    box-shadow: 0 0 2px $theme-bg-color;
-    opacity: 0;
-  }
 
   > ul {
     position: fixed;
     top: $header-height;
-    left: 50%;
+    left: 0;
 
+    width: $nav-width;
     padding: 0;
+    box-shadow: 0 8px 8px #888;
     margin: 0;
     opacity: 0;
-    visibility: hidden;
+    overflow: hidden;
+
+    background-color: #fff;
 
     list-style-type: none;
-
     transition: opacity .25s;
-
-    &:hover {
-      @extend %visible;
-      
-      visibility: visible;
-    }
-
-    > li {
-      box-shadow: 0 2px 2px $shadow-color;
-      margin: 0 50% 0 -50%;
-
-      background-color: #fff;
-    }
 
     a {
       display: block;
       padding: 10px;
-     
-      background-color: $theme-bg-color;
-      color: #fff;
 
-      text-decoration: none;
+      color: #000;
 
-      transition: opacity .25s;
+      transition: background-color .25s;
 
-      &:hover {
-        opacity: .9;
+      &:hover, &:focus {
+        background-color: $greyscale-1;
       }
 
       &:active {
-        opacity: .8;
-      }
-
-      &:focus {
-        @extend %no-outline;
+        background-color: $greyscale-2;
       }
     }
   }
 }
   
-header > h2,
-main > h2 {
+h2 {
+  position: fixed;
   top: 0;
+  z-index: $z-index-header;
 
-  padding: 10px;
+  padding: 10px 0;
   margin: 0;
+  overflow: hidden;
 
   background-color: $theme-bg-color;
 
@@ -103,41 +143,41 @@ main > h2 {
   overflow-wrap: break-word; // CSS3 rename of above
   
   line-height: 40px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   
   transition: opacity .25s;
   
   @include screen-width(small) {
-    opacity: 0 !important;
+    opacity: 0;
   }
 }
 
-#prev:hover + h2,
-#next:hover + h2 {
+#home:hover + ul,
+ul:hover {
   @extend %visible;
 }
 
-#home:hover + ul {
-  @extend %visible;
-
-  visibility: visible;
-}
-
-.title-prev {
-  left: 60px;
+#title-prev {
+  left: $nav-width;
   right: 50%;
 
-  margin-right: 90px;
+  margin-right: -95px;
 
   text-align: right;
+
+  transition: left .25s, margin-right .25s;
 }
 
-.title-next {
+#title-next {
   left: 50%;
   right: 10px;
 
-  margin-left: 90px;
+  margin-left: 205px;
 
   text-align: left;
+  
+  transition: margin-left .25s;
 }
 
 #prev,
@@ -148,7 +188,7 @@ main > h2 {
   width: 20px;
   border-style: solid;
   border-color: $theme-bg-color;
-  margin: 10px;
+  margin: 10px 5px;
   opacity: 0;
 
   background-color: $theme-color;
@@ -179,6 +219,9 @@ main > h2 {
 
 #prev {
   border-width: 10px 0 10px 20px;
+  margin-left: 305px;
+
+  transition: margin-left .25s;
 
   &::before {
     border-width: 20px 20px 20px 0;
@@ -190,6 +233,9 @@ main > h2 {
 }
 
 #home {
+  position: fixed;
+  left: ($nav-width / 2 - 25px);
+
   border-width: 20px 10px 10px;
   margin-bottom: 0;
 
@@ -226,65 +272,18 @@ main > h2 {
   }
 }
 
-button {
-  position: fixed;
-  left: 10px;
-  top: $button-margin-top;
-  z-index: $z-index-header;
-
-  display: block;
-  box-sizing: content-box; // why isn't this default?
-  height: ($button-height/5);
-  width: 40px;
-  padding: 0;
-  border-width: (2*$button-height/5) 0 (2*$button-height/5 + $button-margin-top);
-  border-style: solid;
-  border-color: $theme-bg-color;
-  opacity: 0;
-  
-  background-color: $theme-color;
-
-  transition: opacity .25s; 
-  transform-origin: 20px ($button-height/2);
-
-  @include screen-width(small) {
-    opacity: 1;
-  }
-
-  &::after,
-  &::before {
-    content: "";
-    position: fixed;
-    left: 10px;
-    
-    display: inline-block;
-    height: inherit;
-    width: inherit;
-
-    background-color: inherit;
-  }
-
-  &::after { // bottom
-    top: ($button-margin-top + 4 * $button-height / 5);
-  }
-
-  &::before { // top 
-    top: inherit;
-  }
-}
-
 nav {
   position: fixed;
   bottom: 0;
   left: 0;
   top: $header-height;
-  z-index: $z-index-nav;
+  @if $z-index-nav {z-index: $z-index-nav;}
 
   width: $nav-width;
   border-right: 1px solid $theme-bg-color;
   overflow-y: auto;
 
-  background-color: $greyscale-1;
+  background-color: #fff;
 
   word-wrap: break-word;
 
@@ -309,22 +308,16 @@ nav {
 
     color: #000;
 
-    text-decoration: none;
-
     cursor: pointer;
 
     transition: background-color .25s, color .25s;
 
     &:hover, &:focus {
-      background-color: $greyscale-2;
-    }
-
-    &:focus {
-      @extend %no-outline;
+      background-color: $greyscale-1;
     }
 
     &:active {
-      background-color: $greyscale-3;
+      background-color: $greyscale-2;
     }
 
     &::before {
@@ -339,43 +332,41 @@ a.current {
 }
 
 main {
-  min-width: 1.5*$nav-width;
-
-  text-align: justify;
-
-  > h1 {
-    box-shadow: 0 0 2px $shadow-color;
-    margin: $header-height 0 0 $nav-width;
-  
-    background-color: $theme-bg-color-2;
-    color: $theme-color;
-  
-    text-align: center;
-
-    pointer-events: none;
-    transition: margin-left .25s;
-  }
-
-  > h2 {
-    position: absolute;
-    z-index: $z-index-header;
-
-    overflow: hidden;
-
-    color: $theme-color;
-
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-}
-
-article {
-  padding: 10px 0 1px $nav-width;
-  margin-bottom: $footer-height;
+  min-height: calc(100vh - 120px);
+  margin: $header-height 0 0 $nav-width;
+  box-shadow: 0 0 8px $shadow-color;
 
   background-color: #fff;
 
-  transition: padding-left .25s;
+  text-align: justify;
+  
+  transition: margin-left .25s;
+
+  > p {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  a {
+    color: $accent-color;
+  }
+}
+
+h1 {
+  padding: 10px 0;
+  box-shadow: 0 0 8px $shadow-color;
+
+  background-color: $theme-bg-color-2;
+  color: $theme-color;
+
+  text-align: center;
+}
+
+article {
+  padding-bottom: 1px; // to prevent margin collapsing
+  margin-bottom: $footer-height;
+
+  background-color: #fff;
 
   li {
     margin: 10px;
@@ -390,7 +381,6 @@ footer {
   z-index: $z-index-footer;
 
   height: $footer-height;
-  box-shadow: inset 0 8px 8px -8px $shadow-color;
 
   background-color: $theme-bg-color;
   color: $theme-color;
@@ -404,8 +394,6 @@ footer {
   a {
     color: $accent-color;
     
-    text-decoration: none;
-
     transition: opacity .25s;
 
     &:hover {
@@ -431,9 +419,26 @@ th, td {
   border: 1px solid #000;
 }
 
-aside {
-  font-family: "Source Code Pro", monospace;
+.footnote {
+  vertical-align: super;
+}
+
+.footnotes {
+  margin-top: 100px;
+
   font-size: smaller;
+
+  ol {
+    list-style-type: none;
+    counter-reset: footnote;
+    
+    & > li::before {
+      counter-increment: footnote;
+      content: counter(footnote);
+
+      vertical-align: super;
+    }
+  }
 }
 
 // special expressions
@@ -453,6 +458,7 @@ aside {
 .numerator, .denominator {
   display: block;
   min-height: 1.25em;
+  margin: 0 1px;
 }
 
 .frac-line {

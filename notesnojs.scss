@@ -1,8 +1,20 @@
 @import "notesvars";
 
-button:hover + nav, nav:hover {
+button:hover ~ nav, nav:hover {
   left: 0;
+
+  border-bottom: (2*$button-height/5 + $button-margin-top);
 }
+
+#home {
+  pointer-events: none;
+}
+
+#home:hover + ul,
+ul:hover {
+  pointer-events: auto;
+}
+
 
 nav {
   @include screen-width(small) {
@@ -14,23 +26,13 @@ nav {
   }
 }
 
-main > h1 {
+main {
   @include screen-width(small) {
     margin-left: 20px;
   }
 
   @include screen-width(smaller) {
     margin-left: 0;
-  }
-}
-
-article {
-  @include screen-width(small) {
-    padding-left: (20px + 10px);
-  }
-
-  @include screen-width(smaller) {
-    padding-left: 10px;
   }
 }
 

@@ -5,17 +5,69 @@
 
 String.prototype.repeat = function(count) {
     if (count < 1) return '';
-    var result = '', pattern = this.valueOf();
+
+    var result = '',
+        pattern = this.valueOf();
+
     while (count > 1) {
         if (count & 1) result += pattern;
         count >>= 1, pattern += pattern;
     }
     return result + pattern;
-}; // //stackoverflow.com/a/5450113
+}; // stackoverflow.com/a/5450113
+
+function createMarkdownConverter() {
+    var converter = new (require('pagedown').Converter)();
+    require('pagedown-extra').Extra.init(converter,
+        {extension: ['tables', 'smart_strong']});
+
+    converter.hooks.chain('preConversion', function(text) { // sups & subs
+        // Pretty much duplicated from strikethrough
+        // which in turn duplicated from bold & italics
+        text = text.replace(/([^\[\\]|^)\^\^(?=\S)([^\r]*?\S[\*_]*)\^\^/g,
+                            "$1<sup>$2</sup>");
+        return text.replace(/([^\[\\]|^)\^(?=\S)([^\r]*?\S[\*_]*)\^/g,
+                            "$1<sub>$2</sub>");                           
+    });
+
+    converter.hooks.chain('preConversion', function(text) { // fractions
+        // format: {:{numerator}: (/ if frac line, else |) :{denominator}:}
+        // Colons determine alignment like tables
+
+        var last = text.length;
+        while (last && (last = text.lastIndexOf('{', --last)) != -1) {
+            text = text.slice(0, last) + text.slice(last).replace(
+                /{(:?){(.*?)}(:?)\s*(\/|\|)\s*(:?){(.*?)}(:?)}/, function(_,
+                        numerL, numer, numerR, line, denomL, denom, denomR) {
+                    var align = ['', ' text-align-left', ' text-align-right',
+                        ' text-align-center'];
+                    return '<span class="fraction"><sup class="numerator' +
+                        align[(numerL === ':') + ((numerR === ':') << 1)] +
+                        '">' + numer + '</sup><sub class="denominator' +
+                        (line === '/' ? ' frac-line' : '') +
+                        align[(denomL === ':') + ((denomR === ':') << 1)] +
+                        '">' + denom + '</sub></span>';
+                }
+            );
+        }
+        return text;
+    });
+
+    converter.hooks.chain('preConversion', function(text) { // equations
+        return text.replace(/\[\[(.*?)]]/g, '<i class="equation">$1</i>');
+    });
+
+    converter.hooks.chain('postConversion', function(text) { // table cell spans
+        text = text.replace(/<td(.*?)>{merged}<\/td>/g, ''); // remove empty cells
+        return text.replace(/>{(.*?)}/g, ' $1>');
+    });
+
+    return converter;
+}
 
 var fs = require('fs'),
     inDir = 'content/' + process.argv[2],
-    outDir = process.argv[2],
+    outDir = 'gcse/' + process.argv[2],
     titles = [],
     pending = 1;
 fs.readdir(inDir, function createTree(err, files) {
@@ -41,7 +93,7 @@ fs.readdir(inDir, function createTree(err, files) {
             }
 
             files.sort();
-            if (files[1] && files[1][files[1].length - 1] === '~') files.pop();
+            if (files[1] && files[1][files[1].length - 1] == '~') files.pop();
 
             if (files.length == 1) {
                 subTitles[index] = new String(files[0]); // so can add properties
@@ -90,7 +142,7 @@ function createNav() {
     }
     
     var nav = '', 
-        hrefInit = '/gcse/' + outDir + '/',
+        hrefInit = '/' + outDir + '/',
         indentInit = '        ';
     for (var i = 1; i < titles.length; i++) {
         titles[i].previous = titles[i-1];
@@ -108,77 +160,7 @@ function createNav() {
 function write() {
     if (!write.homeList) return write();
 
-    var converter = new (require('pagedown').Converter)();
-    require('pagedown-extra').Extra.init(converter,
-        {extension: ['tables', 'smart_strong']});
-
-    converter.hooks.chain('preConversion', function(text) { // sups & subs
-        /* regex: /
-            (?:         // Either: (but don't return)
-                ^       // start of text
-                |       // or
-                [^\\]   // last character isn't a \ escape
-            )
-            (!?)        // preceding ! denotes subscript instead of superscript
-            (\^+)       // return how many levels deep it goes
-            (?:         // don't return full match
-                {(.+?)} // match at least one character in braces
-                |       // or
-                (.+?)\b // match to word boundary
-            )           // (non-greedy)
-         */
-
-        var last = text.length;
-        while (last && (last = text.lastIndexOf('^', --last)) != -1) {
-            while (last && text[--last] in {'^': 1, '!': 1}) {}
-            text = text.slice(0, last) + text.slice(last).replace(
-                /(^|[^\\])(!?)(\^+)(?:{(.+?)}|(.+?)\b)/,
-                function(_, prev, isSub, levels, matchBrackets, matchWord) {
-                    return prev + 
-                        (isSub ? '<sub>' : '<sup>').repeat(levels.length) +
-                        (matchBrackets || matchWord) +
-                        (isSub ? '</sub>' : '</sup>').repeat(levels.length);
-                }
-            );
-        }
-        return text;
-    });
-
-    converter.hooks.chain('preConversion', function(text) { // fractions
-        // format: {:{numerator}: (/ if frac line, else |) :{denominator}:}
-        // Colons determine alignment like tables
-
-        var last = text.length;
-        while (last && (last = text.lastIndexOf('{', --last)) != -1) {
-            text = text.slice(0, last) + text.slice(last).replace(
-                /{(:?){(.*?)}(:?)\s*(\/|\|)\s*(:?){(.*?)}(:?)}/, function(_,
-                        numerL, numer, numerR, line, denomL, denom, denomR) {
-                    align = ['', ' text-align-left', ' text-align-right',
-                        ' text-align-center'];
-                    return '<span class="fraction"><sup class="numerator' +
-                        align[(numerL === ':') + ((numerR === ':') << 1)] +
-                        '">' + numer + '</sup><sub class="denominator' +
-                        (line === '/' ? ' frac-line' : '') +
-                        align[(denomL === ':') + ((denomR === ':') << 1)] +
-                        '">' + denom + '</sub></span>';
-                }
-            );
-        }
-        return text;
-    });
-
-    converter.hooks.chain('preConversion', function(text) { // equations
-        return text.replace(/\[\[(.*?)]]/g, function(_, match) {
-            return '<i class="equation">' + match + '</i>';
-        });
-    });
-
-    converter.hooks.chain('postConversion', function(text) { // table cell spans
-        text = text.replace(/<td(.*?)>{merged}<\/td>/g, ''); // remove empty cells
-        return text.replace(/>{(.*?)}/g, function(_, match) {
-            return ' ' + match + '>';
-        });
-    });
+    var converter = createMarkdownConverter();
 
     (function writeTree(subTitles, inPath, outPath, titleNo) {
         fs.mkdir(outPath, function writeBranch(err) {
@@ -214,15 +196,13 @@ function write() {
 
                         var main = 
 '      <h1>' + subTitles + '</h1>\n' +
-'      <h2 class="title-prev">' + prev +'</h2>\n' +
-'      <h2 class="title-next">' + next + '</h2>\n' +
 '      <article>' +
          converter.makeHtml(data) + '\n' +
 '      </article>\n',
                             outJson = outPath + '/replacement.json',
                             json = {main: main, titleNo: titleNo};
-                        if (prev) json.prev = prev.href;
-                        if (next) json.next = next.href;
+                        if (prev) json.prev = {href: prev.href, title: prev};
+                        if (next) json.next = {href: next.href, title: next};
                         json = JSON.stringify(json);
 
                         fs.writeFile(outJson, json, function onjsonwrite(err) {
@@ -245,23 +225,23 @@ function write() {
 '    <meta charset="utf-8">\n' +
 '    <title>' + titleNo + ' ' + subTitles + '</title>\n' +
 '    <script src="/gcse/notes.min.js" async></script>\n' +
-'    <link rel="stylesheet" href="/gcse/' + outDir + '/notes.css">\n' +
+'    <link rel="stylesheet" href="/' + outDir + '/notes.css">\n' +
 '    <noscript>\n' +
 '      <link rel="stylesheet" href="/gcse/notesnojs.css">\n' +
 '    </noscript>\n' +
 '  </head>\n' +
 '  <body>\n' +
+'    <button></button>\n' +
 '    <header>\n' +
-'      <a id="prev"'+(prev?' href="'+prev.href+'"':'')+'></a>\n' +
-'      <h2 class="title-prev">' + prev + '</h2>\n' +
 '      <a id="home" href="/gcse"></a>\n' +
 '      <ul>\n' +
          write.homeList +
 '      </ul>\n' +
-'      <a id="next"'+(next?' href="'+next.href+'"':'')+'></a>\n' +
-'      <h2 class="title-next">' + next + '</h2>\n' +
+'      <a id="prev"' + (prev ? ' href="' + prev.href + '"' : '') + '></a>\n' +
+'      <h2 id="title-prev">' + prev + '</h2>\n' +
+'      <a id="next"' + (next ? ' href="' + next.href + '"' : '') + '></a>\n' +
+'      <h2 id="title-next">' + next + '</h2>\n' +
 '    </header>\n' +
-'    <button></button>\n' +
 '    <nav>\n' +
 '      <ol class="current">\n' +
          nav +
@@ -350,8 +330,8 @@ fs.readdir('content', function createHomeList(err, files) {
     var homeList = '';
     for (var i = 0; i < files.length; i++) {
         var subject = files[i];
-        homeList += '        <li><h3><a href="/gcse/' + subject + '">' +
-            subject[0].toUpperCase() + subject.slice(1) + '</a></h3></li>\n';
+        homeList += '        <li><a href="/gcse/' + subject + '/">' +
+            subject[0].toUpperCase() + subject.slice(1) + '</a></li>\n';
     }
 
     write.homeList = homeList;

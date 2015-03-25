@@ -40,44 +40,53 @@ notes.init = function() {
         sessionStorage.setItem(location.pathname, JSON.stringify({
             main: document.getElementsByTagName('main')[0].innerHTML,
             titleNo: document.title.split(' ', 1)[0],
-            prev: document.getElementById('prev').pathname,
-            next: document.getElementById('next').pathname
+            prev: {href: document.getElementById('prev').pathname,
+                  title: document.getElementById('title-prev').textContent      
+            },
+            next: {href: document.getElementById('next').pathname,
+                  title: document.getElementById('title-next').textContent      
+            }
         }));
 
-        var usingCORS = location.protocol == 'https:';  // Use github API
+        var AJAXCheck = location.pathname.split('/',3).join('/'),
+            usingCORS = location.protocol == 'https:';  // Use github API
                                                         // instead of direct
-        var openPage = function(event) {
-            event.preventDefault(); // don't open link; open it asynchronously
+        sidebar.addEventListener('click',
+            document.getElementsByTagName('header')[0].onclick = function(event) {
+                var pathname = event.target.pathname,
+                    href = event.target.href;
 
-            var pathname = event.target.pathname,
-                href = event.target.href;
-            if (!href || event.target.className == 'current') return;
+                // if link isn't part of this subject, just go there
+                if (pathname.lastIndexOf(AJAXCheck, 0) != 0) return;
+                event.preventDefault(); // else open asynchronously
 
-            history.pushState('', '', href);
+                if (!href || event.target.className == 'current') return;
+                // unless the link is the current page or actually a listing
 
-            if (sessionStorage.getItem(pathname)) {
-                window.onpopstate();
-            } else {
-                var request = new XMLHttpRequest();
-                request.open('GET', (usingCORS ?
-                        '//api.github.com/repos/ianyfan/gcse/contents' +
-                        pathname.slice(pathname.indexOf('/', 1)) : href) + 
-                    'replacement.json' + (usingCORS ? '?ref=gh-pages' : ''));
-                request.onload = function() {
-                    if (request.status >= 200 && request.status < 400) {
-                        sessionStorage.setItem(pathname, usingCORS ?
-                            atob(JSON.parse(request.response).content) :
-                            request.response);
-                        window.onpopstate();
-                    } // else {}
-                };
-                // request.onerror = function() {};
-                request.send();
+                history.pushState('', '', href);
+
+                if (sessionStorage.getItem(pathname)) {
+                    window.onpopstate();
+                } else {
+                    var request = new XMLHttpRequest();
+                    request.open('GET', (usingCORS ?
+                            '//api.github.com/repos/ianyfan/gcse/contents' +
+                            pathname.slice(pathname.indexOf('/', 1)) : href) + 
+                        'replacement.json' + (usingCORS ? '?ref=gh-pages' : ''));
+                    request.onload = function() {
+                        if (request.status >= 200 && request.status < 400) {
+                            sessionStorage.setItem(pathname, usingCORS ?
+                                decodeURIComponent(escape(atob(
+                                    JSON.parse(request.response).content
+                                ))) : request.response);
+                            window.onpopstate();
+                        } // else {}
+                    };
+                    // request.onerror = function() {};
+                    request.send();
+                }
             }
-        };
-
-        sidebar.addEventListener('click', openPage);
-        document.getElementsByTagName('header')[0].onclick = openPage;
+        );
     }
 
     var button = document.getElementsByTagName('button')[0];
@@ -85,6 +94,16 @@ notes.init = function() {
     button.onclick = function() {
         this.id = this.id ? '' : 'arrow';
     };
+
+    var homeButton = document.getElementById('home'),
+        homeList = homeButton.nextElementSibling;
+    homeButton.onmouseenter = homeList.onmouseenter = function() {
+        homeList.style.height = homeList.scrollHeight + 'px';
+    }
+
+    homeButton.onmouseleave = homeList.onmouseleave = function() {
+        homeList.style.height = '';
+    }
 };
 
 if (document.readystate == 'loading') {
@@ -122,10 +141,15 @@ window.onpopstate = function() {
         main.getElementsByTagName('h1')[0].textContent;
 
     function replace(which) {
-        var els = document.getElementsByClassName('title-' + which);
-        els[0].textContent = els[1].textContent;
-        if (state[which]) els[0].previousElementSibling.href = state[which];
-        else els[0].previousElementSibling.removeAttribute('href');
+        var el = document.getElementById('title-' + which);
+        if (state[which]) {
+            el.textContent = state[which].title;
+            el.previousElementSibling.href = state[which].href;
+        }
+        else {
+            el.textContent = '';
+            el.previousElementSibling.removeAttribute('href');
+        }
     }
     replace('prev');
     replace('next');
@@ -133,7 +157,8 @@ window.onpopstate = function() {
     for (var current = document.getElementsByClassName('current'),
             i = current.length; --i;) current[i].className = 'expanded';
 
-    var link = document.querySelector('[href="' + location.pathname + '"]');
+    var link = document.querySelector('nav [href="' + location.pathname + '"]');
+    if (!link) return;
     link.className = 'current';
     for (;(link = link.parentNode.parentNode).className != 'current';) {
         if (link.className != 'expanded') notes.toggleList(link);
