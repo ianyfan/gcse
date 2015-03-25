@@ -1,0 +1,2 @@
+1. A manometer measures the pressure of a fluid, usually a gas
+2. It is a U-shaped tube containing a reference liquid, with one end open to the fluid whose pressure is to be obtained and the other open to a fluid with known concentration, such as the atmosphere; the difference in height of the two levels of liquid can be used to calculate the pressure of the unknown fluid, as the above equation reveals the pressure difference

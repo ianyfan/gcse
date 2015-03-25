@@ -1,0 +1,2 @@
+1. Circuit diagram for an op-amp summing amplifier: ![Summing amplifier circuit diagram](/gcse/img/electronics/summingamplifier.png)
+ 2. The gain is [[G = -R^f^∙<span class="fraction"><span class="numerator">n</span><span class="numerator">Σ</span><span class="denominator">i=0</span></span>{{V^i^}/{R^i^}}]]

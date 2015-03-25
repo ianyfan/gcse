@@ -1,0 +1,2 @@
+1. Because light reflects off the plane at one angle only, only one ray of light travels from any one point to the eye, forming an optical image on the mirror; the buildup of rays creates a virtual image of an object with an apparent position of being directly opposite the mirror at an equal distance to its actual position
+2. The law of reflection states that the angle of incidence is equal to the angle of reflection, measured from the normal

@@ -1,0 +1,3 @@
+1. Comparators have a greater sensitivity than transistor switches
+2. The output is low if the non-inverting input is lower than the inverting output and high is the non-inverting input is higher than the inverting input
+3. Comparators are unable to drive a very high current and so a transistor is often used as a transducer driver

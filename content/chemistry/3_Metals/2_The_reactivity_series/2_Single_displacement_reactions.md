@@ -1,0 +1,2 @@
+1. Displacement reactions involving metals and their compounds in aqueous solutions establish positions in the reactivity series, wherein metals displace less reactive metals
+2. Displacement reactions can be described in terms of oxidation & reduction: the displacing metal is oxidised and the displaced metal is reduced; since both occur, these reactions are called redox reactions

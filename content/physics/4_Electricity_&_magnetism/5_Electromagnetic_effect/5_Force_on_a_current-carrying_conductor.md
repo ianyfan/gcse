@@ -1,0 +1,1 @@
+1. In a magnetic field, a conductor-carrying conductor perpendicular to the direction of the field experiences a force perpendicular to both, namely the direction in which the magnetic effect of the current counteracts the field

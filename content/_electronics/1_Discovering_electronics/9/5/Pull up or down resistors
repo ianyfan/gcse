@@ -1,0 +1,3 @@
+1. A floating input occurs when an input of a gate is not connected, and cannot be converted to a boolean value
+2. A pull up/down resistor is used to weakly pull the voltage of the input to the source level
+3. The usual implementation is a 10 kΩ resistor connected to the power rail or ground

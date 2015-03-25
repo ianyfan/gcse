@@ -1,0 +1,6 @@
+1. Boolean notation can be used as a shorthand notation for expressing a truth table
+2. [[A AND B = A⋅B]]
+3. [[A OR B = A+B]]
+4. [[NOT A = <span class="negation">A</span>]]
+5. [[A NOR B = <span class="overline">A+B</span>]]
+6. [[A NAND B = <span class="overline">A⋅B</span>]]

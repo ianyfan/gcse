@@ -1,0 +1,9 @@
+|Gate|Symbol (ANSI)|Truth table|
+|:--:|:-----------:|:---------:|
+|AND |![AND gate](/gcse/img/electronics/and.png)|<table><thead><tr><th>A</th><th>B</th><th>Q</th></tr></thead><tbody><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>0</td></tr><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>1</td><td>1</td><td>1</td></tr></tbody></table>|
+| OR |![OR gate](/gcse/img/electronics/or.png)|<table><thead><tr><th>A</th><th>B</th><th>Q</th></tr></thead><tbody><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>1</td></tr><tr><td>1</td><td>0</td><td>1</td></tr><tr><td>1</td><td>1</td><td>1</td></tr></tbody></table>|
+|NOT |![NOT gate](/gcse/img/electronics/not.png)|<table><thead><tr><th>A</th><th>NOT A</th></tr></thead><tbody><tr><td>0</td><td>1</td></tr><tr><td>1</td><td>0</td></tr></tbody></table>|
+|NOR |![NOR gate](/gcse/img/electronics/nor.png)|<table><thead><tr><th>A</th><th>B</th><th>Q</th></tr></thead><tbody><tr><td>0</td><td>0</td><td>1</td></tr><tr><td>0</td><td>1</td><td>0</td></tr><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>1</td><td>1</td><td>0</td></tr></tbody></table>|
+|NAND|![NAND gate](/gcse/img/electronics/nand.png)|<table><thead><tr><th>A</th><th>B</th><th>Q</th></tr></thead><tbody><tr><td>0</td><td>0</td><td>1</td></tr><tr><td>0</td><td>1</td><td>1</td></tr><tr><td>1</td><td>0</td><td>1</td></tr><tr><td>1</td><td>1</td><td>0</td></tr></tbody></table>|
+
+1. A system of gates can be devised from a truth table by using the AND-OR method

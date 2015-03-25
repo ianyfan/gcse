@@ -1,0 +1,3 @@
+1. An LED drops 2 V and the standard maximum current used to drive it is 350 mA
+2. If there are no other components in the circuit, the wire, which has negligible resistance, has a voltage of the e.m.f. minus 2 V through it, which means there is effectively infinite current in the circuit, which breaks the LED
+3. Therefore, to limit the current, a resistor is added with a resistance calculated using Ohm's law: [[{:{e.m.f. - 2 V}:/:{350 mA}:}]]

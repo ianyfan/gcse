@@ -1,0 +1,4 @@
+1. Circuit diagram: ![MOSFET symbol](/gcse/img/electronics/mosfet.png)
+2. Leads:
+3. MOSFET stands for Metal Oxide Semiconductor Field Effect Transistor
+4. A MOSFET should be used to drive heavy loads since logic systems are unable to drive very high currents and MOSFETs draw virtually no current
