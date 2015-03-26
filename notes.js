@@ -19,6 +19,10 @@ notes.init = function() {
     stylesheet.href = '/gcse/notesjs.css';
     document.head.appendChild(stylesheet);
 
+    var headerNav = document.getElementById('header-nav').style;
+    headerNav.zIndex = 1;
+    headerNav.top = (210 - window.scrollY) + 'px';
+
     var sidebar = document.getElementsByTagName('nav')[0].firstElementChild;
     sidebar.onkeyup = function(event) {
         var list = document.activeElement.nextElementSibling;
@@ -86,11 +90,17 @@ if (document.readystate === 'loading') {
     notes.init();
 }
 
+window.onscroll = function() {
+    var scroll = window.scrollY;
+    document.getElementById('header-nav').style.top = (scroll < 180 ? 210 -
+        scroll : 30) + 'px';
+}
+
 window.onpopstate = function() {
     window.scroll(0, 0);
 
-    for (var current = document.getElementsByClassName('current'),
-            i = current.length; --i;) current[i].className = 'expanded';
+    var current = document.getElementsByClassName('current')
+    for (var i = current.length; --i;) current[i].className = 'expanded';
 
     var nav = document.getElementsByTagName('nav')[0].firstElementChild,
         sideLink = nav.querySelector('[href="'+location.pathname+'"]'),
@@ -116,8 +126,8 @@ window.onpopstate = function() {
         } while (parentSection.parentNode.tagName !== 'NAV');
 
         if (sideLink.offsetTop < nav.scrollTop || // link is off the top
-                sideLink.offsetTop + sideLink.offsetHeight > // or off the bottom
-                nav.scrollTop + nav.offsetHeight) {
+                sideLink.offsetTop + sideLink.offsetHeight >
+                nav.scrollTop + nav.offsetHeight) { // or off the bottom
             var difference = (sideLink.offsetTop + sideLink.offsetHeight/2) - 
                     (nav.scrollTop + nav.offsetHeight/2),
                 direction = difference > 0 ? 1 : -1;
@@ -126,7 +136,7 @@ window.onpopstate = function() {
             var velocity = 0,
                 intervalID = setInterval(function() {
                 nav.scrollTop += direction * (velocity += 2);
-                if ((difference -= velocity) < (velocity + 1)*(velocity + 2)/2) {
+                if ((difference -= velocity) < (velocity+1)*(velocity+2)/2) {
                     clearInterval(intervalID);
 
                     var error = difference - velocity * (velocity + 1)/2;
@@ -171,13 +181,15 @@ window.onpopstate = function() {
         sideLink = document.querySelector('[href="'+location.pathname+'"]');
     }
 
-    document.title = titleNo.join('.') + ' ' + sideLink.textContent;
+    document.title = titleNo.join('.') + ' ' + sideLink.textContent +
+        ' :: GCSE notes';
 
     var titles = document.getElementsByTagName('h1');
-    for (var i in titles) titles[i].textContent = sideLink.textContent;
+    titles[1].textContent = titles[0].textContent = sideLink.textContent;
     titles[1].nextElementSibling.textContent = linkPath.join(' > ');
     document.getElementsByTagName('article')[0].innerHTML =
-        titles[1].parentNode.outerHTML + sessionStorage.getItem(location.pathname);
+        titles[1].parentNode.outerHTML +
+        sessionStorage.getItem(location.pathname);
 
     function replaceButton(direction) {
         var button = document.getElementById(direction),
