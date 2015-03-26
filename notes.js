@@ -161,8 +161,6 @@ window.onpopstate = function() {
             while (prev.tagName !== 'A') {
                 prev = prev.lastElementChild.lastElementChild;
             }
-        } else {
-            prev = null;
         }
 
         next = sideLink.parentNode;
@@ -174,8 +172,6 @@ window.onpopstate = function() {
             while (next.tagName !== 'A') {
                 next = next.firstElementChild.lastElementChild;
             }
-        } else {
-            next = null;
         }
     } else {
         sideLink = document.querySelector('[href="'+location.pathname+'"]');
@@ -194,11 +190,8 @@ window.onpopstate = function() {
     function replaceButton(direction) {
         var button = document.getElementById(direction),
             el = direction === 'prev' ? prev : next;
-        if (el) {
-            button.href = el.href;
+        if (button.href = el.href || '') { // assignment intentional
             button.nextElementSibling.textContent = el.textContent;
-        } else {
-            button.removeAttribute('href');
         }
     }
     replaceButton('prev');

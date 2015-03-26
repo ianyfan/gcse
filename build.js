@@ -317,11 +317,11 @@ Page.prototype.write = function() {
          homeNav +
 '      </ul>\n' +
 '      <div id="header-nav">\n' +
-'        <a id="prev" class="fab" ' +
-            (this.prev ? ' href="' + this.prev.href + '"' : '') + '></a>\n' +
+'        <a id="prev" class="fab" href' +
+            (this.prev ? '="' + this.prev.href + '"' : '') + '></a>\n' +
 '        <h2 id="title-prev">' + (this.prev?this.prev.title:'') + '</h2>\n' +
-'        <a id="next" class="fab" ' +
-            (this.next ? ' href="' + this.next.href + '"' : '') + '></a>\n' +
+'        <a id="next" class="fab" href' +
+            (this.next ? '="' + this.next.href + '"' : '') + '></a>\n' +
 '        <h2 id="title-next">' + (this.next?this.next.title:'') + '</h2>\n' +
 '      </div>\n' +
 '    </header>\n' +

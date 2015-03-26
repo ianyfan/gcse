@@ -179,13 +179,13 @@ header {
       width: 60px;
       border-radius: 50%;
       box-shadow: 0 2px 2px $light-shadow;
-      opacity: 0;
 
       background-color: $accent-color;
-      transition: background-color .25s;
+      transition: opacity .25s, background-color .25s;
 
-      &[href] {
-        opacity: 1;
+      &[href=""] {
+        opacity: 0;
+        pointer-events: none;
       }
 
       &:hover {
