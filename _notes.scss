@@ -29,19 +29,13 @@ button {
 }
 
 header {
-  position: fixed;
-  top: 0;
-  left: 300px;
-
-  height: $header-height;
-  width: calc(100% - 300px); // $nav-width
-  min-width: $nav-width;
 
   > h1 {
-    position: absolute;
-    left: 0;
+    position: fixed;
     right: 0;
+    left: $nav-width;
 
+    min-width: $nav-width;
     padding: 0 120px;
     overflow: hidden;
 
@@ -54,54 +48,10 @@ header {
     white-space: nowrap;
   }
 
-  > h2 {
-    position: absolute;
-    top: 30px;
-
-    max-width: calc(100% - 260px);
-    padding: 0 10px;
-    box-shadow: 0 2px 2px #444;
-    opacity: 0;
-
-    background-color: $greyscale-1;
-    color: #888;
-
-    font-weight: normal;
-    line-height: 60px;
-    word-wrap: break-word; overflow-wrap: break-word;
-  }
-
-  > a {
-    position: absolute;
-    top: 30px;
-    z-index: 2;
-
-    height: 60px;
-    width: 60px;
-    border-radius: 50%;
-    box-shadow: 0 2px 2px $light-shadow;
-    opacity: 0;
-
-    background-color: $accent-color;
-    transition: background-color .25s;
-
-    &[href] {
-      opacity: 1;
-    }
-
-    &:hover {
-      background-color: (.9*$accent-color);
-    }
-
-    &:active {
-      background-color: (.8*$accent-color);
-    }
-  }
-
   > ul {
-    position: absolute;
-    left: -999px; // hacky way to hide the list when not on screen
+    position: fixed;
     top: $header-height;
+    left: -999px; // hacky way to hide the list when not on screen
     z-index: 1;
 
     padding: 0;
@@ -136,116 +86,175 @@ header {
       }
     }
   }
-}
 
-header > ul:hover, #home:hover + ul {
-  left: -60px;
-  top: 100px;
+  @at-root {
+    header > ul:hover, #home:hover + ul {
+      top: 100px;
+      left: ($nav-width - 60px);
 
-  opacity: 1;
+      opacity: 1;
 
-  transition: top .25s, opacity .25s;
-}
+      transition: top .25s, opacity .25s;
+    }
 
-#home {
-  left: -90px;
+    #home {
+      position: fixed;
+      top: 30px;
+      left: ($nav-width - 90px);
+      z-index: 1;
 
-  padding: 0;
+      padding: 0;
 
-  &::before, &::after {
-    content: "";
+      &::before, &::after {
+        content: "";
 
-    display: block;
-    border-style: solid;
-  }
+        display: block;
+        border-style: solid;
+      }
 
-  &::before {
-    height: 0;
-    width: 0;
-    border-width: 0 20px 20px;
-    border-color: transparent transparent #fff;
-    margin: 10px 0 0 10px;
-  }
+      &::before {
+        height: 0;
+        width: 0;
+        border-width: 0 20px 20px;
+        border-color: transparent transparent #fff;
+        margin: 10px 0 0 10px;
+      }
 
-  &::after {
-    height: 10px;
-    width: 6px;
-    border-width: 10px 7px 0;
-    border-color: #fff;
-    margin-left: 20px;
-  }
-}
-
-#prev, #next {
-
-  &::before, &::after {
-    content: "";
-
-    display: block;
-    height: 5px;
-    width: 20px;
-    margin-left: 21px;
-
-    background-color: #fff;
-  }
-
-  &::before {
-    margin-top: 25px;
+      &::after {
+        height: 10px;
+        width: 6px;
+        border-width: 10px 7px 0;
+        border-color: #fff;
+        margin-left: 20px;
+      }
+    }
   }
 }
 
-#prev {
-  left: 30px;
+#header-nav {
+  position: fixed;
+  top: 30px;
+  right: 0;
+  left: $nav-width;
 
-  &:hover + #title-prev {
-    left: 120px;
+  min-width: $nav-width;
 
-    opacity: 1;
+  > h2 {
+    position: absolute;
+
+    max-width: calc(100% - 260px);
+    padding: 0 10px;
+    box-shadow: 0 2px 2px #444;
+    opacity: 0;
+
+    background-color: $greyscale-1;
+    color: #888;
+
+    font-weight: normal;
+    line-height: 60px;
+    word-wrap: break-word; overflow-wrap: break-word;
+
+    @at-root {
+      #title-prev {
+        left: 60px;
+
+        transition: left .25s, opacity .25s;
+      }
+
+      #title-next {
+        right: 60px;
+
+        text-align: right;
+
+        transition: right .25s, opacity .25s;
+      }
+    }
   }
 
-  &::before {
-    transform: rotate(60deg);
-    transform-origin: 0 100%;
+  @at-root {
+    .fab {
+      position: absolute;
+
+      height: 60px;
+      width: 60px;
+      border-radius: 50%;
+      box-shadow: 0 2px 2px $light-shadow;
+      opacity: 0;
+
+      background-color: $accent-color;
+      transition: background-color .25s;
+
+      &[href] {
+        opacity: 1;
+      }
+
+      &:hover {
+        background-color: (.9*$accent-color);
+      }
+
+      &:active {
+        background-color: (.8*$accent-color);
+      }
+    }
+
+    #prev, #next {
+
+      &::before, &::after {
+        content: "";
+
+        display: block;
+        height: 5px;
+        width: 20px;
+        margin-left: 21px;
+
+        background-color: #fff;
+      }
+
+      &::before {
+        margin-top: 25px;
+      }
+    }
+
+    #prev {
+      left: 30px;
+
+      &:hover + #title-prev {
+        left: 120px;
+
+        opacity: 1;
+      }
+
+      &::before {
+        transform: rotate(60deg);
+        transform-origin: 0 100%;
+      }
+
+      &::after {
+        transform: rotate(-60deg);
+        transform-origin: 0 0;
+      }
+    }
+
+    #next {
+      right: 30px;
+
+      &:hover + #title-next {
+        right: 120px;
+
+        opacity: 1;
+      }
+
+      &::before {
+        transform: rotate(-60deg);
+        transform-origin: 100% 100%;
+      }
+
+      &::after {
+        transform: rotate(60deg);
+        transform-origin: 100% 0;
+      }
+    }
   }
-
-  &::after {
-    transform: rotate(-60deg);
-    transform-origin: 0 0;
-  }
-}
-
-#next {
-  right: 30px;
-
-  &:hover + #title-next {
-    right: 120px;
-
-    opacity: 1;
-  }
-
-  &::before {
-    transform: rotate(-60deg);
-    transform-origin: 100% 100%;
-  }
-
-  &::after {
-    transform: rotate(60deg);
-    transform-origin: 100% 0;
-  }
-}
-
-#title-prev {
-  left: 60px;
-
-  transition: left .25s, opacity .25s;
-}
-
-#title-next {
-  right: 60px;
-
-  text-align: right;
-
-  transition: right .25s, opacity .25s;
 }
 
 nav {
@@ -330,7 +339,6 @@ article {
 
 #title-wrapper {
   position: relative;
-  z-index: 2;
 
   display: flex;
   flex-direction: column;
@@ -358,9 +366,9 @@ article {
 
 footer {
   position: fixed;
+  right: 0;
   bottom: 0;
   left: $nav-width;
-  right: 0;
   z-index: -1;
 
   height: $footer-height;
