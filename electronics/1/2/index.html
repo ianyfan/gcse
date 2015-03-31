@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>1.2 Circuit concepts :: GCSE notes</title>
+    <script src="/gcse/notes.js" async></script>
+    <link rel="stylesheet" href="/gcse/electronics.css">
+    <noscript>
+      <link rel="stylesheet" href="/gcse/notesnojs.css">
+    </noscript>
+  </head>
+  <body>
+    <button></button>
+    <header>
+      <h1>Circuit concepts</h1>
+      <a id="home" class="fab"></a>
+      <ul>
+        <li><a href="/gcse/biology/">Biology</a></li>
+        <li><a href="/gcse/chemistry/">Chemistry</a></li>
+        <li><a href="/gcse/electronics/">Electronics</a></li>
+        <li><a href="/gcse/geography/">Geography</a></li>
+        <li><a href="/gcse/physics/">Physics</a></li>
+      </ul>
+      <div id="header-nav">
+        <a id="prev" class="fab" href="/gcse/electronics/1/1/"></a>
+        <h2 id="title-prev">1.1 Electronic systems</h2>
+        <a id="next" class="fab" href="undefined"></a>
+        <h2 id="title-next">undefined Sensing circuits</h2>
+      </div>
+    </header>
+    <nav>
+      <ol class="current">
+          <li>
+            <a tabindex="">Discovering electronics</a>
+            <ol class="current">
+              <li><a href="/gcse/electronics/1/1/">Electronic systems</a></li>
+              <li><a class="current" href="/gcse/electronics/1/2/">Circuit concepts</a></li>
+              <li>
+                <a tabindex="">Sensing circuits</a>
+                <ol>
+                  <li><a href="/gcse/electronics/1/3/1/">Resistors</a></li>
+                  <li><a href="/gcse/electronics/1/3/2/">Potential divider</a></li>
+                  <li><a href="/gcse/electronics/1/3/3/">Switches</a></li>
+                </ol>
+              </li>
+              <li><a href="/gcse/electronics/1/4/">Output circuits</a></li>
+              <li>
+                <a tabindex="">Switching circuits</a>
+                <ol>
+                  <li><a href="/gcse/electronics/1/5/1/">Uses</a></li>
+                  <li><a href="/gcse/electronics/1/5/2/">Transistors</a></li>
+                  <li><a href="/gcse/electronics/1/5/3/">Thyristor</a></li>
+                  <li><a href="/gcse/electronics/1/5/4/">Voltage comparator</a></li>
+                </ol>
+              </li>
+              <li><a href="/gcse/electronics/1/6/">Diodes</a></li>
+              <li><a href="/gcse/electronics/1/7/">Combinational logic systems</a></li>
+            </ol>
+          </li>
+          <li>
+            <a tabindex="">Applications of electronics</a>
+            <ol>
+              <li><a href="/gcse/electronics/2/1/">Timing circuits</a></li>
+              <li><a href="/gcse/electronics/2/2/">Sequential systems</a></li>
+              <li><a href="/gcse/electronics/2/3/">Interface circuits</a></li>
+              <li>
+                <a tabindex="">Analogue communications</a>
+                <ol>
+                  <li><a href="/gcse/electronics/2/4/1/">General amplifier systems</a></li>
+                  <li><a href="/gcse/electronics/2/4/2/">Operational amplifiers</a></li>
+                </ol>
+              </li>
+              <li><a href="/gcse/electronics/2/5/">Programmable control systems</a></li>
+            </ol>
+          </li>
+      </ol>
+    </nav>
+    <article>
+      <div id="title-wrapper">
+        <h1>Circuit concepts</h1>
+        <aside>Discovering electronics > Circuit concepts</aside>
+      </div>
+
+        <ol>
+          <li>
+Standard component symbols: <img src="/gcse/img/electronics/symbols.png" alt="Table of component symbols" title="" />
+          </li>
+          <li>
+            <h3>Current</h3>
+            <ol>
+              <li>Current is the flow of charge and is preserved in a circuit</li>
+              <li>The current at a junction rule states that any junction in a circuit, the sum of the currents flowing into it is equal to the sum of the currents flowing out of it</li>
+            </ol>
+          </li>
+          <li>
+            <h3>Voltage</h3>
+            <ol>
+              <li>Voltage is the electric potential energy per unit charge between two points, and is used up in a circuit</li>
+              <li>The voltage at a point is indicated by calculating the potential difference relative to a 0 V reference using the voltage drops of the components in the circuit</li>
+              <li>Analogue signals continuously vary and digital signals are two-state</li>
+            </ol>
+          </li>
+          <li>
+            <h3>Resistance</h3>
+            <ol>
+              <li>
+Resistance is the opposition to current flow and is measured in ohms <i class="equation">Ω</i>
+              </li>
+              <li>
+The potential difference between two points is equal to the product of the current &amp; resistance: <i class="equation">V = IR</i>
+              </li>
+            </ol>
+          </li>
+          <li>
+            <h3>Power</h3>
+            <ol>
+              <li>
+Power is dissipated when current flows through resistance and is measured in Watts <i class="equation">W</i>
+              </li>
+              <li>
+The power is equal to the product of the voltage &amp; current: <i class="equation">P = VI</i>
+              </li>
+            </ol>
+          </li>
+          <li>
+            <h3>Unit prefixes</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th align="center">Prefix</th>
+                  <th align="center">Symbol</th>
+                  <th align="center">Magnitude</th>
+                </tr>
+              </thead>
+              <tr>
+                <td align="center">Mega-</td>
+                <td align="center">M</td>
+                <td align="center">10<sup>6</sup></td>
+              </tr>
+              <tr>
+                <td align="center">Kilo-</td>
+                <td align="center">k</td>
+                <td align="center">10<sup>3</sup></td>
+              </tr>
+              <tr>
+                <td align="center">-</td>
+                <td align="center">-</td>
+                <td align="center">10<sup>0</sup></td>
+              </tr>
+              <tr>
+                <td align="center">Milli-</td>
+                <td align="center">m</td>
+                <td align="center">10<sup>-3</sup></td>
+              </tr>
+              <tr>
+                <td align="center">Micro-</td>
+                <td align="center">μ</td>
+                <td align="center">10<sup>-6</sup></td>
+              </tr>
+              <tr>
+                <td align="center">Nano-</td>
+                <td align="center">n</td>
+                <td align="center">10<sup>-9</sup></td>
+              </tr>
+              <tr>
+                <td align="center">Pico-</td>
+                <td align="center">p</td>
+                <td align="center">10<sup>-12</sup></td>
+              </tr>
+            </table>
+          </li>
+        </ol>
+    </article>
+    <footer>
+      <p>View the source on <a href="//github.com/ianyfan/gcse" target="_blank">Github</a></p>
+      <p>Please send questions and suggestions to <a href="mailto:ianfan0+notes@gmail.com">ianfan0@gmail.com</a></p>
+    </footer>
+  </body>
+</html>

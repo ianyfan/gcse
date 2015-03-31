@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>1.7 Combinational logic systems :: GCSE notes</title>
+    <script src="/gcse/notes.js" async></script>
+    <link rel="stylesheet" href="/gcse/electronics.css">
+    <noscript>
+      <link rel="stylesheet" href="/gcse/notesnojs.css">
+    </noscript>
+  </head>
+  <body>
+    <button></button>
+    <header>
+      <h1>Combinational logic systems</h1>
+      <a id="home" class="fab"></a>
+      <ul>
+        <li><a href="/gcse/biology/">Biology</a></li>
+        <li><a href="/gcse/chemistry/">Chemistry</a></li>
+        <li><a href="/gcse/electronics/">Electronics</a></li>
+        <li><a href="/gcse/geography/">Geography</a></li>
+        <li><a href="/gcse/physics/">Physics</a></li>
+      </ul>
+      <div id="header-nav">
+        <a id="prev" class="fab" href="/gcse/electronics/1/6/"></a>
+        <h2 id="title-prev">1.6 Diodes</h2>
+        <a id="next" class="fab" href="/gcse/electronics/2/1/"></a>
+        <h2 id="title-next">2.1 Timing circuits</h2>
+      </div>
+    </header>
+    <nav>
+      <ol class="current">
+          <li>
+            <a tabindex="">Discovering electronics</a>
+            <ol class="current">
+              <li><a href="/gcse/electronics/1/1/">Electronic systems</a></li>
+              <li><a href="/gcse/electronics/1/2/">Circuit concepts</a></li>
+              <li>
+                <a tabindex="">Sensing circuits</a>
+                <ol>
+                  <li><a href="/gcse/electronics/1/3/1/">Resistors</a></li>
+                  <li><a href="/gcse/electronics/1/3/2/">Potential divider</a></li>
+                  <li><a href="/gcse/electronics/1/3/3/">Switches</a></li>
+                </ol>
+              </li>
+              <li><a href="/gcse/electronics/1/4/">Output circuits</a></li>
+              <li>
+                <a tabindex="">Switching circuits</a>
+                <ol>
+                  <li><a href="/gcse/electronics/1/5/1/">Uses</a></li>
+                  <li><a href="/gcse/electronics/1/5/2/">Transistors</a></li>
+                  <li><a href="/gcse/electronics/1/5/3/">Thyristor</a></li>
+                  <li><a href="/gcse/electronics/1/5/4/">Voltage comparator</a></li>
+                </ol>
+              </li>
+              <li><a href="/gcse/electronics/1/6/">Diodes</a></li>
+              <li><a class="current" href="/gcse/electronics/1/7/">Combinational logic systems</a></li>
+            </ol>
+          </li>
+          <li>
+            <a tabindex="">Applications of electronics</a>
+            <ol>
+              <li><a href="/gcse/electronics/2/1/">Timing circuits</a></li>
+              <li><a href="/gcse/electronics/2/2/">Sequential systems</a></li>
+              <li><a href="/gcse/electronics/2/3/">Interface circuits</a></li>
+              <li>
+                <a tabindex="">Analogue communications</a>
+                <ol>
+                  <li><a href="/gcse/electronics/2/4/1/">General amplifier systems</a></li>
+                  <li><a href="/gcse/electronics/2/4/2/">Operational amplifiers</a></li>
+                </ol>
+              </li>
+              <li><a href="/gcse/electronics/2/5/">Programmable control systems</a></li>
+            </ol>
+          </li>
+      </ol>
+    </nav>
+    <article>
+      <div id="title-wrapper">
+        <h1>Combinational logic systems</h1>
+        <aside>Discovering electronics > Combinational logic systems</aside>
+      </div>
+
+        <ol>
+          <li>
+            <h3>Logic</h3>
+            <ol>
+              <li>High/low and 1/0 are two-state logic levels</li>
+            </ol>
+          </li>
+          <li>
+            <h3>Truth tables</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th align="center">Gate</th>
+                  <th align="center">Symbol (ANSI)</th>
+                  <th align="center">Truth table</th>
+                </tr>
+              </thead>
+              <tr>
+                <td align="center">AND</td>
+                <td align="center"><img src="/gcse/img/electronics/and.png" alt="AND gate" title="" /></td>
+                <td align="center">ABQ000010100111</td>
+              </tr>
+              <tr>
+                <td align="center">OR</td>
+                <td align="center"><img src="/gcse/img/electronics/or.png" alt="OR gate" title="" /></td>
+                <td align="center">ABQ000011101111</td>
+              </tr>
+              <tr>
+                <td align="center">NOT</td>
+                <td align="center"><img src="/gcse/img/electronics/not.png" alt="NOT gate" title="" /></td>
+                <td align="center">ANOT A      01          10                                                                                        </td>
+              </tr>
+              <tr>
+                <td align="center">NOR</td>
+                <td align="center"><img src="/gcse/img/electronics/nor.png" alt="NOR gate" title="" /></td>
+                <td align="center">ABQ001010100110</td>
+              </tr>
+              <tr>
+                <td align="center">NAND</td>
+                <td align="center"><img src="/gcse/img/electronics/nand.png" alt="NAND gate" title="" /></td>
+                <td align="center">ABQ001011101110</td>
+              </tr>
+            </table>
+          </li>
+          <li>
+            <h3>Gates from a truth table</h3>
+            <ol>
+              <li>The simplest way of devising a system of gates from a truth table is to use the AND-OR method</li>
+              <li>This is done by taking the inputs of each row of the table that has a high output, inverting the inputs that must be low, then ANDing them with all the inputs that must be high</li>
+              <li>Then, OR the outputs of the systems constructed from each row</li>
+            </ol>
+          </li>
+          <li>
+            <h3>Boolean notation</h3>
+            <ol>
+              <li>Boolean notation can be used as a shorthand notation for expressing a truth table</li>
+              <li>
+                <i class="equation">A AND B = A⋅B</i>
+              </li>
+              <li>
+                <i class="equation">A OR B = A+B</i>
+              </li>
+              <li>
+                <i class="equation">NOT A = <span class="negated">A</sub></i>
+              </li>
+              <li>
+                <i class="equation">A NOR B = <span class="negated">A+B</sub></i>
+              </li>
+              <li>
+                <i class="equation">A NAND B = <span class="negated">A⋅B</sub></i>
+              </li>
+            </ol>
+          </li>
+          <li>
+            <h3>NAND gates</h3>
+            <ol>
+              <li>The NAND gate is called the universal logic gate, since all other logic systems can be constructed from it</li>
+              <li>
+                <i class="equation">A AND B = (A NAND B) NAND (A NAND B)</i>
+              </li>
+              <li>
+                <i class="equation">A OR B = (A NAND A) NAND (B NAND B)</i>
+              </li>
+              <li>
+                <i class="equation">NOT A = A NAND A</i>
+              </li>
+              <li>
+                <i class="equation">A NOR B = ((A NAND A) NAND (B NAND B)) NAND ((A NAND A) NAND (B NAND B))</i>
+              </li>
+            </ol>
+          </li>
+          <li>
+            <h3>Pull up/down resistors</h3>
+            <ol>
+              <li>When an input of a gate is not connected, such as if a switch connecting it to an input voltage is open, the input is left floating and cannot be resolved into a boolean value</li>
+              <li>A pull up/down resistor connecting the input to the input voltage pulls the voltage of the input high or low respectively when the switch is open</li>
+            </ol>
+          </li>
+        </ol>
+    </article>
+    <footer>
+      <p>View the source on <a href="//github.com/ianyfan/gcse" target="_blank">Github</a></p>
+      <p>Please send questions and suggestions to <a href="mailto:ianfan0+notes@gmail.com">ianfan0@gmail.com</a></p>
+    </footer>
+  </body>
+</html>

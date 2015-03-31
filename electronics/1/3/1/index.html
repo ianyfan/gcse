@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>1.3.1 Resistors :: GCSE notes</title>
+    <script src="/gcse/notes.js" async></script>
+    <link rel="stylesheet" href="/gcse/electronics.css">
+    <noscript>
+      <link rel="stylesheet" href="/gcse/notesnojs.css">
+    </noscript>
+  </head>
+  <body>
+    <button></button>
+    <header>
+      <h1>Resistors</h1>
+      <a id="home" class="fab"></a>
+      <ul>
+        <li><a href="/gcse/biology/">Biology</a></li>
+        <li><a href="/gcse/chemistry/">Chemistry</a></li>
+        <li><a href="/gcse/electronics/">Electronics</a></li>
+        <li><a href="/gcse/geography/">Geography</a></li>
+        <li><a href="/gcse/physics/">Physics</a></li>
+      </ul>
+      <div id="header-nav">
+        <a id="prev" class="fab" href></a>
+        <h2 id="title-prev"></h2>
+        <a id="next" class="fab" href="/gcse/electronics/1/3/2/"></a>
+        <h2 id="title-next">1.3.2 Potential divider</h2>
+      </div>
+    </header>
+    <nav>
+      <ol class="current">
+          <li>
+            <a tabindex="">Discovering electronics</a>
+            <ol class="current">
+              <li><a href="/gcse/electronics/1/1/">Electronic systems</a></li>
+              <li><a href="/gcse/electronics/1/2/">Circuit concepts</a></li>
+              <li>
+                <a tabindex="">Sensing circuits</a>
+                <ol class="current">
+                  <li><a class="current" href="/gcse/electronics/1/3/1/">Resistors</a></li>
+                  <li><a href="/gcse/electronics/1/3/2/">Potential divider</a></li>
+                  <li><a href="/gcse/electronics/1/3/3/">Switches</a></li>
+                </ol>
+              </li>
+              <li><a href="/gcse/electronics/1/4/">Output circuits</a></li>
+              <li>
+                <a tabindex="">Switching circuits</a>
+                <ol>
+                  <li><a href="/gcse/electronics/1/5/1/">Uses</a></li>
+                  <li><a href="/gcse/electronics/1/5/2/">Transistors</a></li>
+                  <li><a href="/gcse/electronics/1/5/3/">Thyristor</a></li>
+                  <li><a href="/gcse/electronics/1/5/4/">Voltage comparator</a></li>
+                </ol>
+              </li>
+              <li><a href="/gcse/electronics/1/6/">Diodes</a></li>
+              <li><a href="/gcse/electronics/1/7/">Combinational logic systems</a></li>
+            </ol>
+          </li>
+          <li>
+            <a tabindex="">Applications of electronics</a>
+            <ol>
+              <li><a href="/gcse/electronics/2/1/">Timing circuits</a></li>
+              <li><a href="/gcse/electronics/2/2/">Sequential systems</a></li>
+              <li><a href="/gcse/electronics/2/3/">Interface circuits</a></li>
+              <li>
+                <a tabindex="">Analogue communications</a>
+                <ol>
+                  <li><a href="/gcse/electronics/2/4/1/">General amplifier systems</a></li>
+                  <li><a href="/gcse/electronics/2/4/2/">Operational amplifiers</a></li>
+                </ol>
+              </li>
+              <li><a href="/gcse/electronics/2/5/">Programmable control systems</a></li>
+            </ol>
+          </li>
+      </ol>
+    </nav>
+    <article>
+      <div id="title-wrapper">
+        <h1>Resistors</h1>
+        <aside>Discovering electronics > Sensing circuits > Resistors</aside>
+      </div>
+
+        <ol>
+          <li>
+            <h3>Changing resistance</h3>
+            <ol>
+              <li>
+Resistance can be increased by connecting resistors in series: <i class="equation">R = R<sub>1</sub> + R<sub>2</sub></i>
+              </li>
+              <li>
+Resistance can be decreased by connecting resistors in parallel: <i class="equation"><span class="layered-text" 1>/{R}</span> = <span class="layered-text"><span class="layer text-align-center layer-line">1</span><span class="layer text-align-center">R<sub>1</sub></span></span> + <span class="layered-text"><span class="layer text-align-center layer-line">1</span><span class="layer text-align-center">R<sub>2</sub></span></span></i>
+              </li>
+            </ol>
+          </li>
+          <li>
+            <h3>Types</h3>
+            <ol>
+              <li>A light-dependent resistor (LDR) is a resistor whose resistance decreases in a non-linear fashion as light intensity increases</li>
+              <li>A &#8220;negative temperature coefficient&#8221; thermistor is a resistor whose resistance decreases in a non-linear fashion as temperature increases</li>
+            </ol>
+          </li>
+          <li>
+            <h3>Practice</h3>
+            <ol>
+              <li>The resistance of a resistor is denoted by bands of colour on them</li>
+              <li>The first bands of colour represent a value that is multiplied by 10 to the power of the penultimate band to calculate the total resistance</li>
+              <li>The final band represents the resistor&#8217;s tolerance</li>
+              <li>
+                <p>Colour code:</p>
+                <table>
+                  <thead>
+                    <tr>
+                      <th align="center">Colour</th>
+                      <th align="center">Value</th>
+                    </tr>
+                  </thead>
+                  <tr>
+                    <td align="center">Black</td>
+                    <td align="center">0</td>
+                  </tr>
+                  <tr>
+                    <td align="center">Brown</td>
+                    <td align="center">1</td>
+                  </tr>
+                  <tr>
+                    <td align="center">Red</td>
+                    <td align="center">2</td>
+                  </tr>
+                  <tr>
+                    <td align="center">Orange</td>
+                    <td align="center">3</td>
+                  </tr>
+                  <tr>
+                    <td align="center">Yellow</td>
+                    <td align="center">4</td>
+                  </tr>
+                  <tr>
+                    <td align="center">Green</td>
+                    <td align="center">5</td>
+                  </tr>
+                  <tr>
+                    <td align="center">Blue</td>
+                    <td align="center">6</td>
+                  </tr>
+                  <tr>
+                    <td align="center">Violet</td>
+                    <td align="center">7</td>
+                  </tr>
+                  <tr>
+                    <td align="center">Grey</td>
+                    <td align="center">8</td>
+                  </tr>
+                  <tr>
+                    <td align="center">White</td>
+                    <td align="center">9</td>
+                  </tr>
+                  <tr>
+                    <td align="center">Silver</td>
+                    <td align="center">±10%</td>
+                  </tr>
+                  <tr>
+                    <td align="center">Gold</td>
+                    <td align="center">±5%</td>
+                  </tr>
+                </table>
+              </li>
+              <li>The E24 series is a logarithmic scale of 24 resistance values to 2 significant figures with a 5% tolerance, from which resistors should be chosen from</li>
+              <li>In practice, when a resistance is needed, the least resistant resistor with a resistance higher than the required resistance is used to limit the current</li>
+            </ol>
+          </li>
+        </ol>
+    </article>
+    <footer>
+      <p>View the source on <a href="//github.com/ianyfan/gcse" target="_blank">Github</a></p>
+      <p>Please send questions and suggestions to <a href="mailto:ianfan0+notes@gmail.com">ianfan0@gmail.com</a></p>
+    </footer>
+  </body>
+</html>

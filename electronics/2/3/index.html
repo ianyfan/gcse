@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>2.3 Interface circuits :: GCSE notes</title>
+    <script src="/gcse/notes.js" async></script>
+    <link rel="stylesheet" href="/gcse/electronics.css">
+    <noscript>
+      <link rel="stylesheet" href="/gcse/notesnojs.css">
+    </noscript>
+  </head>
+  <body>
+    <button></button>
+    <header>
+      <h1>Interface circuits</h1>
+      <a id="home" class="fab"></a>
+      <ul>
+        <li><a href="/gcse/biology/">Biology</a></li>
+        <li><a href="/gcse/chemistry/">Chemistry</a></li>
+        <li><a href="/gcse/electronics/">Electronics</a></li>
+        <li><a href="/gcse/geography/">Geography</a></li>
+        <li><a href="/gcse/physics/">Physics</a></li>
+      </ul>
+      <div id="header-nav">
+        <a id="prev" class="fab" href="/gcse/electronics/2/2/"></a>
+        <h2 id="title-prev">2.2 Sequential systems</h2>
+        <a id="next" class="fab" href="undefined"></a>
+        <h2 id="title-next">undefined Analogue communications</h2>
+      </div>
+    </header>
+    <nav>
+      <ol class="current">
+          <li>
+            <a tabindex="">Discovering electronics</a>
+            <ol>
+              <li><a href="/gcse/electronics/1/1/">Electronic systems</a></li>
+              <li><a href="/gcse/electronics/1/2/">Circuit concepts</a></li>
+              <li>
+                <a tabindex="">Sensing circuits</a>
+                <ol>
+                  <li><a href="/gcse/electronics/1/3/1/">Resistors</a></li>
+                  <li><a href="/gcse/electronics/1/3/2/">Potential divider</a></li>
+                  <li><a href="/gcse/electronics/1/3/3/">Switches</a></li>
+                </ol>
+              </li>
+              <li><a href="/gcse/electronics/1/4/">Output circuits</a></li>
+              <li>
+                <a tabindex="">Switching circuits</a>
+                <ol>
+                  <li><a href="/gcse/electronics/1/5/1/">Uses</a></li>
+                  <li><a href="/gcse/electronics/1/5/2/">Transistors</a></li>
+                  <li><a href="/gcse/electronics/1/5/3/">Thyristor</a></li>
+                  <li><a href="/gcse/electronics/1/5/4/">Voltage comparator</a></li>
+                </ol>
+              </li>
+              <li><a href="/gcse/electronics/1/6/">Diodes</a></li>
+              <li><a href="/gcse/electronics/1/7/">Combinational logic systems</a></li>
+            </ol>
+          </li>
+          <li>
+            <a tabindex="">Applications of electronics</a>
+            <ol class="current">
+              <li><a href="/gcse/electronics/2/1/">Timing circuits</a></li>
+              <li><a href="/gcse/electronics/2/2/">Sequential systems</a></li>
+              <li><a class="current" href="/gcse/electronics/2/3/">Interface circuits</a></li>
+              <li>
+                <a tabindex="">Analogue communications</a>
+                <ol>
+                  <li><a href="/gcse/electronics/2/4/1/">General amplifier systems</a></li>
+                  <li><a href="/gcse/electronics/2/4/2/">Operational amplifiers</a></li>
+                </ol>
+              </li>
+              <li><a href="/gcse/electronics/2/5/">Programmable control systems</a></li>
+            </ol>
+          </li>
+      </ol>
+    </nav>
+    <article>
+      <div id="title-wrapper">
+        <h1>Interface circuits</h1>
+        <aside>Applications of electronics > Interface circuits</aside>
+      </div>
+
+        <ol>
+          <li>
+            <h3>Inputs</h3>
+            <ol>
+              <li>Signals from analogue sensors can be converted into logic levels for digital systems using interfaces such as transistors, which turn on or off at a single threshold, comparators, which compares the signal to a reference voltage, and Schmitt inverters</li>
+              <li>A Schmitt inverter gate has two different input switching levels so that the traditional effect of noise at the switching level causing the gate to switch many times is negated, resulting in a clean switch</li>
+              <li>Schmitt inverters are needed to connect a noisy signal to a counting system so that supernumerary switchings are not counted</li>
+              <li>Schmitt inverters can be used to debounce mechanical switches by connecting a capacitor across the switch that suppresses the noise, and using a Schmitt inverter to remove it completely</li>
+            </ol>
+          </li>
+          <li>
+            <h3>Outputs</h3>
+            <ol>
+              <li>Transistors can be used as switches or amplifiers</li>
+              <li>
+When <i class="equation">V<sub>IN</sub> &lt; 0.7 V</i> the voltage across the base &amp; emitter is <i class="equation">V<sub>BE</sub> = V<sub>IN</sub></i> and the voltage across the collector &amp; emitter is <i class="equation">V<sub>CE</sub> = supply voltage</i>, and when <i class="equation">V<sub>IN</sub> ≥ 0.7 V</i>, <i class="equation">V<sub>BE</sub> = 0.7 V</i> &amp; <i class="equation">V<sub>CE</sub> = 0.7 V</i>
+              </li>
+              <li>Because <i class="equation">V<sub>BE</sub></i> saturates at 0.7 V, a current-limiting resistor must be connected to base</li>
+              <li>Transistors amplify current according to the formula <i class="equation">h<sub>FE</sub> = <span class="layered-text"><span class="layer text-align-center layer-line">I<sub>C</sub></span><span class="layer text-align-center">I<sub>B</sub></span></span></i>, wherein <i class="equation">I<sub>C</sub></i> is the current going into the collector and <i class="equation">I<sub>B</sub></i> is the current going into the base</li>
+              <li>Every transistor has a distinct current gain and collector current, which must be taken into account for circuit calculations, such as calculating the value of the current-limiting resistor</li>
+            </ol>
+          </li>
+        </ol>
+    </article>
+    <footer>
+      <p>View the source on <a href="//github.com/ianyfan/gcse" target="_blank">Github</a></p>
+      <p>Please send questions and suggestions to <a href="mailto:ianfan0+notes@gmail.com">ianfan0@gmail.com</a></p>
+    </footer>
+  </body>
+</html>

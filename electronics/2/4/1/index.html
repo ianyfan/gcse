@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>2.4.1 General amplifier systems :: GCSE notes</title>
+    <script src="/gcse/notes.js" async></script>
+    <link rel="stylesheet" href="/gcse/electronics.css">
+    <noscript>
+      <link rel="stylesheet" href="/gcse/notesnojs.css">
+    </noscript>
+  </head>
+  <body>
+    <button></button>
+    <header>
+      <h1>General amplifier systems</h1>
+      <a id="home" class="fab"></a>
+      <ul>
+        <li><a href="/gcse/biology/">Biology</a></li>
+        <li><a href="/gcse/chemistry/">Chemistry</a></li>
+        <li><a href="/gcse/electronics/">Electronics</a></li>
+        <li><a href="/gcse/geography/">Geography</a></li>
+        <li><a href="/gcse/physics/">Physics</a></li>
+      </ul>
+      <div id="header-nav">
+        <a id="prev" class="fab" href></a>
+        <h2 id="title-prev"></h2>
+        <a id="next" class="fab" href="/gcse/electronics/2/4/2/"></a>
+        <h2 id="title-next">2.4.2 Operational amplifiers</h2>
+      </div>
+    </header>
+    <nav>
+      <ol class="current">
+          <li>
+            <a tabindex="">Discovering electronics</a>
+            <ol>
+              <li><a href="/gcse/electronics/1/1/">Electronic systems</a></li>
+              <li><a href="/gcse/electronics/1/2/">Circuit concepts</a></li>
+              <li>
+                <a tabindex="">Sensing circuits</a>
+                <ol>
+                  <li><a href="/gcse/electronics/1/3/1/">Resistors</a></li>
+                  <li><a href="/gcse/electronics/1/3/2/">Potential divider</a></li>
+                  <li><a href="/gcse/electronics/1/3/3/">Switches</a></li>
+                </ol>
+              </li>
+              <li><a href="/gcse/electronics/1/4/">Output circuits</a></li>
+              <li>
+                <a tabindex="">Switching circuits</a>
+                <ol>
+                  <li><a href="/gcse/electronics/1/5/1/">Uses</a></li>
+                  <li><a href="/gcse/electronics/1/5/2/">Transistors</a></li>
+                  <li><a href="/gcse/electronics/1/5/3/">Thyristor</a></li>
+                  <li><a href="/gcse/electronics/1/5/4/">Voltage comparator</a></li>
+                </ol>
+              </li>
+              <li><a href="/gcse/electronics/1/6/">Diodes</a></li>
+              <li><a href="/gcse/electronics/1/7/">Combinational logic systems</a></li>
+            </ol>
+          </li>
+          <li>
+            <a tabindex="">Applications of electronics</a>
+            <ol class="current">
+              <li><a href="/gcse/electronics/2/1/">Timing circuits</a></li>
+              <li><a href="/gcse/electronics/2/2/">Sequential systems</a></li>
+              <li><a href="/gcse/electronics/2/3/">Interface circuits</a></li>
+              <li>
+                <a tabindex="">Analogue communications</a>
+                <ol class="current">
+                  <li><a class="current" href="/gcse/electronics/2/4/1/">General amplifier systems</a></li>
+                  <li><a href="/gcse/electronics/2/4/2/">Operational amplifiers</a></li>
+                </ol>
+              </li>
+              <li><a href="/gcse/electronics/2/5/">Programmable control systems</a></li>
+            </ol>
+          </li>
+      </ol>
+    </nav>
+    <article>
+      <div id="title-wrapper">
+        <h1>General amplifier systems</h1>
+        <aside>Applications of electronics > Analogue communications > General amplifier systems</aside>
+      </div>
+
+        <ol>
+          <li>Amplifiers increase the power of signals</li>
+          <li>
+            <p>A typical amplifier system has the following subsystems:</p>
+            <ol>
+              <li>A signal source, such as a microphone</li>
+              <li>A preamplifier, such as a voltage amplifier, to increase the amplitude of the signal voltage, as well as the signal-to-noise ratio</li>
+              <li>A mixer, to combine the signal from several sources</li>
+              <li>A power amplifier, that amplifies the voltage, but more notable the current</li>
+              <li>A signal output, such as a loudspeaker</li>
+            </ol>
+          </li>
+          <li>
+The gain of a voltage amplifier is <i class="equation">G = <span class="layered-text"><span class="layer text-align-center layer-line">V<sub>OUT</sub></span><span class="layer text-align-center">V<sub>IN</sub></span></span></i>
+          </li>
+          <li>If the input signal goes so high that the output signal would go above the supply voltage, the output signal is clipped at the supply voltage</li>
+          <li>Amplifiers contain components that respond differently at different frequencies, so the gain goes down at higher frequencies</li>
+          <li>
+The bandwidth of an amplifier is the frequency at which the voltage gain falls to 70% of the maximum gain<a href="#fn:bandwidth" id="fnref:bandwidth" title="See footnote" class="footnote">1</a>
+          </li>
+          <li>
+The higher the voltage gain, the lower the bandwidth: <i class="equation">gain⋅bandwidth = constant</i>
+          </li>
+          <li>Multiple-stage voltage amplifiers are used when both high gain &amp; bandwidth are needed</li>
+        </ol>
+        <div class="footnotes"><hr>
+        <ol>
+          <li id="fn:bandwidth">
+The bandwidth is more accurately the point at which the power gain falls to half the maximum gain, which is where voltage gain falls to <i class="equation"><span class="layered-text"><span class="layer text-align-center layer-line">1</span><span class="layer text-align-center">√2</span></span></i> <a href="#fnref:bandwidth" title="Return to article" class="reversefootnote">&#8617;</a>
+          </li>
+        </ol>
+        </div>    </article>
+    <footer>
+      <p>View the source on <a href="//github.com/ianyfan/gcse" target="_blank">Github</a></p>
+      <p>Please send questions and suggestions to <a href="mailto:ianfan0+notes@gmail.com">ianfan0@gmail.com</a></p>
+    </footer>
+  </body>
+</html>
