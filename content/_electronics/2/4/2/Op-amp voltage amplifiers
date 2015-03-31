@@ -1,7 +1,0 @@
-1. ###Non-inverting amplifier
- 1. Circuit diagram: ![Non-inverting amplifier circuit diagram](/gcse/img/electronics/noninvertingamplifier.png)
- 2. The gain is [[G = 1 + {{R^F^}/{R^1^}}]]
-
-2. ###Inverting amplifier
- 1. Circuit diagram: ![Inverting amplifier circuit diagram](/gcse/img/electronics/invertingamplifier.png)
- 2. The gain is [[G = -{{R^F^}/{R^IN^}}]]

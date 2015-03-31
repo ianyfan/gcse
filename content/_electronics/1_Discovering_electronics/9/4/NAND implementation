@@ -1,5 +1,0 @@
-1. The NAND gate is called the universal logic gate, since all other logic systems can be constructed from it
-2. [[A AND B = (A NAND B) NAND (A NAND B)]]
-3. [[A OR B = (A NAND A) NAND (B NAND B)]]
-4. [[NOT A = A NAND A]]
-5. [[A NOR B = ((A NAND A) NAND (B NAND B)) NAND ((A NAND A) NAND (B NAND B))]]

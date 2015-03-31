@@ -4,6 +4,7 @@
 4. There are several smaller secondary plates: Arabian, Caribbean, Cocos, Indian, Juan de Fuca, Nazca, Philippine Sea and Scotia
 5. The plates are about 100 km thick and consist of two types of material: continental & oceanic crust
 6. Comparison:
+
     |              Continental              |                Oceanic                 |
     |:-------------------------------------:|:--------------------------------------:|
     |Older: more than 1500 million years old|Younger: less than 200 million years old|

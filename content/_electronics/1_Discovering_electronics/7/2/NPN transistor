@@ -1,4 +1,0 @@
-1. Circuit diagram: ![NPN transistor symbol](/gcse/img/electronics/npntransistor.png)
-2. Leads: corresponding to the diagram with the flat side pointing to the right
-3. A small base current be used to control a much larger load current
-4. The transistor is off if [[V^IN^ < 0.7 V]] and on if [[V^IN^  0.7 V]]

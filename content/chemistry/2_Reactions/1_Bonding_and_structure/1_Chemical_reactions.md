@@ -5,7 +5,7 @@
 5. Information about the states of substances in a reaction can be included in symbol equations by subscripting each substance with a state symbol: [[^(s), (l), (g), (aq)^]]
 6. No atoms are lost or made during a reaction so the mass of the products is equal to the mass of the reactants
 7. The masses of reactants and products can be calculated from balanced symbol equations
-8. Even though no atoms are lost or made in a reaction, it is not always possible to obtain the calculated amount of a product because:
- 1. the reaction may not go to completion because it is reversible
- 2. some of the product may be lost when it is separated from the reaction mixture
- 3. some of the reactants may react in ways different from the expected reaction
+8. Even though no atoms are lost or made in a reaction, it is not always possible to obtain the calculated amount of a product:
+    1. The reaction may not go to completion because it is reversible
+    2. Some of the product may be lost when it is separated from the reaction mixture
+    3. Some of the reactants may react in ways different from the expected reaction
