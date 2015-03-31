@@ -36,32 +36,28 @@ var markdownConverter = (function() {
     require('pagedown-extra').Extra.init(converter,
         {extension: ['tables', 'smart_strong']});
 
-    converter.hooks.chain('preConversion', function(text) { // sups & subs
-        // Pretty much duplicated from strikethrough
-        // which in turn duplicated from bold & italics
-        text = text.replace(/([^\[\\]|^)\^\^(?=\S)([^\r]*?\S[\*_]*)\^\^/g,
-                            "$1<sup>$2</sup>");
-        return text.replace(/([^\[\\]|^)\^(?=\S)([^\r]*?\S[\*_]*)\^/g,
-                            "$1<sub>$2</sub>");                           
-    });
-
     converter.hooks.chain('preConversion', function(text) { // fractions
         // format: {:{numerator}: (/ if frac line, else |) :{denominator}:}
         // Colons determine alignment like tables
 
+        var alignClasses = ['', ' text-align-left', ' text-align-right',
+            ' text-align-center'];
+
         var last = text.length;
         while (last && (last = text.lastIndexOf('{', --last)) != -1) {
             text = text.slice(0, last) + text.slice(last).replace(
-                /{(:?){(.*?)}(:?)\s*(\/|\|)\s*(:?){(.*?)}(:?)}/, function(_,
-                        numerL, numer, numerR, line, denomL, denom, denomR) {
+                /{(({.*?}\s*\|?\s*)*)}/, function(_, layers) {
                     var align = ['', ' text-align-left', ' text-align-right',
                         ' text-align-center'];
-                    return '<span class="fraction"><sup class="numerator' +
-                        align[(numerL === ':') + ((numerR === ':') << 1)] +
-                        '">' + numer + '</sup><sub class="denominator' +
-                        (line === '/' ? ' frac-line' : '') +
-                        align[(denomL === ':') + ((denomR === ':') << 1)] +
-                        '">' + denom + '</sub></span>';
+                    return '<span class="layered-text">' + layers.replace(
+                        /{(:?)\s+(.*?)\s+(:?)}\s*(\|?)\s*/g,
+                        function(_, alignLeft, layerText, alignRight, line) {
+                            return '<span class="layer' + alignClasses[
+                                    (alignLeft === ':') + 2*(alignRight === ':')
+                                ] + (line ? ' layer-line' : '') + '">' +
+                                layerText + '</span>';
+                        }
+                    ) + '</span>';
                 }
             );
         }
@@ -72,8 +68,24 @@ var markdownConverter = (function() {
         return text.replace(/\[\[(.*?)]]/g, '<i class="equation">$1</i>');
     });
 
+    converter.hooks.chain('preConversion', function(text) { // sups & subs
+        // Pretty much duplicated from strikethrough
+        // which in turn duplicated from bold & italics
+        text = text.replace(/([^\[\\]|^)\^\^(?=\S)([^\r]*?\S[\*_]*)\^\^/g,
+                            '$1<sup>$2</sup>');
+        return text.replace(/([^\[\\]|^)\^(?=\S)([^\r]*?\S[\*_]*)\^/g,
+                            '$1<sub>$2</sub>');
+    });
+
+    converter.hooks.chain('preConversion', function(text) { // negated text
+        return text.replace(/([^\[\\]|^)¬(?=\S)([^\r]*?\S[\*_]*)¬/g,
+                            '$1<span class="negated">$2</sub>');
+    });
+
     converter.hooks.chain('postConversion', function(text) { // table cell spans
-        text = text.replace(/<td(.*?)>{merged}<\/td>/g, ''); // remove empty cells
+        // remove empty cells
+        text = text.replace(/<t(d|h)(.*?)>{merged}<\/t\1>/g, '');
+
         return text.replace(/>{(.*?)}/g, ' $1>');
     });
 
@@ -166,7 +178,7 @@ function createSubject(subject) {
         var nav = '';
         for (var prev, i = 1; i < sections.length; i++) {
             if (!sections[i]) {
-                nav += '        <li class="nolist"><a></a></li>\n';
+                nav += '        <li><a class="nolist"></a></li>\n';
             } else {
                 sections[i].prev = prev;
                 if (prev) prev.next = sections[i];
@@ -312,17 +324,21 @@ Page.prototype.write = function() {
 '    <button></button>\n' +
 '    <header>\n' +
 '      <h1>' + this.title + '</h1>\n' +
-'      <a id="home" class="fab" href="/gcse/"></a>\n' +
+'      <a id="home" class="fab"></a>\n' +
 '      <ul>\n' +
          homeNav +
 '      </ul>\n' +
 '      <div id="header-nav">\n' +
 '        <a id="prev" class="fab" href' +
-            (this.prev ? '="' + this.prev.href + '"' : '') + '></a>\n' +
-'        <h2 id="title-prev">' + (this.prev?this.prev.title:'') + '</h2>\n' +
+           (this.prev ? '="' + this.prev.href + '"' : '') + '></a>\n' +
+'        <h2 id="title-prev">' +
+           (this.prev ? this.prev.titleNo + ' ' + this.prev.title : '') +
+        '</h2>\n' +
 '        <a id="next" class="fab" href' +
-            (this.next ? '="' + this.next.href + '"' : '') + '></a>\n' +
-'        <h2 id="title-next">' + (this.next?this.next.title:'') + '</h2>\n' +
+           (this.next ? '="' + this.next.href + '"' : '') + '></a>\n' +
+'        <h2 id="title-next">' +
+           (this.next ? this.next.titleNo + ' ' + this.next.title : '') +
+        '</h2>\n' +
 '      </div>\n' +
 '    </header>\n' +
 '    <nav>\n' +
@@ -330,7 +346,7 @@ Page.prototype.write = function() {
          nav +
 '      </ol>\n' +
 '    </nav>\n' +
-'    <article>' +
+'    <article>\n' +
 '      <div id="title-wrapper">\n' +
 '        <h1>' + this.title + '</h1>\n' +
 '        <aside>' + path.join(' > ') + '</aside>\n' +
@@ -391,7 +407,7 @@ Listing.prototype.makeNav = function(indexes, pos) {
 
     for (var prev, i = 1; i < this.sections.length; i++) {
         if (!this.sections[i]) {
-            nav += indent + '    <li class="nolist"><a></a></li>\n';
+            nav += indent + '    <li><a class="nolist"></a></li>\n';
         } else {
             this.sections[i].parent = this;
             this.sections[i].prev = prev;
@@ -423,7 +439,10 @@ function processFileName(filename) {
     })];
 };
 processFileName.replacements = {'~COMMA': ',',
-                                '~COLON': ':'};
+    '~COLON': ':',
+    '~FSLASH': '/',
+    '~BSLASH': '\\'
+};
 
 function finish() {
     if (finish.called) return;
