@@ -5,6 +5,7 @@
 body {
   min-width: 2*$nav-width;
   margin: 0;
+  overflow-y: scroll;
 
   font-family: 'Source Sans Pro', Helvetica;
 }
@@ -21,6 +22,10 @@ h1, h2, h3, h4 {
   margin: 0;
 
   font-weight: normal;
+
+  @at-root h4 {
+    font-size: 1.1em;
+  }
 }
 
 button {
@@ -138,42 +143,43 @@ header {
 
   min-width: $nav-width;
 
-  > h2 {
-    position: absolute;
+  @at-root {
+    h2 {
+      position: absolute;
 
-    max-width: calc(100% - 260px);
-    padding: 0 10px;
-    box-shadow: 0 2px 2px #444;
-    opacity: 0;
+      max-width: calc(100% - 260px);
+      padding: 0 20px;
+      box-shadow: 0 2px 2px #444;
+      opacity: 0;
 
-    background-color: $greyscale-1;
-    color: #888;
+      background-color: $greyscale-1;
+      color: #888;
 
-    font-weight: normal;
-    line-height: 60px;
-    word-wrap: break-word; overflow-wrap: break-word;
+      font-weight: normal;
+      line-height: 60px;
+      word-wrap: break-word; overflow-wrap: break-word;
 
-    @at-root {
-      #title-prev {
-        left: 60px;
+      pointer-events: none;
 
-        transition: left .25s, opacity .25s;
-      }
+      @at-root {
+        #title-prev {
+          left: 60px;
 
-      #title-next {
-        right: 60px;
+          transition: left .25s, opacity .25s;
+        }
 
-        text-align: right;
+        #title-next {
+          right: 60px;
 
-        transition: right .25s, opacity .25s;
+          text-align: right;
+
+          transition: right .25s, opacity .25s;
+        }
       }
     }
-  }
 
-  @at-root {
     .fab {
       position: absolute;
-      z-index: 1;
 
       height: 60px;
       width: 60px;
@@ -290,11 +296,6 @@ nav {
     &.current {overflow-y: auto;} // for specificity
 
     word-wrap: break-word; overflow-wrap: break-word;
-
-    @at-root ol > li.nolist { // ol > li for specificity
-      height: 0;
-      visibility: hidden;
-    }
   }
 
   a {
@@ -320,13 +321,23 @@ nav {
       content: counters(section,".") " ";
     }
 
-    @at-root a.current {color: $accent-color;}
+    @at-root {
+      a.current {
+        color: $accent-color;
+      }
+
+      .nolist {
+        height: 0;
+        padding: 0;
+        visibility: hidden;
+      }
+    }
   }
 }
 
 article {
-  min-height: calc(100vh + 179px); // 240px - $footer-height - 1px
-  padding: 0 10px 1px;
+  min-height: calc(100vh + 170px); // 240px - $footer-height - 10px
+  padding: 0 10px 10px;
   margin: 0 0 $footer-height $nav-width;
   box-shadow: 0 0 8px $dark-shadow;
 
@@ -381,19 +392,19 @@ footer {
   > p {
     margin: 5px 10px;
   }
+}
 
-  a {
-    color: $accent-color;
+article a, footer a {
+  color: $accent-color;
 
-    transition: opacity .25s;
+  transition: opacity .25s;
 
-    &:hover {
-      opacity: .75;
-    }
+  &:hover {
+    opacity: .75;
+  }
 
-    &:active {
-      opacity: .5;
-    }
+  &:active {
+    opacity: .5;
   }
 }
 
@@ -405,10 +416,6 @@ table {
   @at-root {
     th, td {
       padding: 10px;
-
-      &:hover {
-        background-color: $greyscale-1;
-      }
     }
 
     th {
@@ -418,9 +425,13 @@ table {
     }
 
     td {
-      border-top: 1px solid $greyscale-3;
+      border-top: 1px solid #bdbdbd;
 
       transition: background-color .25s;
+
+      &:hover {
+        background-color: $greyscale-1;
+      }
     }
   }
 }
@@ -455,20 +466,22 @@ table {
   font-style: italic;
 }
 
-.fraction {
+.layered-text {
   display: inline-block;
+  margin: 0 1px;
 
   vertical-align: middle;
 
   @at-root {
-    .numerator, .denominator {
+    .layer {
       display: block;
-      min-height: 1.25em;
-      margin: 0 1px;
+      padding: 0 1px;
+
+      font-size: .7em; // ~sqrt(2)
     }
 
-    .frac-line {
-      border-top: 1px solid #000;
+    .layer-line {
+      border-bottom: 1px solid #000;
     }
 
     @each $alignment in left, center, right {
