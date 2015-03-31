@@ -19,6 +19,9 @@ notes.init = function() {
     stylesheet.href = '/gcse/notesjs.css';
     document.head.appendChild(stylesheet);
 
+    document.getElementsByTagName('article')[0].style.minHeight =
+        'calc(100vh - 70px)';
+
     var headerNav = document.getElementById('header-nav').style;
     headerNav.zIndex = 1;
     headerNav.top = (210 - window.scrollY) + 'px';
@@ -50,22 +53,101 @@ notes.init = function() {
         }
 
         sidebar.addEventListener('click',
-            document.getElementsByTagName('header')[0].onclick = function(event) {
-                if (event.target.pathname.split('/')[2] !==
+            document.getElementsByTagName('header')[0].onclick = function(ev) {
+                if (ev.target.pathname.split('/')[2] !==
                         location.pathname.split('/')[2]) return;
                 // if subjects don't match, open synchronously
-                event.preventDefault(); // else open asynchronously
+                ev.preventDefault(); // else open asynchronously
 
-                var href = event.target.href;
+                var href = ev.target.href;
                 // unless link is the current page or actually a listing
-                if (!href || event.target.className === 'current') return;
+                if (!href || ev.target.className === 'current') return;
 
                 history.pushState('', '', href);
                 window.onpopstate();
             }
         );
     }
+    notes.scrollTo.nav =
+        document.getElementsByTagName('nav')[0].lastElementChild;
 };
+
+notes.scrollTo = function(el) {
+    var nav = notes.scrollTo.nav;
+    var difference = (el.offsetTop + el.offsetHeight/2) -
+        (nav.scrollTop + nav.offsetHeight/2);
+    var direction = difference > 0 ? 1 : -1;
+    difference = direction * difference;
+
+    var limit = (nav.offsetHeight - el.offsetHeight)/2;
+
+    if (notes.scrollTo.intervalID === null && difference <= limit) return;
+
+    clearInterval(notes.scrollTo.intervalID);
+    notes.scrollTo.intervalID = null;
+
+    if (notes.scrollTo.speed) {
+        var stopDirection = direction === notes.scrollTo.direction ? -1 : 1;
+        var endPos = difference + stopDirection * notes.scrollTo.speed *
+            (notes.scrollTo.speed - 1)/2;
+        var deceleration;
+        if (endPos < limit || direction !== notes.scrollTo.direction) {
+            if (Math.abs(endPos) < limit) {
+                deceleration = 1;
+            } else {
+                var steps = Math.floor((notes.scrollTo.speed-3)/2);
+                deceleration = Math.abs(difference + stopDirection * (steps+1) *
+                    (notes.scrollTo.speed - 2 - steps)) <= limit ? 2 : 3;
+            }
+            notes.scrollTo.intervalID = setInterval(function() {
+                if ((notes.scrollTo.speed -= deceleration) > 0) {
+                    nav.scrollTop += notes.scrollTo.direction*
+                        notes.scrollTo.speed;
+                } else {
+                    clearInterval(notes.scrollTo.intervalID);
+                    notes.scrollTo.speed = 0;
+
+                    if (deceleration === 3) {
+                        difference = (notes.scrollTo.direction *= -1) *
+                            ((el.offsetTop+el.offsetHeight/2) -
+                            (nav.scrollTop+nav.offsetHeight/2));
+                        notes.scrollTo.intervalID = setInterval(accelerate, 10);
+                    }
+                }
+            }, 10);
+            return;
+        }
+    }
+    notes.scrollTo.direction = direction;
+    notes.scrollTo.intervalID = setInterval(accelerate, 10);
+
+    function accelerate() {
+        nav.scrollTop += notes.scrollTo.direction * (notes.scrollTo.speed += 2);
+
+        if ((difference -= notes.scrollTo.speed) -
+                notes.scrollTo.speed*(notes.scrollTo.speed - 1)/2 < limit) {
+            clearInterval(notes.scrollTo.intervalID);
+            notes.scrollTo.intervalID = setInterval(decelerate, 10);
+        }
+    }
+
+    function decelerate() {
+        if (--notes.scrollTo.speed) {
+            nav.scrollTop += notes.scrollTo.direction * notes.scrollTo.speed;
+        } else {
+            clearInterval(notes.scrollTo.intervalID);
+            notes.scrollTo.intervalID = null;
+        }
+    }
+};
+notes.scrollTo.intervalID = null;
+notes.scrollTo.speed = 0;
+
+if (document.readystate === 'loading') {
+    document.addEventListener('DOMContentLoaded', notes.init);
+} else {
+    notes.init();
+}
 
 notes.toggleList = function(list) {
     if (list.className) { // either expanded or no class
@@ -84,12 +166,6 @@ notes.toggleList = function(list) {
     }
 }
 
-if (document.readystate === 'loading') {
-    document.addEventListener('DOMContentLoaded', notes.init);
-} else {
-    notes.init();
-}
-
 window.onscroll = function() {
     var scroll = window.scrollY;
     document.getElementById('header-nav').style.top = (scroll < 180 ? 210 -
@@ -102,85 +178,63 @@ window.onpopstate = function() {
     var current = document.getElementsByClassName('current')
     for (var i = current.length; --i;) current[i].className = 'expanded';
 
-    var nav = document.getElementsByTagName('nav')[0].firstElementChild,
-        sideLink = nav.querySelector('[href="'+location.pathname+'"]'),
-        titleNo = [],
-        linkPath = [],
-        prev,
-        next;
-    if (sideLink) {
-        sideLink.className = 'current';
-        var parentSection = sideLink,
-            section;
+    var titleNo = location.pathname.split('/').slice(3, -1);
+    var titles = document.getElementsByTagName('h1');
+    var linkPath = [];
+    var sideLink;
+    var prev;
+    var next;
+    if (titleNo.length) {
+        sideLink = notes.scrollTo.nav;
+        for (var i = 0; i < titleNo.length; i++) {
+            sideLink = sideLink.children[titleNo[i] - 1].lastElementChild;
+            if (sideLink.tagName === 'A') {
+                linkPath.push(sideLink.textContent);
+            } else {
+                linkPath.push(sideLink.previousElementSibling.textContent);
+
+                if (!sideLink.className) notes.toggleList(sideLink);
+            }
+            sideLink.className = 'current';
+        }
+
+        prev = sideLink;
         do {
-            section = parentSection;
-            if (!section.className) notes.toggleList(section);
-            section.className = 'current';
-
-            linkPath.unshift(section.tagName === 'A' ? section.textContent :
-                section.previousElementSibling.textContent);
-
-            parentSection = section.parentNode.parentNode;
-            titleNo.unshift(Array.prototype.indexOf.call(parentSection.children,
-                section.parentNode) + 1);
-        } while (parentSection.parentNode.tagName !== 'NAV');
-
-        if (sideLink.offsetTop < nav.scrollTop || // link is off the top
-                sideLink.offsetTop + sideLink.offsetHeight >
-                nav.scrollTop + nav.offsetHeight) { // or off the bottom
-            var difference = (sideLink.offsetTop + sideLink.offsetHeight/2) - 
-                    (nav.scrollTop + nav.offsetHeight/2),
-                direction = difference > 0 ? 1 : -1;
-            difference = direction*difference;
-
-            var velocity = 0,
-                intervalID = setInterval(function() {
-                nav.scrollTop += direction * (velocity += 2);
-                if ((difference -= velocity) < (velocity+1)*(velocity+2)/2) {
-                    clearInterval(intervalID);
-
-                    var error = difference - velocity * (velocity + 1)/2;
-                    setTimeout(function() {
-                        nav.scrollTop += direction * error;
-
-                        intervalID = setInterval(function() {
-                            nav.scrollTop += direction * velocity--;
-                            if (velocity === 0) clearTimeout(intervalID);
-                        }, 10);
-                    }, 10*(error/velocity));
+            prev = prev.parentNode;
+            while (!prev.previousElementSibling && prev.tagName !== 'NAV') {
+                prev = prev.parentNode.parentNode;
+            }
+            if (prev.tagName !== 'NAV') {
+                prev = prev.previousElementSibling.lastElementChild;
+                while (prev.tagName !== 'A') {
+                    prev = prev.lastElementChild.lastElementChild;
                 }
-            }, 10);
-        }
-
-        prev = sideLink.parentNode;
-        while (!prev.previousElementSibling && prev.tagName !== 'NAV') {
-            prev = prev.parentNode.parentNode;
-        }
-        if (prev.tagName !== 'NAV') {
-            prev = prev.previousElementSibling.lastElementChild;
-            while (prev.tagName !== 'A') {
-                prev = prev.lastElementChild.lastElementChild;
             }
-        }
+        } while (prev.className === 'nolist');
 
-        next = sideLink.parentNode;
-        while (!next.nextElementSibling && next.tagName !== 'NAV') {
-            next = next.parentNode.parentNode;
-        }
-        if (next.tagName !== 'NAV') {
-            next = next.nextElementSibling.lastElementChild;
-            while (next.tagName !== 'A') {
-                next = next.firstElementChild.lastElementChild;
+        next = sideLink;
+        do {
+            next = next.parentNode;
+            while (!next.nextElementSibling && next.tagName !== 'NAV') {
+                next = next.parentNode.parentNode;
             }
-        }
+            if (next.tagName !== 'NAV') {
+                next = next.nextElementSibling.lastElementChild;
+                while (next.tagName !== 'A') {
+                    next = next.firstElementChild.lastElementChild;
+                }
+            }
+        } while (next.className === 'nolist');
+
+        notes.scrollTo(sideLink);
     } else {
-        sideLink = document.querySelector('[href="'+location.pathname+'"]');
+        sideLink = document.querySelector('[href="' + location.pathname + '"]');
+        prev = next = {href: ''};
     }
 
     document.title = titleNo.join('.') + ' ' + sideLink.textContent +
         ' :: GCSE notes';
 
-    var titles = document.getElementsByTagName('h1');
     titles[1].textContent = titles[0].textContent = sideLink.textContent;
     titles[1].nextElementSibling.textContent = linkPath.join(' > ');
     document.getElementsByTagName('article')[0].innerHTML =
@@ -191,9 +245,27 @@ window.onpopstate = function() {
         var button = document.getElementById(direction),
             el = direction === 'prev' ? prev : next;
         if (button.href = el.href || '') { // assignment intentional
-            button.nextElementSibling.textContent = el.textContent;
+            button.nextElementSibling.textContent =
+                el.pathname.split('/').slice(3, -1).join('.') + ' ' +
+                el.textContent;
         }
     }
     replaceButton('prev');
     replaceButton('next');
 };
+
+// Google Analytics follows until end
+(function(i,s,o,g,r,a,m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function(){
+        (i[r].q = i[r].q || []).push(arguments);
+    };
+    i[r].l = 1*new Date();
+    a = s.createElement(o);
+    m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a,m);
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-61247210-1', 'auto');
+ga('send', 'pageview');
