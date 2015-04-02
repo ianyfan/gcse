@@ -6,11 +6,19 @@ notes.init = function() {
     if (notes.init.called) return;
     else notes.init.called = true;
 
+    function openAsync(href) {
+        history.pushState('', '', href);
+        window.onpopstate();
+    };
+
     document.body.onkeyup = function(event) {
         if (document.body.scrollWidth < window.innerWidth || event.ctrlKey) {
             var direction = {Left: 'prev', ArrowLeft: 'prev', Right: 'next',
                 ArrowRight: 'next'}[event.key || event.keyIdentifier];
-            if (direction) document.getElementById(direction).click();
+            if (direction) {
+                ga('send', 'event', 'header', 'key', direction); // G analytics
+                openAync(document.getElementById(direction).href);
+            }
         }
     };
 
@@ -52,22 +60,34 @@ notes.init = function() {
             document.head.appendChild(script);
         }
 
-        sidebar.addEventListener('click',
-            document.getElementsByTagName('header')[0].onclick = function(ev) {
-                if (ev.target.pathname.split('/')[2] !==
-                        location.pathname.split('/')[2]) return;
-                // if subjects don't match, open synchronously
-                ev.preventDefault(); // else open asynchronously
-
-                var href = ev.target.href;
-                // unless link is the current page or actually a listing
-                if (!href || ev.target.className === 'current') return;
-
-                history.pushState('', '', href);
-                window.onpopstate();
+        document.getElementsByTagName('header')[0].onclick = function(event) {
+            if (event.target.pathname.split('/')[2] !==
+                    location.pathname.split('/')[2]) {
+                ga('send', 'event', 'header', 'click', 'subject'); // analytics
+                return
             }
-        );
+            // if subjects don't match, open synchronously
+
+            ga('send', 'event', 'header', 'click', 'page'); // Google analytics
+
+            event.preventDefault(); // else open asynchronously
+
+            openAsync(event.target.href);
+        };
+
+        sidebar.addEventListener('click', function(event) {
+            event.preventDefault(); // open asynchronously
+
+            var href = event.target.href;
+
+            ga('send', 'event', 'sidebar', 'click', (href ? 'page' :
+                'listing') + ' ' + event.target.className); // Google analytics
+
+            // don't open if link is the current page or actually a listing
+            if (href && event.target.className !== 'current') openAsync(href);
+        });
     }
+
     notes.scrollTo.nav =
         document.getElementsByTagName('nav')[0].lastElementChild;
 };
@@ -173,6 +193,8 @@ window.onscroll = function() {
 }
 
 window.onpopstate = function() {
+    ga('send', 'pageview'); // Google analytics
+
     window.scroll(0, 0);
 
     var current = document.getElementsByClassName('current')
