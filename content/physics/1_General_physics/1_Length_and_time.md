@@ -6,7 +6,7 @@
     4. A zero error, the reading given at zero, must be subtracted from the measurement
 2. ###Volume
 
-    1. Volumes can be calculated using standard formulae or from the displacement of water into measuring cylinder
+    1. Volumes can be calculated using standard formulae or from the displacement of water into a measuring cylinder
 3. ###Time
 
     1. Time can be measured using a clock or a stopwatch

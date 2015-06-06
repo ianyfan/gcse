@@ -16,8 +16,8 @@
     4. The female llamas are used for meat & milk, with their wool being used in clothes & rugs
 4. ###Mining
 
-    1. The Andes are famous for the wealth of minerals
-    2. Mining in the Andes places Chile & Peru as the first & third largest producers of copper respectively
+    1. The Andes are famous for their wealth of minerals
+    2. Mining in the Andes causes Chile & Peru to be the first & third largest producers of copper respectively
     3. Peru contains the largest gold mine in the world: the Yanacocha, causing the nearby town of Cajamarca to grow from 30,000 inhabitants to 240,000 in 2005, bringing with it a host of new jobs
 5. ###Hydroelectric power
 

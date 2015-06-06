@@ -3,7 +3,7 @@
 
     1. They must not marry until their late 20s
     2. They must have only one successful pregnancy
-    3. They must be sterilised after the first birth or about future pregnancies
+    3. They must be sterilised after the first birth or abort future pregnancies
 3. ###Incentives
 
     1. 5-10% salary rise
@@ -24,17 +24,17 @@
     4. Families in rural areas if the firstborn is female, since a son is perceived to be essential for working the land
 6. ###Problems
 
-    1. Women are forced to have an abortion as late as the ninth months of pregnancy
+    1. Women are forced to have an abortion as late as the ninth month of pregnancy
     2. Women are placed under tremendous pressure from their families, workmates and the "granny police", who are older women of the community entrusted with the task of keeping everyone in line, as well as their own conscience & feelings
     3. Local officials and central government have power over people's private lives
     4. Daughters are less desirable and so are killed or abandoned, putting a strain on orphanages and leading to a 5:4 gender inbalance in boys & girls
-    5. Only children are often over-indulged, so called "little emperors"
+    5. Only children are often over-indulged, so-called "little emperors"
     6. Rich people and officials are often able to have a second child regardless
     7. The 4-2-1 effect, wherein couples will potentially have to care for four elderly parents and a child between the pair of them
 7. ###Benefits
 
     1. An estimated 400 million fewer people have been born
-    2. The forecasted crises has not happened
+    2. The forecasted crisis has not happened
     3. There is enough food & jobs for the population
     4. Increased technology and exploitation of resources have increased the standard of living
     5. New industries have lifted millions out of poverty

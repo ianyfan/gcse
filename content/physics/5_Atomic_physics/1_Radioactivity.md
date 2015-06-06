@@ -2,6 +2,7 @@
 
     1. Radioactive emissions occur randomly over space and time
     2. ####Characteristics of the three kinds of emission:
+
         |   Emission    |                                   Nature                                   |Relative ionising effects|Relative penetrating abilities|Deflection in electric fields|
         |:-------------:|:--------------------------------------------------------------------------:|:-----------------------:|:----------------------------:|:---------------------------:|
         |Alpha particles|                         High-energy helium nuclei                          |           High          |             Low              |      Towards negative       |

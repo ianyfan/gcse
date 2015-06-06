@@ -1,6 +1,6 @@
 1. ###Bonding
 
-    1. When atoms transfer electrons, they form ions
+    1. An ion is an atom that has transferred electrons
     2. Ions have the electron arrangement of a noble gas, which is denoted using square brackets with the charge superscripted
     3. Atoms that lose electrons become positively-charged ions called cations
     4. Atoms that gain electrons become negatively-charged ions called anions
@@ -9,8 +9,8 @@
 2. ###Structure
 
     1. An ionic compound is a giant structure of ions
-    2. They are held together by strong electrostatic forces of attraction between oppositely-charged ions acting in all directions in the lattice
-    3. The structure of sodium of sodium chloride is a cubic lattice of ions where adjacent ions are different
+    2. They are held together by ionic bonds: strong electrostatic forces of attraction between oppositely-charged ions acting in all directions in the lattice
+    3. The structure of sodium of sodium chloride is a cubic lattice of ions in which adjacent ions are different
 3. ###Properties
 
     1. They have high melting & boiling points since large amounts of energy are required to overcome the many strong electrostatic forces

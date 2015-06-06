@@ -10,7 +10,7 @@
     7. Encouraging a higher age of marriage
     8. Allowing maternity leave for the first two babies only
     9. Providing extra retirement benefits for those with smaller families
-    10. Following a land reform programme so that no family is landless but did not own more than eight lectures, so that everyone could be self-sufficient
+    10. Following a land reform programme so that no family is landless but did not own more than eight hectares, so that everyone could be self-sufficient
 3. ###Effect
 
     1. It is one of the few regions in the developing world to have reached Stage 4 of the demographic transition model

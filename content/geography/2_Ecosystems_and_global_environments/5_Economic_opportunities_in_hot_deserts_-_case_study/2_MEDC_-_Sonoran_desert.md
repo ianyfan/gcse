@@ -15,7 +15,7 @@
         1. Marana, a town with a population of around 30 thousand people, has developed into a thriving business town and leisure resort
         2. In 1920, a new system enabled it to become an agricultural centre specialising in cotton, a crop that thrives in hot conditions if watered
         3. It expanded in the 40s to include wheat, barley and pecans
-        4. Since the 90s, farming in the area has been surpassed with housing and now migration account for much of the growth of the town
+        4. Since the 90s, farming in the area has been surpassed with housing and now migration accounting for much of the growth of the town
 3. ###Sustainable Management
 
     1. In Marana, a heritage park has been established to celebrate the town's agricultural heritage

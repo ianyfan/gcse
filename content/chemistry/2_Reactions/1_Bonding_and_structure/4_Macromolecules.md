@@ -6,7 +6,7 @@
 4. ###Graphite
 
     1. In graphite, each carbon atom is bonded to three others, forming layers
-    2. It is soft and slippery since the layers are free to slide over each other because there are van der Waals forces between the layers which are very weak
+    2. It is soft & slippery since the layers are free to slide over each other because there are van der Waals forces between the layers which are very weak
     3. It conducts heat and electricity since one electron from each carbon atom is delocalised, making it similar to metals
 5. ###Fullerenes
 

@@ -8,7 +8,7 @@
 
         1. This is the initial cause of urbanisation
         2. Path: ![Rural urban migration diagram](/gcse/img/geography/ruralurbanmigration.png)
-        3. Migration occurs due to push factors - reasons to move away from home - and pull factors - reasons to move to new places
+        3. Migration occurs due to push factors: reasons to move away from home, and pull factors: reasons to move to new places
 
             |                        Push factors                         |   Pull factors   |
             |:-----------------------------------------------------------:|:----------------:|

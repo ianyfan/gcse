@@ -5,3 +5,4 @@
     2. This is done by evaporating the oil and feeding it into the bottom of a fractionating column
     3. As the gas rises, the temperature falls and different hydrocarbons condense off
     4. A fraction usually contains more than one type of hydrocarbon with a similar number of carbon atoms and they may require more separation
+    5. This is a continuous process: new oil is always being added and products are always being removed, normally at an equal rate

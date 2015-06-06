@@ -15,6 +15,7 @@
     4. Nuclear fusion of uranium in a nuclear reactor releases huge amounts of energy
     5. Heat & light from the Sun can be captured using solar cells & panels and converted into electrical energy
 3. ###Advantages and disadvantages
+
     |       Type        |Advantages|Disadvantages|
     |:-----------------:|:---------|:------------|
     |       Fuel        |Concentrated resources<br>Reliable<br>Easy to use|Releases CO^2^, which contributes to climate change<br>Releases SO^2^, which causes acid rain<br>Coal mining ruins the landscape|

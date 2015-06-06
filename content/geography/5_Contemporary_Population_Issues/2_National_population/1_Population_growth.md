@@ -1,7 +1,7 @@
 1. Birth rate is the number of births per 1000 people per year
 2. Death rate is the number of deaths per 1000 people per year
-3. Natural change is the difference between birth & death rates expressed as a percentages
-4. Natural increase is when birth rate exceeds death rate and has been typical recently
+3. Natural change is the difference between birth & death rates expressed as a percentage
+4. Natural increase is when birth rate exceeds death rate and has been typical until recently
 5. Natural decrease in when death rate exceeds birth rate and is becoming more common
 6. Life expectancy is the age a person is expected to live to
 7. Infant mortality is the number of deaths under the age of 1 per 1000 births

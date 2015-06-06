@@ -36,21 +36,20 @@ var markdownConverter = (function() {
     require('pagedown-extra').Extra.init(converter,
         {extension: ['tables', 'smart_strong']});
 
-    converter.hooks.chain('preConversion', function(text) { // fractions
-        // format: {:{numerator}: (/ if frac line, else |) :{denominator}:}
+    converter.hooks.chain('preConversion', function(text) { // layered text
         // Colons determine alignment like tables
 
         var alignClasses = ['', ' text-align-left', ' text-align-right',
             ' text-align-center'];
 
         var last = text.length;
-        while (last && (last = text.lastIndexOf('{', --last)) != -1) {
+        while (last && (last = text.lastIndexOf('{{', --last)) != -1) {
             text = text.slice(0, last) + text.slice(last).replace(
                 /{(({.*?}\s*\|?\s*)*)}/, function(_, layers) {
                     var align = ['', ' text-align-left', ' text-align-right',
                         ' text-align-center'];
                     return '<span class="layered-text">' + layers.replace(
-                        /{(:?)\s+(.*?)\s+(:?)}\s*(\|?)\s*/g,
+                        /{(:?)\s*(.*?)\s*(:?)}\s*(\|?)\s*/g,
                         function(_, alignLeft, layerText, alignRight, line) {
                             return '<span class="layer' + alignClasses[
                                     (alignLeft === ':') + 2*(alignRight === ':')
@@ -131,9 +130,9 @@ fs.readdir('content', function(err, files) {
 });
 
 function createSubject(subject) {
-    var sections = [],
-        subjectObj = {sections: sections, pages: 0, path: '.gcse/' + subject},
-        subjectDir = 'content/' + subject;
+    var sections = [];
+    var subjectObj = {sections: sections, pages: 0, path: '.gcse/' + subject};
+    var subjectDir = 'content/' + subject;
     subjects[subject] = subjectObj;
 
     var readPending = 0;
@@ -144,7 +143,9 @@ function createSubject(subject) {
         (function readListing(dir, files, dest) {
             for (var i = 0; i < files.length; i++) {
                 var file = files[i];
-                if (file.indexOf('.md', file.length - 3) != -1) {
+                if (file[0] === '_') {
+                    return;
+                } else if (file.indexOf('.md', file.length - 3) != -1) {
                     subjectObj.pages++;
                     var title = processFileName(file.slice(0, -3));
                     dest[title[0]] = new Page(title[1], dir + '/' + file);
@@ -224,10 +225,10 @@ Page.prototype.write = function() {
         if (err) throw new ReadFileError(file);
         else if (DEBUG) console.log('Read file: ' + this.path);
 
-        var markdownHTML = markdownConverter.makeHtml(data).split('\n'),
-            prettyHTML = '',
-            indent = '        ',
-            unindentLiQueue = [];
+        var markdownHTML = markdownConverter.makeHtml(data).split('\n');
+        var prettyHTML = '';
+        var indent = '        ';
+        var unindentLiQueue = [];
 
         for (var lineNo = 0; lineNo < markdownHTML.length; lineNo++) {
             var line = markdownHTML[lineNo].split('<');
@@ -290,16 +291,16 @@ Page.prototype.write = function() {
             }
         }
 
-        var subjectObj = subjects[this.subject],
-            outDir = '.' + this.href.slice(1),
-            outPath = outDir + 'index.html';
+        var subjectObj = subjects[this.subject];
+        var outDir = '.' + this.href.slice(1);
+        var outPath = outDir + 'index.html';
 
         fs.mkdir(outDir, (function(err) {
             if (err && err.code !== 'EEXIST') throw new MakeDirError(outDir);
             else if (DEBUG) console.log('Made dir: ' + outDir);
 
-            var nav = subjectObj.nav,
-                path = [];
+            var nav = subjectObj.nav;
+            var path = [];
             if (this.titleNo) {
                 for (var node = this; node; node = node.parent) {
                     nav = nav.slice(0, node.navMarker) + ' class="current"' +

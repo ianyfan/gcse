@@ -1,4 +1,4 @@
-![Demographic transition model diagram](/gcse/geography/demographictransitionmodel.png)
+![Demographic transition model diagram](/gcse/img/geography/dtm.png)
 
 1. Countries pass through different stages of population growth as shown in the five stages of the demographic transition model
 

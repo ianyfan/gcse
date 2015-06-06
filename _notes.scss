@@ -24,7 +24,7 @@ h1, h2, h3, h4 {
   font-weight: normal;
 
   @at-root h4 {
-    font-size: 1.1em;
+    font-size: 1.08em;
   }
 }
 
@@ -180,6 +180,7 @@ header {
 
     .fab {
       position: absolute;
+      z-index: 1;
 
       height: 60px;
       width: 60px;
@@ -475,6 +476,7 @@ table {
   @at-root {
     .layer {
       display: block;
+      min-height: 1.5em;
       padding: 0 1px;
 
       font-size: .7em; // ~sqrt(2)

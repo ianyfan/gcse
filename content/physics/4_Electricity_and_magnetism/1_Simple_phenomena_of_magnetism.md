@@ -6,7 +6,7 @@
     4. If free to rotate, the north(-seeking) pole rotates to face the north pole, and vice versa
 2. ###Induced magnetism
 
-    1. Induced is when a unmagnetised but magnetic substance becomes magnetised near a magnet
+    1. Induced magnetism is when a unmagnetised but magnetic substance becomes magnetised near a magnet
     2. Ferrous & non-ferrous metals describe metals & alloys that do & do not, respectively, contain iron in appreciable amounts
     3. Methods of magnetising a ferromagnet: placing it in a magnetic field, enhanced by vibrating; stroking a magnet along it
     4. Methods of demagnetising a ferromagnet: placing it in a reverse or alternating magnetic field; hammering or jarring

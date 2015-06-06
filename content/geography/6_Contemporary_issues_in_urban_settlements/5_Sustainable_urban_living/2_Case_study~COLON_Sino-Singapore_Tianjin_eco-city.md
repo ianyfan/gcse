@@ -8,8 +8,8 @@
     2. When it is completed, several areas will be transformed into flourishing green spaces
     3. Integrated waste management, with emphasis on the recycling of material
     4. There are efforts to conserve water use by using local, rain or desalinated water
-    5. Energy use is conserved and if possible, renewable: for example, public bins have solar cells that harvest energy during the day to provide light at night
-    6. The public transport is mostly cheap, extensive and green, in order to reduce carbon emissions and air pollution
+    5. Energy use is conserved and, if possible, renewable: for example, public bins have solar cells that harvest energy during the day to provide light at night
+    6. Public transport is mostly cheap, extensive and green, in order to reduce carbon emissions and air pollution
     7. The passive design provides natural lighting & ventilation
     8. Local heritage will be preserved, such as the nearby Ji canal
 3. ###Social sustainability
@@ -20,4 +20,5 @@
     4. The city has no barriers to accommodate more elderly or mobility-impaired people
     5. Many school services are subsidised, such as the meals and bus service, as well as apartments for the family
 4. ###Economic sustainability
+
     1. There is an "eco-park", a central area in which over 600 businesses have invested

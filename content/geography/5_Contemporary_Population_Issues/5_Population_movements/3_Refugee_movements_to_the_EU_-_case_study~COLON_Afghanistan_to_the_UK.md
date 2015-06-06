@@ -8,7 +8,7 @@
     3. Over 60 thousand fleeing Afghans have sought asylum in the UK
 3. ###Effects
 
-    |                   |Positives|Negatives|
+    |       Place       |Positives|Negatives|
     |:-----------------:|:--------|:--------|
     |Source: Afghanistan|There is less pressure on the environment in land & water supplies|Lack of people to tend crops have caused supplies to drop and local prices to inflate<br>There are not enough qualified people to work in government positions or basic services, such as healthcare|
-    |  Host: UK         |Many skilled Afghans have settled as doctors, academics and writers<br>Young refugees, especially, especially with children, reduce the dependency ratio<br>Refugees diversify the country by bringing new traditions, knowledge and skills|Accommodation and support of refugees cost the UK over £1.5 million per day|
+    |  Host: UK         |Many skilled Afghans have settled as doctors, academics and writers<br>Young refugees, especially with children, reduce the dependency ratio<br>Refugees diversify the country by bringing new traditions, knowledge and skills|Accommodation and support of refugees cost the UK over £1.5 million per day|

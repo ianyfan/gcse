@@ -1,11 +1,18 @@
-1. The combustion of hydrocarbon fuels releases energy
-2. During combustion, the carbon and hydrogen in the fuels are oxidised
-3. ###Products of combustion
+1. ###Fuels
 
-    1. The products of combustion depend on the elements in the fuel and whether the combustion is complete or partial
-    2. The gases released into the atmosphere may include water (vapour), carbon dioxide, carbon monoxide, sulfur dioxide and oxides of nitrogen
-    3. Also released may be solid particles, called particulates, containing soot (carbon) and unburnt fuel
-    4. Sulfur can be removed from fuels before they are burned, such as in vehicles; sulfur dioxide can be removed from the waste gases after combustion, such as in power stations
+    1. Most fuels, such as coal, contain carbon or hydrogen
+    2. Fuels may also contain sulfur
+2. ###Combustion
+
+    1. The combustion of hydrocarbon fuels releases energy
+    2. During combustion, the carbon and hydrogen in the fuels are oxidised
+    3. The products of combustion depend on the elements in the fuel and whether the combustion is complete or incomplete
+    4. In complete combustion, there is enough oxygen present for the fuel to break down completely, forming carbon dioxide and water (vapour)
+    5. In incomplete combustion, there is not enough oxygen present for the fuel to react completely, instead producing carbon monoxide and particulates of soot (carbon) & unburnt fuel
+    6. At high temperatures, oxides of nitrogen may be produced
+    7. If sulfur is present, sulfur dioxide may be produced
+    8. Sulfur can be removed from fuels before they are burned, such as in vehicles
+    9. Sulfur dioxide can be removed from the waste gases after combustion, such as in power stations
 4. ###Biofuels
 
     1. Biofuels, including biodiesel and ethanol, are produced from plant material
@@ -22,6 +29,6 @@
 5. ###Hydrogen
 
     1. Hydrogen can be burned as a fuel in combustion engines or in fuel cells that produce electricity to power vehicles
-    2. It burns very cleanly: [[2H^2 (g)^ + O^2 (g)^ → 2H^2^O^(g)^]], and the water can be used to produce more hydrogen through electrolysis
+    2. It burns very cleanly: [[2H^2 (g)^ + O^2 (g)^ → 2H^2^O^(g)^]], and the water can be used to produce more hydrogen by electrolysis
     3. However, there are safety concerns in case of leaks or accidents, since hydrogen is very explosive when mixed with air and ignited
-    4. Since it is a gas, it either requires a large storage volume or high pressure, both of which causes problems
+    4. Since it is a gas, it requires a large storage volume or high pressure, both of which causes problems

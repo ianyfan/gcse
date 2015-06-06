@@ -1,7 +1,7 @@
 1. A population pyramid is a type of bar graph used to show the age & gender structure of a country, city or other area
 2. The horizontal axis split into male & female, on the left & right side respectively, and shows the number or proportion of the population
 3. The vertical axis shows age categories, usually in 5-year cohorts
-4. ###Demographic transition models
+4. ###Demographic transition model
 
     ![Population pyramid diagrams](/gcse/img/geography/populationpyramids.png)
 

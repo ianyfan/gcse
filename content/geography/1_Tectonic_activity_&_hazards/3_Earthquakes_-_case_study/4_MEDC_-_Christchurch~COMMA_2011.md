@@ -22,7 +22,7 @@
         4. Damage to roads made it difficult for people & emergency services to travel
         5. Communication was disrupted
         6. Schools were closed and classrooms had to be shared
-        7. Damage to sport venues and offices meant sports fixtures were postponed, cancelled or relocated, including the Rugby World Cup matches so lost its benefits, such as income from tourism
+        7. Damage to sport venues and offices meant sports fixtures were postponed, cancelled or relocated, including Rugby World Cup matches, so lost their benefits, such as income from tourism
 3. ###Responses
 
     1. ####Short-terms

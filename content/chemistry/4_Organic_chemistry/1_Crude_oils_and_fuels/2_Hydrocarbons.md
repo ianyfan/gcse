@@ -6,6 +6,6 @@
 6. ###Trends
 
     1. Some properties of hydrocarbons depend on the size of their molecules, influencing how they are used as fuels
-    2, The larger the molecule, the higher its boiling point
-    3. The larger the molecule, the higher its viscosity
+    2. The larger the molecule, the higher its boiling point, since the larger surface area of each molecule means that there are more van der Waals forces to overcome
+    3. The larger the molecule, the higher its viscosity, since the van der Waals forces makes it harder for the molecules to flow
     4. The larger the molecule, the lower its flammability

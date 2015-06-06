@@ -23,12 +23,13 @@
 
     1. ####Short-term
 
-        1. State aid was given to airlines & airports which were badly affected by the disruptions though full compensation was not available
+        1. State aid was given to airlines & airports that were badly affected by the disruptions though full compensation was not available
         2. Assistance & compensation were available for any losses, such as those to farmers
     2. ####Long-term
 
         1. The FutureVolc project, funded by the EU, monitors volcanoes in order to better predict imminent eruptions
         2. Easyjet & Airbus are testing systems that will allow planes to detect and circumnavigate ash clouds, and to see how far they can fly in an ash cloud
 4. ###Monitoring, prediction and preparation
-    1. The FutureVolc project mentioned above will be able to give the researchers more warning for an imminent eruption in order to react and prepare
+
+    1. The FutureVolc project will be able to give the researchers more warning for an imminent eruption in order to react and prepare
     2. The Icelandic people understands the hazards and are trained how to react quickly, especially the Civil Protection Department, which works with geological experts, the emergency services, the highway authorities and the general populace

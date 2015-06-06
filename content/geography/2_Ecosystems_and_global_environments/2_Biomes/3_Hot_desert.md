@@ -11,4 +11,5 @@
     1. Desert soil is typically sandy or stony, and infertile
     2. It is dry but can soak up water rapidly after rainfall
 4. ###Vegetation
+
     1. The vegetation is sparse and adapted to prevent water loss

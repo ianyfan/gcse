@@ -7,7 +7,7 @@
     5. Metals can be bent and shaped since the layers of atoms in metals are able to slide over each other
 2. ###Alloys
 
-    1. Alloys are usually made from two or more metals
+    1. Alloys are normally made from two or more metals
     2. Alloys are harder than pure metals since the different sizes of atoms in the metal distort the layers in the structure, making it more difficult for them to slide over each other
     3. Most metals in everyday use are alloys since pure copper, gold, iron and aluminium are too soft for many uses so are mixed with small amounts of other metals to make them harder for everyday use
-    4. Shape memory alloys can return to their original shape after being deformed: an example is Nitinol, an alloy of Nickel and Titanium, which can undergo deformation at one temperature, then recover its original, undeformed shape upon heating above its "transformation temperature"; it is used in dental braces
+    4. Shape memory alloys can return to their original shape after being deformed, such as nitinol, an alloy of nickel & titanium, which can undergo deformation at one temperature, then recover its original, undeformed shape upon heating above its "transformation temperature"; it is used in dental braces

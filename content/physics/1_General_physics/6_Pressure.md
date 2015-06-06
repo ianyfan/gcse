@@ -1,6 +1,6 @@
 1. ###Definition
 
-    1. Pressure is fore per area: [[p = {{: E :}|{: A :}}]]
+    1. Pressure is force per area: [[p = {{: F :}|{: A :}}]]
 2. ###Pressure below a liquid
 
     1. The pressure beneath a column of liquid is directly proportional to the density and depth of the liquid: [[p = hρg]]

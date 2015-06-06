@@ -17,7 +17,7 @@ notes.init = function() {
                 ArrowRight: 'next'}[event.key || event.keyIdentifier];
             if (direction) {
                 ga('send', 'event', 'header', 'key', direction); // G analytics
-                openAync(document.getElementById(direction).href);
+                openAsync(document.getElementById(direction).href);
             }
         }
     };
@@ -81,7 +81,7 @@ notes.init = function() {
             var href = event.target.href;
 
             ga('send', 'event', 'sidebar', 'click', (href ? 'page' :
-                'listing') + ' ' + event.target.className); // Google analytics
+                'listing') + ' ' + event.target.parentNode.lastElementChild.className); // Google analytics, TODO: check correct
 
             // don't open if link is the current page or actually a listing
             if (href && event.target.className !== 'current') openAsync(href);

@@ -1,6 +1,6 @@
 1. ###Overview
 
-    |             |Positives|Negatives|
+    |   &nbsp;    |Positives|Negatives|
     |:-----------:|:--------|:--------|
     |   Social    |Welcoming<br>Close-knit community<br>Many services can be provided locally<br>Low crime rate as it is self-policing|High population density: 8 thousand people per acre<br>Contamination leads to poor health<br>It is deprived of many public services due to its illegal status<br>There is a lack of education<br>Child labour is prevalent<br>The housing is makeshift and poor quality<br>Many of its labourers are unskilled<br>Water is rationed, being supplied for 2 hours a day|
     |  Economic   |It has a flourishing informal economy that has high employment and is self-sufficient<br>15 thousand 1-room informal factories produce a turnover of $1 billion<br>Labour is cheap|There are no laws or regulations<br>There is no job security<br>Income is low<br>There is a massive disparity of wealth with few rich people, many poor people and very few in the middle|
