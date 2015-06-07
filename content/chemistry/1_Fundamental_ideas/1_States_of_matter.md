@@ -16,8 +16,8 @@
     1. Everything is made of particles, whose existence is evident by the phenomenon of diffusion, whereby the random movement of particles of a fluid causes a net movement from an area of high concentration to an area of low concentration
     2. Bromine gas is a brown gas that diffuses in air
     3. Potassium permanganate [[KMnO^4^]] is a purple crystal that diffuses in water to form a magenta-rose solution, though, being in a liquid, at a slower rate than in a gas
-    4. Ammonia and hydrogen chloride are gases that diffuse in air, so when placed at either ends of a tube, travel down the tube until they meet, reacting to form a white surface of ammonium chloride: [[NH^3 (g)^ + HCl^(g)^ → NH^4^Cl^(s)^]]; since hydrogen chloride molecules are lighter than ammonia ones, and speed of diffusion is inversely proportional to mass, the surface forms closer to the hydrogen chloride end
+    4. Ammonia and hydrogen chloride are gases that diffuse in air, so when placed at either ends of a tube, travel down the tube until they meet, reacting to form a white surface of ammonium chloride: [[NH^3 (g)^ + HCl^(g)^ → NH^4^Cl^(s)^]]; since hydrogen chloride molecules are heavier than ammonia ones, and speed of diffusion is inversely proportional to mass, the surface forms closer to the hydrogen chloride end
 
 
 
-[^plasma]: There is a fourth fundamental state of matter: [plasma](//en.wikipedia.org/wiki/Plasma_(physics\))
+[^plasma]: There is a fourth fundamental state of matter: [plasma](https://en.wikipedia.org/wiki/Plasma_(physics))

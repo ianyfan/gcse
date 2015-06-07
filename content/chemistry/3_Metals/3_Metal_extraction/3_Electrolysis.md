@@ -16,8 +16,8 @@
 
     1. Aluminium is extracted by the electrolysis of a molten mixture of aluminium oxide and cryolite, which is used to reduce the melting point
     2. The aluminium oxide breaks down into its ions: [[Al^2^O^3 (l)^ → 2Al{{3+}{(l)}} + 3O{{2-}{(l)}}]]
-    3. At the cathode, aluminium ions are oxidised: [[Al{{3+}{(l)}} + 3e^^-^^ → Al^(l)^]]
-    4. At the anode, oxygen ions are reduced: [[O{{2-}{(l)}} → O^(l)^ + 2e^^-^^]]
+    3. At the cathode, aluminium ions are reduced: [[Al{{3+}{(l)}} + 3e^^-^^ → Al^(l)^]]
+    4. At the anode, oxygen ions are oxidised: [[O{{2-}{(l)}} → O^(l)^ + 2e^^-^^]]
     5. The overall reaction is [[2Al^2^O^3 (l)^ → 4Al^(l)^ + 3O^2 (l)^]]
     6. The anode is made of carbon, which reacts with the oxygen to produce carbon dioxide
     7. Large amounts of energy are required for this process

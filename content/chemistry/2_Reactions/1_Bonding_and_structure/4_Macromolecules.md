@@ -1,4 +1,4 @@
-1. Macromolecules have very high melting points since all the atoms are bonded to other atoms by string covalent bonds
+1. Macromolecules have very high melting points since all the atoms are bonded to other atoms by strong covalent bonds
 2. Carbon atoms form many different macromolecules called allotropes
 3. ###Diamond
 
