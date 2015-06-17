@@ -3,7 +3,7 @@
     1. A capacitor is a component that can store energy electrostatically, and consists of two conducting plates, separated by a dielectric
     2. When there is a potential difference across the plates, positive charge collects on one plate and negative charge on the other until the voltage drop across the capacitor reaches the supply voltage
     3. The capacitor can then be used to a circuit, discharging it until the voltage drop across the capacitor reaches 0
-    4. A capacitor with a single resistor in series charges & discharges at a predictable exponential rate, whereby the time it takes for the voltage drop to rise to [[V^CC^(1 - {{: 1 :}|{: e :}})]] or fall to [[{{: V^CC :}|{: e :}}]] respectively is the product of the resistance & capacitance: [[t = RC]].
+    4. A capacitor with a single resistor in series charges & discharges at a predictable exponential rate, whereby the time it takes for the voltage drop to rise to [[V^CC^(1 - {{: 1 :}|{: e :}})]] or fall to [[{{: V^CC^ :}|{: e :}}]] respectively is the product of the resistance & capacitance: [[t = RC]].
     5. This (dis)charging rate means that an RC circuit can be used as a time-delay circuit
     6. An RC circuit cannot be used to drive a load directly since drawing current from the circuit would change the (dis)charging rate, so the output must be buffered
 2. ###Monostable
